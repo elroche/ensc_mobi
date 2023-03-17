@@ -9,7 +9,7 @@ const styles = StyleSheet.create({
 // Common stack header options
 export const screenOptions = {
     headerStyle: {
-        backgroundColor: "#f4511e",
+        backgroundColor: "cornflowerblue",
     },
     headerTintColor: "#fff",
     headerTitleStyle: {

@@ -18,16 +18,14 @@ const RootTabNavigator = () => {
           // Icons will be different if the tab is focused
           tabBarIcon: ({ focused, color, size }) => {
             let iconName;
-            if (route.name === "HomeStack") {
-              iconName = focused
-                ? "ios-information-circle"
-                : "ios-information-circle-outline";
-            } else if (route.name === "CinemaStack") {
-              iconName = focused ? "ios-list" : "ios-list-outline";
-            } else if (route.name === "MovieStack") {
-              iconName = focused ? "movie" : "movie-outline";
-            } else if (route.name === "UserStack") {
-              iconName = focused ? "ios-list" : "ios-list-outline";
+            if (route.name === "Accueil") {
+              iconName = focused ? "home" : "home-outline";
+            } else if (route.name === "Les cinémas") {
+              iconName = focused ? "warehouse" : "warehouse";
+            } else if (route.name === "Les films") {
+              iconName = focused ? "movie-open" : "movie-open-outline";
+            } else if (route.name === "Profil") {
+              iconName = focused ? "account" : "account-outline";
             }
             // You can return any component that you like here!
             return (
@@ -38,16 +36,16 @@ const RootTabNavigator = () => {
               />
             );
           },
-          tabBarActiveTintColor: "tomato",
+          tabBarActiveTintColor: "cornflowerblue",
           tabBarInactiveTintColor: "gray",
           // Hiding tab navigator header to show only stack header
           headerShown: false,
         })}
       >
-        <Tab.Screen name="HomeStack" component={HomeStackNavigator} />
-        <Tab.Screen name="UserStack" component={UserStackNavigator} />
-        <Tab.Screen name="CinemaStack" component={CinemaStackNavigator} />
-        <Tab.Screen name="MovieStack" component={MovieStackNavigator} />
+        <Tab.Screen name="Accueil" component={HomeStackNavigator} />
+        <Tab.Screen name="Les cinémas" component={CinemaStackNavigator} />
+        <Tab.Screen name="Les films" component={MovieStackNavigator} />
+        <Tab.Screen name="Profil" component={UserStackNavigator} />
       </Tab.Navigator>
     </NavigationContainer>
   );
