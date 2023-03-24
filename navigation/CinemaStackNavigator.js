@@ -9,10 +9,10 @@ const CinemaStack = createNativeStackNavigator();
 const CinemaStackNavigator = () => {
   return (
     <CinemaStack.Navigator
-      initialRouteName="User"
+      initialRouteName="Cinema"
       screenOptions={screenOptions}
     >
-      <CinemaStack.Screen name="User" component={CinemaScreen} />
+      <CinemaStack.Screen name="Cinema" component={CinemaScreen} />
     </CinemaStack.Navigator>
   );
 };
