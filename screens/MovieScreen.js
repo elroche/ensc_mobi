@@ -8,9 +8,9 @@ import {
   TouchableOpacity,
 } from "react-native";
 import styles from "../theme/styles";
-import Card from "../components/Card";
 import { fetchMoviesApi } from "../api/MovieApi";
 import Button from "../components/Button";
+import MovieCard from "../components/MovieCard";
 
 const MovieScreen = ({ navigation }) => {
   const [loading, setLoading] = useState(true);
@@ -62,7 +62,7 @@ const MovieScreen = ({ navigation }) => {
           {movies.length > 0 ? (
             movies.map((movie) => {
               return (
-                <Card
+                <MovieCard
                   key={movie.id}
                   item={movie}
                   onPress={() => onPressMovie(movie)}
