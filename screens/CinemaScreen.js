@@ -1,7 +1,7 @@
 import React from "react";
 import { Text, View, Button, StyleSheet } from "react-native";
 import styles from "../theme/styles";
-import Card from "../components/Card";
+import CinemaCard from "../components/CinemaCard";
 
 const CinemaScreen = ({ navigation }) => {
   const onPressCinema = () => {
@@ -11,7 +11,7 @@ const CinemaScreen = ({ navigation }) => {
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Les cinémas</Text>
-      <Card onPress={() => onPressCinema()} />
+      <CinemaCard onPress={() => onPressCinema()} />
     </View>
   );
 };
