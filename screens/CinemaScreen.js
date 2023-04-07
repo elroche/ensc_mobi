@@ -3,9 +3,7 @@ import { Text, View, Button, StyleSheet } from "react-native";
 import styles from "../theme/styles";
 import Card from "../components/Card";
 
-
 const CinemaScreen = ({ navigation }) => {
-
   const onPressCinema = () => {
     navigation.navigate("Cinema");
   };

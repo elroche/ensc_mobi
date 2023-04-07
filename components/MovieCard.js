@@ -2,30 +2,25 @@ import React from "react";
 import { View, Text, Image, TouchableOpacity, StyleSheet } from "react-native";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 
-
-const Card = ({ item, onPress }) => {
+const MovieCard = ({ item, onPress }) => {
   return (
     <TouchableOpacity onPress={() => onPress()}>
       <View style={styles.main}>
         <View style={styles.header}>
           <View style={styles.logoContainer}>
-            <Image 
-            source={require("../assets/cinemas/salleCinema.webp")} 
-            style={styles.image} 
+            <Image
+              source={require("../assets/cinemas/salleCinema.webp")}
+              style={styles.image}
             />
           </View>
           <View style={styles.cardText}>
-            <Text style={styles.cardTitle}>Coucou</Text>
+            <Text style={styles.cardTitle}>{item.nom}</Text>
             <Text style={styles.cardSubtitle} numberOfLines={3}>
-              Je suis ici, à l'hotel de ville
-              lfiglhvberbvjhsbvjhsbfkhsdflkjhsdfkhjsdkjfhddddddddddddddddddddddddddddddddddddd
+              de {item.realisateur}
             </Text>
           </View>
           <View>
-          <MaterialCommunityIcons
-                name="chevron-right"
-                size="25"
-              />
+            <MaterialCommunityIcons name="chevron-right" size="25" />
           </View>
         </View>
       </View>
@@ -58,22 +53,22 @@ const styles = StyleSheet.create({
   },
   image: {
     width: "100%",
-    height: 100,
+    height: "100%",
     resizeMode: "cover",
     borderRadius: 6,
-    marginLeft:2,
-    marginVertical:4,
+    marginLeft: 2,
+    marginVertical: 4,
   },
   cardTitle: {
     fontSize: 20,
     fontWeight: "bold",
     marginVertical: 4,
-    marginTop:4,
+    marginTop: 4,
   },
   cardSubtitle: {
     fontSize: 16,
     color: "#555",
-    paddingBottom:15,
+    paddingBottom: 15,
   },
   buttonContainer: {
     alignItems: "flex-end",
@@ -94,4 +89,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default Card;
+export default MovieCard;
