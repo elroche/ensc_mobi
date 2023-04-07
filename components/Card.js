@@ -13,8 +13,8 @@ const Card = ({ onPress }) => {
           />
         </View>
         <View style={styles.cardText}>
-          <Text style={styles.title}>Coucou</Text>
-          <Text style={styles.subtitle}>
+          <Text style={styles.cardTitle}>Coucou</Text>
+          <Text style={styles.cardSubtitle}>
             Je suis ici, à l'hotel de ville
             lfiglhvberbvjhsbvjhsbfkhsdflkjhsdfkhjsdkjfh
           </Text>
@@ -43,15 +43,14 @@ const styles = StyleSheet.create({
     width: "100%",
     height: 180,
     resizeMode: "cover",
-    borderRadius: 10,
+    borderRadius: 7,
   },
-
-  title: {
+  cardTitle: {
     fontSize: 20,
     fontWeight: "bold",
     marginVertical: 8,
   },
-  subtitle: {
+  cardSubtitle: {
     fontSize: 16,
     color: "#555",
   },
