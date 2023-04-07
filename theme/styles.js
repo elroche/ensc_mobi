@@ -2,12 +2,16 @@ import { StyleSheet } from "react-native";
 
 // Common styles
 const styles = StyleSheet.create({
-  container: { flex: 1 },
+  container: { 
+    flex: 1,
+    padding: 10, 
+  },
   text: { fontSize: 18, paddingBottom: 10 },
   title: {
-    fontSize: 20,
+    fontSize: 22,
     fontWeight: "600",
-    marginBottom: 10,
+    marginVertical: 15,
+    padding: 5,
     color: "#1b69bc",
   },
 });
