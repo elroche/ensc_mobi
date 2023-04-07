@@ -15,8 +15,8 @@ const Card = ({ item, onPress }) => {
             />
           </View>
           <View style={styles.cardText}>
-            <Text style={styles.title}>Coucou</Text>
-            <Text style={styles.subtitle} numberOfLines={3}>
+            <Text style={styles.cardTitle}>Coucou</Text>
+            <Text style={styles.cardSubtitle} numberOfLines={3}>
               Je suis ici, à l'hotel de ville
               lfiglhvberbvjhsbvjhsbfkhsdflkjhsdfkhjsdkjfhddddddddddddddddddddddddddddddddddddd
             </Text>
