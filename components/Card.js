@@ -2,7 +2,7 @@ import React from "react";
 import { View, Text, Image, TouchableOpacity, StyleSheet } from "react-native";
 import Button from "../components/Button";
 
-const Card = ({ onPress }) => {
+const Card = ({ item, onPress }) => {
   return (
     <TouchableOpacity onPress={() => onPress()}>
       <View style={styles.main}>
@@ -13,7 +13,7 @@ const Card = ({ onPress }) => {
           />
         </View>
         <View style={styles.cardText}>
-          <Text style={styles.cardTitle}>Coucou</Text>
+          <Text style={styles.cardTitle}>{item.name}</Text>
           <Text style={styles.cardSubtitle}>
             Je suis ici, à l'hotel de ville
             lfiglhvberbvjhsbvjhsbfkhsdflkjhsdfkhjsdkjfh
@@ -34,6 +34,7 @@ const styles = StyleSheet.create({
     paddingBottom: 10,
     borderWidth: 1,
     borderColor: "lightgray",
+    marginHorizontal: 15,
   },
   cardText: {
     alignItems: "flex-start",
