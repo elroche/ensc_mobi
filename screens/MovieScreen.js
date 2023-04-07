@@ -30,6 +30,10 @@ const MovieScreen = ({ navigation }) => {
     setLoading(false);
   };
 
+  const addMovie = async () => {
+    navigation.navigate("Create");
+  };
+
   useEffect(() => {
     loadMovies();
   }, []);
@@ -58,6 +62,9 @@ const MovieScreen = ({ navigation }) => {
     <ScrollView>
       <View style={styles.container}>
         <Text style={styles.title}>Les films disponibles</Text>
+        <View style={styleScreen.buttonAdd}>
+          <Button text="Ajouter un film !" onPress={() => addMovie()} />
+        </View>
         <View>
           {movies.length > 0 ? (
             movies.map((movie) => {
@@ -74,7 +81,7 @@ const MovieScreen = ({ navigation }) => {
               <Text style={styleScreen.noMovies}>
                 Il n'y a pas encore de films...
               </Text>
-              <Button text={"Ajouter un film !"} action={() => addMovie()} />
+              <Button text="Ajouter un film !" onPress={() => addMovie()} />
             </View>
           )}
         </View>
@@ -96,6 +103,9 @@ const styleScreen = StyleSheet.create({
     fontWeight: "800",
     marginTop: 8,
     fontSize: 17,
+  },
+  buttonAdd: {
+    marginBottom: 20,
   },
 });
 
