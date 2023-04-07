@@ -58,11 +58,9 @@ const styles = StyleSheet.create({
   },
   image: {
     width: "100%",
-    height: 100,
+    height: "100%",
     resizeMode: "cover",
     borderRadius: 6,
-    marginLeft:2,
-    marginVertical:4,
   },
   cardTitle: {
     fontSize: 20,
