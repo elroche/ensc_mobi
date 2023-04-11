@@ -1,4 +1,4 @@
-const rootEndpoint = "https://ensccinema.azurewebsites.net/api/Filmapi/";
+const rootEndpoint = "https://ensccinema.azurewebsites.net/api/Filmapi";
 
 export const fetchMoviesApi = async () => {
   try {
@@ -31,6 +31,7 @@ export const addMovie = async (
   _duree
 ) => {
   try {
+    const currentDate = new Date().toISOString();
     const response = await fetch(`${rootEndpoint}/`, {
       method: `POST`,
       headers: {
@@ -42,11 +43,12 @@ export const addMovie = async (
         realisateur: _realisateur,
         resume: _resume,
         genre: _genre,
-        date: _date,
+        date: currentDate, //TODO: changer pour mettre la date, voir pb
         duree: _duree,
       }),
     });
     const movie = await response.json();
+    console.log(movie);
     return movie;
   } catch (error) {
     console.error(error);

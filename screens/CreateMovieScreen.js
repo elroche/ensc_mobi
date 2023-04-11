@@ -29,12 +29,10 @@ const CreateMovieScreen = ({ navigation }) => {
     ) {
       try {
         const movie = addMovie(nom, realisateur, resume, genre, date, duree);
-        console.log("New movie created:", movie); // Afficher le nouveau film dans la console pour le vérifier
-        // Rediriger vers la page précédente
+        console.log("New movie created:", movie);
         navigation.goBack();
       } catch (error) {
         console.error(error);
-        // Afficher une erreur à l'utilisateur
       }
     }
   };
