@@ -4,7 +4,7 @@ import React from "react";
 const Button = ({ text, onPress }) => {
   return (
     <View style={styles.buttonContainer}>
-      <TouchableOpacity onPress={() => onPress} style={styles.button}>
+      <TouchableOpacity onPress={() => onPress()} style={styles.button}>
         <Text style={styles.buttonText}>{text}</Text>
       </TouchableOpacity>
     </View>
@@ -18,7 +18,6 @@ const styles = StyleSheet.create({
     width: "50%",
     justifyContent: "center",
     alignItems: "center",
-    marginTop: 20,
   },
   button: {
     backgroundColor: "#1b69bc",
