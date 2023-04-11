@@ -14,9 +14,21 @@ const MovieStackNavigator = () => {
       initialRouteName="Films"
       screenOptions={screenOptions}
     >
-      <MovieStack.Screen name="Films" component={MovieScreen} />
-      <MovieStack.Screen name="Details" component={DetailsMovieScreen} />
-      <MovieStack.Screen name="Create" component={CreateMovieScreen} />
+      <MovieStack.Screen
+        name="Films"
+        component={MovieScreen}
+        options={{ title: "Les films disponibles" }}
+      />
+      <MovieStack.Screen
+        name="Details"
+        component={DetailsMovieScreen}
+        options={{ title: "Détail d'un film" }}
+      />
+      <MovieStack.Screen
+        name="Create"
+        component={CreateMovieScreen}
+        options={{ title: "Ajouter un film" }}
+      />
     </MovieStack.Navigator>
   );
 };

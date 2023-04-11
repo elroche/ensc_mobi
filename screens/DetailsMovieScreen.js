@@ -10,8 +10,8 @@ const DetailsMovieScreen = ({ navigation, route }) => {
   const [error, setError] = useState(false);
 
   useEffect(() => {
-    navigation.setOptions({ title: movie.name });
-  }, [movie.name]);
+    navigation.setOptions({ title: movie.nom });
+  }, [movie.nom]);
 
   const loadMovie = async () => {
     setLoading(true);
