@@ -20,7 +20,7 @@ const CinemaCard = ({ item, onPress }) => {
             </Text>
           </View>
           <View>
-            <MaterialCommunityIcons name="chevron-right" size="25" />
+            <MaterialCommunityIcons name="chevron-right" size={25} />
           </View>
         </View>
       </View>

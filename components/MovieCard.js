@@ -9,7 +9,7 @@ const MovieCard = ({ item, onPress }) => {
         <View style={styles.header}>
           <View style={styles.logoContainer}>
             <Image
-              source={require("../assets/cinemas/salleCinema.webp")}
+              source={require("../assets/movie/movieImage.png")}
               style={styles.image}
             />
           </View>
@@ -20,7 +20,7 @@ const MovieCard = ({ item, onPress }) => {
             </Text>
           </View>
           <View>
-            <MaterialCommunityIcons name="chevron-right" size="25" />
+            <MaterialCommunityIcons name="chevron-right" size={25} />
           </View>
         </View>
       </View>

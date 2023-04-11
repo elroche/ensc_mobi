@@ -51,7 +51,7 @@ const CinemaScreen = ({ navigation }) => {
       <View style={styles.container}>
         <Text style={styles.title}>Les cinémas existants</Text>
         <Button text={"Ajouter un cinema !"} action={() => addCinema()} />
-        <View>
+        <View style={{ marginTop: 15 }}>
           {cinemas.length > 0 ? (
             cinemas.map((cinema) => {
               return (

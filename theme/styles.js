@@ -17,6 +17,17 @@ const styles = StyleSheet.create({
         alignItems: "center",
         backgroundColor: "white",
     },
+
+    descriptionContainer: {
+      marginVertical : 20,
+      padding : 10,
+      borderRadius : 10,
+      backgroundColor : 'white',
+    },
+
+    labelDetails: {
+      fontWeight: 700,
+    },
 });
 
 // Common stack header options

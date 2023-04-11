@@ -1,5 +1,5 @@
 ﻿import React, { useState, useEffect } from "react";
-import { StyleSheet, Text, View, Image, ActivityIndicator } from "react-native";
+import { StyleSheet, Text, View, Image, ActivityIndicator, ScrollView } from "react-native";
 import styles from "../theme/styles";
 import { fetchCinemaApi } from "../api/CinemaApi";
 import Button from "../components/Button";
@@ -49,39 +49,34 @@ const DetailsCinemaScreen = ({ navigation, route }) => {
   }
 
   return (
-    <View style={styles.container}>
-        <View>
+    <ScrollView style={styles.container}>
         <Text style={styles.title}>{cinema.nom}</Text>
           <Image 
               source={require("../assets/cinemas/salleCinema.webp")}
               style={styleScreen.image}
           />
-        <View style={styleScreen.descriptionContainer}>
-            <Text style={styleScreen.label}>Adresse :</Text> 
+        <View style={styles.descriptionContainer}>
+            <Text style={styles.labelDetails}>Adresse :</Text> 
             <Text>{cinema.adresse}, {cinema.codePostal} {cinema.ville}</Text>
             <Text style={{ marginTop: 15 }}> 
-                <Text style={styleScreen.label}>Responsable : </Text>
+                <Text style={styles.labelDetails}>Responsable : </Text>
                 {cinema.responsable}
             </Text>
             <Text style={{ marginTop: 15 }}> 
-                <Text style={styleScreen.label}>Prix d'une place : </Text>
+                <Text style={styles.labelDetails}>Prix d'une place : </Text>
                 {cinema.prixPlace}€
             </Text>
         </View>
         <View style={{ flexDirection: 'row', justifyContent: 'center' }}>
-            <Button style={styleScreen.editButton} text={"Modifier"} action={() => editCinema()} />
+            <Button style={{alignSelf: 'center'}} text={"Modifier"} action={() => editCinema()} />
         </View>
-      </View>
-    </View>
+    </ScrollView>
   );
 };
 
 export default DetailsCinemaScreen;
 
 const styleScreen = StyleSheet.create({
-    label : {
-        fontWeight: 700,
-    },
 
     image : {
         width: 300,
@@ -93,11 +88,4 @@ const styleScreen = StyleSheet.create({
     editButton : {
         alignSelf: 'center',
     },
-
-    descriptionContainer : {
-        marginTop : 20,
-        padding : 10,
-        borderRadius : 10,
-        backgroundColor : 'white',
-    }
 });
