@@ -10,9 +10,9 @@ export const fetchCinemasApi = async() => {
     }
 };
 
-export const fetchCinemaApi = async(filmId) => {
+export const fetchCinemaApi = async(cinemaId) => {
     try {
-        const response = await fetch(`${rootEndpoint}/Cinemaapi/${cinemaId}`);
+        const response = await fetch(`${rootEndpoint}/Cinemaapi/${cinemaId}/getCinema`);
         const cinema = await response.json();
         return cinema;
     } catch (e) {

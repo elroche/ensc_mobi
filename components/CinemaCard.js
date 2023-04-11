@@ -16,7 +16,7 @@ const CinemaCard = ({ item, onPress }) => {
           <View style={styles.cardText}>
             <Text style={styles.cardTitle}>{item.nom}</Text>
             <Text style={styles.cardSubtitle} numberOfLines={3}>
-              de {item.realisateur}
+              à {item.ville}
             </Text>
           </View>
           <View>
