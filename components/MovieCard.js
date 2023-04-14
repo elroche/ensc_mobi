@@ -9,7 +9,7 @@ const MovieCard = ({ item, onPress }) => {
         <View style={styles.header}>
           <View style={styles.logoContainer}>
             <Image
-              source={require("../assets/movie/movieImage.png")}
+              source={require("../assets/movie/movieImage3.jpg")}
               style={styles.image}
             />
           </View>

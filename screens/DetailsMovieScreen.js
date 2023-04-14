@@ -51,7 +51,7 @@ const DetailsMovieScreen = ({ navigation, route }) => {
     <ScrollView style={styles.container}>
       <Text style={styles.title}>{movie.nom}</Text>
       <Image 
-        source={require("../assets/movie/movieImage.png")}
+        source={require("../assets/movie/movieImage2.avif")}
         style={styleScreen.image}
           />
       <View style={styles.descriptionContainer}>
@@ -87,8 +87,8 @@ export default DetailsMovieScreen;
 
 const styleScreen = StyleSheet.create({
   image : {
-    width: 250,
-    height: 250,
+    width: 300,
+    height: 200,
     borderRadius : 20,
     alignSelf: 'center',
 },

@@ -32,6 +32,10 @@ const DetailsCinemaScreen = ({ navigation, route }) => {
     loadCinema();
   }, []);
 
+  const editCinema = async() => {
+    navigation.navigate("Edit", {cinemaId: cinemaId})
+  }
+
   if (loading) {
     return (
       <View style={styles.loadingContainer}>
@@ -68,7 +72,7 @@ const DetailsCinemaScreen = ({ navigation, route }) => {
             </Text>
         </View>
         <View style={{ flexDirection: 'row', justifyContent: 'center' }}>
-            <Button style={{alignSelf: 'center'}} text={"Modifier"} action={() => editCinema()} />
+            <Button style={{alignSelf: 'center'}} text={"Modifier"} onPress={() => editCinema()} />
         </View>
     </ScrollView>
   );
