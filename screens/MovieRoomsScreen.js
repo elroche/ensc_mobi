@@ -7,9 +7,9 @@ import MovieRoomCard from "../components/MovieRoomCard";
 import Button from "../components/Button";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 
-
 const MovieRoomsScreen = ({ navigation, route }) => {
     const { cinemaId } = route.params;
+    const [cinema, setCinema] = useState([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(false);
     const [movieRooms, setMovieRooms] = useState([]);
@@ -29,6 +29,15 @@ const MovieRoomsScreen = ({ navigation, route }) => {
     useEffect(() => {
       loadMovieRooms();
     }, []);
+
+    const editMovieRoom = (movieRoom) => {
+      navigation.navigate("MovieRoomEdit", { movieRoom: movieRoom });
+  };
+  
+  const deleteMovieRoom = (movieRoom) => {
+      navigation.navigate("Delete", { movieRoom: movieRoom });
+  };
+
   
     if (loading) {
       return (
@@ -58,6 +67,8 @@ const MovieRoomsScreen = ({ navigation, route }) => {
                   return (
                     <View style={styleScreen.movieRoomCard}>
                         <MovieRoomCard
+                          onEdit={() => editMovieRoom(movieRoom)}
+                          onDelete={() => deleteMovieRoom(movieRoom)}
                           key={movieRoom.id}
                           item={movieRoom}
                         />

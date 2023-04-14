@@ -56,6 +56,7 @@ export const addCinema = async (
 };
 
 export const editCinema = async (_id, _nom, _adresse, _codePostal, _ville, _responsable, _prixPlace) => {
+  console.log("Prix d une place : " + typeof _prixPlace);
     try {
       const response = await fetch(`${rootEndpoint}/CinemaApi/${_id}/`, {
         method: `PUT`,

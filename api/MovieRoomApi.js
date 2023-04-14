@@ -14,24 +14,26 @@ export const fetchMovieRoomsApi = async (cinemaId) => {
   }
 };
 
-export const editMovieRoom = async (_id, _nom, _adresse, _codePostal, _ville, _responsable, _prixPlace) => {
+export const editMovieRoom = async (_id, _cinemaId, _nbPlace, _numeroSalle) => {
+  console.log("Salle Id : " + typeof _id);
+  console.log("Cinema Id : " + typeof _cinemaId);
+  console.log("Nombre de place : " + typeof _nbPlace);
+  console.log("Numero de la salle : " + typeof _numeroSalle);
   try {
-    const response = await fetch(`${rootEndpoint}/CinemaApi/${_id}/`, {
+    const response = await fetch(`${rootEndpoint}/SalleApi/${_id}/`, {
       method: `PUT`,
       headers: {
         Accept: `application/json`,
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-          id: _id,
-        nom: _nom,
-        adresse: _adresse,
-        codePostal: _codePostal,
-        ville: _ville,
-        responsable : _responsable, 
-        prixPlace : _prixPlace,
+        id: _id,
+        cinemaId: _cinemaId,
+        nbPlace: _nbPlace,
+        numeroSalle: _numeroSalle,
       }),
     });
+    
     return true;
   } catch (error) {
     console.error(error);

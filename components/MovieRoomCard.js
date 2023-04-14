@@ -5,15 +5,7 @@ import Button from "../components/Button";
 import IconButton from "../components/IconButton";
 
 
-const MovieRoomCard = ({ item }) => {
-
-    const editMovieRoom = (movieRoom) => {
-        navigation.navigate("Edit", { movieRoom: movieRoom });
-    };
-    
-    const deleteMovieRoom = (movieRoom) => {
-        navigation.navigate("Delete", { movieRoom: movieRoom });
-    };
+const MovieRoomCard = ({item, onEdit, onDelete }) => {
 
     return (
         <View style={styles.main}>
@@ -26,14 +18,14 @@ const MovieRoomCard = ({ item }) => {
             <Text style={styles.cardText}> {item.nbPlace}</Text>
             <View style={styles.buttonContainer}>
               <IconButton
-                  onPress={() => deleteMovieRoom()}
+                  onPress={() => onEdit()}
                   color="#1b69bc"
                   style={styles.deleteButton}
                 >
                   <MaterialCommunityIcons name={"pencil"} size={20} color="white"/>
                 </IconButton>
                 <IconButton
-                  onPress={() => editMovieRoom()}
+                  onPress={() => onDelete()}
                   color="#ff0000"
                   style={styles.deleteButton}
                 >
