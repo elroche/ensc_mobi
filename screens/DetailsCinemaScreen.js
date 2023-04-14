@@ -4,7 +4,6 @@ import styles from "../theme/styles";
 import { fetchCinemaApi } from "../api/CinemaApi";
 import Button from "../components/Button";
 
-
 const DetailsCinemaScreen = ({ navigation, route }) => {
   const { cinemaId } = route.params;
   const [cinema, setCinema] = useState([]);
@@ -59,15 +58,15 @@ const DetailsCinemaScreen = ({ navigation, route }) => {
               source={require("../assets/cinemas/salleCinema.webp")}
               style={styleScreen.image}
           />
-        <View style={styles.descriptionContainer}>
-            <Text style={styles.labelDetails}>Adresse :</Text> 
+        <View style={styleScreen.descriptionContainer}>
+            <Text style={styleScreen.label}>Adresse :</Text> 
             <Text>{cinema.adresse}, {cinema.codePostal} {cinema.ville}</Text>
             <Text style={{ marginTop: 15 }}> 
-                <Text style={styles.labelDetails}>Responsable : </Text>
+                <Text style={styleScreen.label}>Responsable : </Text>
                 {cinema.responsable}
             </Text>
             <Text style={{ marginTop: 15 }}> 
-                <Text style={styles.labelDetails}>Prix d'une place : </Text>
+                <Text style={styleScreen.label}>Prix d'une place : </Text>
                 {cinema.prixPlace}€
             </Text>
         </View>
@@ -81,15 +80,25 @@ const DetailsCinemaScreen = ({ navigation, route }) => {
 export default DetailsCinemaScreen;
 
 const styleScreen = StyleSheet.create({
-
-    image : {
-        width: 300,
-        height: 200,
-        borderRadius : 20,
-        alignSelf: 'center',
+    label : {
+        fontWeight: 700,
     },
+
+  image: {
+    width: 300,
+    height: 200,
+    borderRadius: 20,
+    alignSelf: "center",
+  },
 
     editButton : {
         alignSelf: 'center',
     },
+
+    descriptionContainer : {
+        marginTop : 20,
+        padding : 10,
+        borderRadius : 10,
+        backgroundColor : 'white',
+    }
 });

@@ -1,4 +1,4 @@
-const rootEndpoint = "https://ensccinema.azurewebsites.net/api/Filmapi/";
+const rootEndpoint = "https://ensccinema.azurewebsites.net/api/Filmapi";
 
 export const fetchMoviesApi = async () => {
   try {
@@ -42,14 +42,12 @@ export const addMovie = async (
         realisateur: _realisateur,
         resume: _resume,
         genre: _genre,
-        date: _date,
         duree: _duree,
       }),
     });
     const movie = await response.json();
     return movie;
-  } catch (error) {
-    console.error(error);
-    throw error;
+  } catch (e) {
+    console.error("Erreur dans la création d'un film");
   }
 };
