@@ -1,5 +1,11 @@
 import React, { useState, useEffect } from "react";
-import { Text, View, StyleSheet, ScrollView, ActivityIndicator } from "react-native";
+import {
+  Text,
+  View,
+  StyleSheet,
+  ScrollView,
+  ActivityIndicator,
+} from "react-native";
 import styles from "../theme/styles";
 import Button from "../components/Button";
 import CinemaCard from "../components/CinemaCard";
@@ -43,14 +49,18 @@ const CinemaScreen = ({ navigation }) => {
   }
 
   const onPressCinema = (cinema) => {
-    navigation.navigate("Details", {cinemaId: cinema.id});
+    navigation.navigate("Details", { cinemaId: cinema.id });
+  };
+
+  const addCinema = () => {
+    navigation.navigate("Create");
   };
 
   return (
     <ScrollView>
       <View style={styles.container}>
         <Text style={styles.title}>Les cinémas existants</Text>
-        <Button text={"Ajouter un cinema !"} action={() => addCinema()} />
+        <Button text={"Ajouter un cinema !"} onPress={() => addCinema()} />
         <View style={{ marginTop: 15 }}>
           {cinemas.length > 0 ? (
             cinemas.map((cinema) => {
@@ -67,7 +77,10 @@ const CinemaScreen = ({ navigation }) => {
               <Text style={styleScreen.noCinemas}>
                 Il n'y a pas encore de cinema...
               </Text>
-              <Button text={"Ajouter un cinema !"} action={() => addCinema()} />
+              <Button
+                text={"Ajouter un cinema !"}
+                onPress={() => addCinema()}
+              />
             </View>
           )}
         </View>

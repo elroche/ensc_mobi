@@ -33,7 +33,7 @@ export const addCinema = async (
   _prixPlace
 ) => {
   try {
-    const response = await fetch(`${rootEndpoint}/`, {
+    const response = await fetch(`${rootEndpoint}/Cinemaapi/`, {
       method: `POST`,
       headers: {
         Accept: `application/json`,
@@ -41,10 +41,11 @@ export const addCinema = async (
       },
       body: JSON.stringify({
         nom: _nom,
-        realisateur: _realisateur,
-        resume: _resume,
-        genre: _genre,
-        duree: _duree,
+        adresse: _adresse,
+        codePostal: _codePostal,
+        ville: _ville,
+        responsable: _responsable,
+        prixPlace: _prixPlace,
       }),
     });
     const cinema = await response.json();
