@@ -35,6 +35,10 @@ const DetailsCinemaScreen = ({ navigation, route }) => {
     navigation.navigate("Edit", {cinema: cinema})
   }
 
+  const onPressMovieRooms = async() => {
+    navigation.navigate("MovieRooms", {cinemaId: cinemaId})
+  }
+
   if (loading) {
     return (
       <View style={styles.loadingContainer}>
@@ -70,8 +74,11 @@ const DetailsCinemaScreen = ({ navigation, route }) => {
                 {cinema.prixPlace}€
             </Text>
         </View>
-        <View style={{ flexDirection: 'row', justifyContent: 'center',  marginTop : 30 }}>
-            <Button style={{alignSelf: 'center'}} text={"Modifier"} onPress={() => editCinema()} />
+        <View style={styleScreen.buttonView}>
+            <Button style={styleScreen.buttonScreen} text={"Modifier"} onPress={() => editCinema()} />
+        </View>
+        <View style={styleScreen.buttonView}>
+            <Button style={styleScreen.buttonScreen} text={"Afficher les salles"} onPress={() => onPressMovieRooms()} />
         </View>
     </ScrollView>
   );
@@ -100,5 +107,15 @@ const styleScreen = StyleSheet.create({
         padding : 10,
         borderRadius : 10,
         backgroundColor : 'white',
+    },
+
+    buttonView : {
+      flexDirection: 'row',
+      justifyContent: 'center',
+      marginTop : 30,
+    },
+
+    buttonScreen : {
+      alignSelf: 'center',
     }
 });
