@@ -32,7 +32,7 @@ const DetailsCinemaScreen = ({ navigation, route }) => {
   }, []);
 
   const editCinema = async() => {
-    navigation.navigate("Edit", {cinemaId: cinemaId})
+    navigation.navigate("Edit", {cinema: cinema})
   }
 
   if (loading) {
@@ -70,7 +70,7 @@ const DetailsCinemaScreen = ({ navigation, route }) => {
                 {cinema.prixPlace}€
             </Text>
         </View>
-        <View style={{ flexDirection: 'row', justifyContent: 'center' }}>
+        <View style={{ flexDirection: 'row', justifyContent: 'center',  marginTop : 30 }}>
             <Button style={{alignSelf: 'center'}} text={"Modifier"} onPress={() => editCinema()} />
         </View>
     </ScrollView>
