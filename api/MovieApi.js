@@ -31,7 +31,6 @@ export const addMovie = async (
   _duree
 ) => {
   try {
-    const currentDate = new Date().toISOString();
     const response = await fetch(`${rootEndpoint}/`, {
       method: `POST`,
       headers: {
@@ -43,15 +42,12 @@ export const addMovie = async (
         realisateur: _realisateur,
         resume: _resume,
         genre: _genre,
-        date: currentDate, //TODO: changer pour mettre la date, voir pb
         duree: _duree,
       }),
     });
     const movie = await response.json();
-    console.log(movie);
     return movie;
-  } catch (error) {
-    console.error(error);
-    throw error;
+  } catch (e) {
+    console.error("Erreur dans la création d'un film");
   }
 };
