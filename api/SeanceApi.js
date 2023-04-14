@@ -13,9 +13,9 @@ export const fetchSeancesApi = async () => {
 };
 
 export const addMovieSession = async (
-  _film,
-  _salle,
-  _cinema,
+  _filmId,
+  _salleId,
+  _cinemaId,
   _date,
   _nbPlaceAchete
 ) => {
@@ -27,12 +27,9 @@ export const addMovieSession = async (
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        filmId: _film.id,
-        film: _film,
-        salleId: _salle.id,
-        salle: _salle,
-        cinemaId: _cinema.id,
-        cinema: _cinema,
+        filmId: _filmId,
+        salleId: _salleId,
+        cinemaId: _cinemaId,
         date: _date,
         nbPlaceAchete: _nbPlaceAchete,
       }),

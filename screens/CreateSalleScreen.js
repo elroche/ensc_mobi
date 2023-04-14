@@ -10,7 +10,9 @@ import styles from "../theme/styles";
 import Button from "../components/Button";
 import { addSalle } from "../api/SalleApi";
 
-export const CreateSalleScreen = () => {
+export const CreateSalleScreen = ({navigation}) => {
+  const [errorMessage, setErrorMessage] = useState("");
+
   return (
     <KeyboardAvoidingView
       style={styles.container && styleScreen.container}
@@ -18,6 +20,18 @@ export const CreateSalleScreen = () => {
     >
       <Text style={styles.title}>Ajouter une salle</Text>
       <View style={styleScreen.content}>
+        {errorMessage ? (
+          <Text
+            style={{
+              color: "red",
+              textAlign: "center",
+              fontSize: 16,
+              paddingVertical: 10,
+            }}
+          >
+            {errorMessage}
+          </Text>
+        ) : null}
         <View style={styleScreen.inputContainer}>
           <Text style={styleScreen.label}>Nom</Text>
           <TextInput

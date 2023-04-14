@@ -10,7 +10,9 @@ import styles from "../theme/styles";
 import Button from "../components/Button";
 import { addSeance } from "../api/SeanceApi";
 
-export const CreateSeanceScreen = () => {
+export const CreateSeanceScreen = ({ navigation }) => {
+  const [errorMessage, setErrorMessage] = useState("");
+
   return (
     <KeyboardAvoidingView
       style={styles.container && styleScreen.container}
@@ -18,6 +20,18 @@ export const CreateSeanceScreen = () => {
     >
       <Text style={styles.title}>Ajouter une séance</Text>
       <View style={styleScreen.content}>
+        {errorMessage ? (
+          <Text
+            style={{
+              color: "red",
+              textAlign: "center",
+              fontSize: 16,
+              paddingVertical: 10,
+            }}
+          >
+            {errorMessage}
+          </Text>
+        ) : null}
         <View style={styleScreen.inputContainer}>
           <Text style={styleScreen.label}>Nom</Text>
           <TextInput

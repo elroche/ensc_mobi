@@ -10,12 +10,7 @@ export const fetchSallesApi = async () => {
   }
 };
 
-export const addMovieRoom = async (
-  _cinemaId,
-  _cinema,
-  _nbPlace,
-  _numeroSalle
-) => {
+export const addMovieRoom = async (_cinemaId, _nbPlace, _numeroSalle) => {
   try {
     const response = await fetch(`${rootEndpoint}/`, {
       method: `POST`,
@@ -25,7 +20,6 @@ export const addMovieRoom = async (
       },
       body: JSON.stringify({
         cinemaId: _cinemaId,
-        cinema: _cinema,
         nbPlace: _nbPlace,
         numeroSalle: _numeroSalle,
       }),

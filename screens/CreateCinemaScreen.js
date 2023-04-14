@@ -10,13 +10,43 @@ import Button from "../components/Button";
 import styles from "../theme/styles";
 import { addCinema } from "../api/CinemaApi";
 
-export const CreateCinemaScreen = () => {
+export const CreateCinemaScreen = ({navigation}) => {
   const [nom, setNom] = useState("");
   const [adresse, setAdresse] = useState("");
   const [codePostal, setCodePostal] = useState("");
   const [ville, setVille] = useState("");
   const [responsable, setResponsable] = useState("");
   const [prixPlace, setPrixPlace] = useState("");
+  const [errorMessage, setErrorMessage] = useState("");
+
+  const handleSubmitCinema = () => {
+    if (
+      nom !== "" &&
+      adresse !== "" &&
+      codePostal !== "" &&
+      ville !== "" &&
+      responsable !== "" &&
+      prixPlace !== ""
+    ) {
+      try {
+        const cinema = addCinema(
+          nom,
+          adresse,
+          codePostal,
+          ville,
+          responsable,
+          prixPlace
+        );
+        console.log("Nouveau cinema créé:", cinema);
+        navigation.goBack();
+      } catch (error) {
+        console.error(error);
+      }
+    } else {
+      setErrorMessage("Attention ! Veuillez remplir tous les champs."); // Affichage d'un message d'erreur
+      return;
+    }
+  };
 
   return (
     <KeyboardAvoidingView
@@ -25,6 +55,18 @@ export const CreateCinemaScreen = () => {
     >
       <Text style={styles.title}>Ajouter un cinéma</Text>
       <View style={styleScreen.content}>
+        {errorMessage ? (
+          <Text
+            style={{
+              color: "red",
+              textAlign: "center",
+              fontSize: 16,
+              paddingVertical: 10,
+            }}
+          >
+            {errorMessage}
+          </Text>
+        ) : null}
         <View style={styleScreen.inputContainer}>
           <Text style={styleScreen.label}>Nom</Text>
           <TextInput

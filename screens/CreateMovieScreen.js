@@ -17,6 +17,7 @@ const CreateMovieScreen = ({ navigation }) => {
   const [genre, setGenre] = useState("");
   const [date, setDate] = useState("");
   const [duree, setDuree] = useState("");
+  const [errorMessage, setErrorMessage] = useState("");
 
   const handleSubmitMovie = () => {
     if (
@@ -34,6 +35,9 @@ const CreateMovieScreen = ({ navigation }) => {
       } catch (error) {
         console.error(error);
       }
+    } else {
+      setErrorMessage("Attention ! Veuillez remplir tous les champs."); // Affichage d'un message d'erreur
+      return;
     }
   };
 
@@ -44,6 +48,18 @@ const CreateMovieScreen = ({ navigation }) => {
     >
       <Text style={styles.title}>Ajouter un film</Text>
       <View style={styleScreen.content}>
+        {errorMessage ? (
+          <Text
+            style={{
+              color: "red",
+              textAlign: "center",
+              fontSize: 16,
+              paddingVertical: 10,
+            }}
+          >
+            {errorMessage}
+          </Text>
+        ) : null}
         <View style={styleScreen.inputContainer}>
           <Text style={styleScreen.label}>Nom</Text>
           <TextInput
