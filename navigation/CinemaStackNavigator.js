@@ -21,7 +21,7 @@ const CinemaStackNavigator = () => {
       <CinemaStack.Screen
         name="Cinema"
         component={CinemaScreen}
-        options={{ title: "Les cinémas" }}
+        options={{ title: "Cinémas" }}
       />
       <CinemaStack.Screen
         name="Details"
