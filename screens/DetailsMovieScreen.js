@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from "react";
-import { StyleSheet, Text, View, ActivityIndicator } from "react-native";
+import { StyleSheet, Text, View, Image, ActivityIndicator, ScrollView } from "react-native";
 import styles from "../theme/styles";
 import { fetchMovieApi } from "../api/MovieApi";
+import Button from "../components/Button";
 
 const DetailsMovieScreen = ({ navigation, route }) => {
   const { movieId } = route.params;
@@ -47,12 +48,48 @@ const DetailsMovieScreen = ({ navigation, route }) => {
   }
 
   return (
-    <View>
-      <Text>{movie.nom}</Text>
-    </View>
+    <ScrollView style={styles.container}>
+      <Text style={styles.title}>{movie.nom}</Text>
+      <Image 
+        source={require("../assets/movie/movieImage.png")}
+        style={styleScreen.image}
+          />
+      <View style={styles.descriptionContainer}>
+        <Text style={{ marginTop: 15 }}> 
+          <Text style={styles.labelDetails}>Genre : </Text>
+            {movie.genre}
+        </Text>
+        <Text style={{ marginTop: 15 }}> 
+          <Text style={styles.labelDetails}>Réalisateur : </Text>
+            {movie.realisateur}
+        </Text>
+        <View style={{ marginTop: 15 }}>
+          <Text style={styles.labelDetails}>Resumé :</Text> 
+          <Text>{movie.resume}</Text>
+        </View>
+        <Text style={{ marginTop: 15 }}> 
+          <Text style={styles.labelDetails}>Date : </Text>
+            {movie.date}
+        </Text>
+        <Text style={{ marginTop: 15 }}> 
+          <Text style={styles.labelDetails}>Durée : </Text>
+            {movie.duree}
+        </Text>
+      </View>
+      <View style={{ flexDirection: 'row', justifyContent: 'center' }}>
+        <Button style={{alignSelf: 'center'}} text={"Modifier"} action={() => editMovie()} />
+      </View>
+    </ScrollView>
   );
 };
 
 export default DetailsMovieScreen;
 
-const styleScreen = StyleSheet.create({});
+const styleScreen = StyleSheet.create({
+  image : {
+    width: 250,
+    height: 250,
+    borderRadius : 20,
+    alignSelf: 'center',
+},
+});
