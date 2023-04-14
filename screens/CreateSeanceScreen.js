@@ -1,5 +1,13 @@
-import { StyleSheet, Text, View, KeyboardAvoidingView } from "react-native";
-import React from "react";
+import {
+  View,
+  Text,
+  TextInput,
+  StyleSheet,
+  KeyboardAvoidingView,
+} from "react-native";
+import React, { useState, useEffect } from "react";
+import styles from "../theme/styles";
+import Button from "../components/Button";
 import { addSeance } from "../api/SeanceApi";
 
 export const CreateSeanceScreen = () => {

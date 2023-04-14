@@ -1,8 +1,23 @@
-import { StyleSheet, Text, View, KeyboardAvoidingView } from "react-native";
-import React from "react";
+import React, { useState, useEffect } from "react";
+import {
+  StyleSheet,
+  Text,
+  View,
+  KeyboardAvoidingView,
+  TextInput,
+} from "react-native";
+import Button from "../components/Button";
+import styles from "../theme/styles";
 import { addCinema } from "../api/CinemaApi";
 
 export const CreateCinemaScreen = () => {
+  const [nom, setNom] = useState("");
+  const [adresse, setAdresse] = useState("");
+  const [codePostal, setCodePostal] = useState("");
+  const [ville, setVille] = useState("");
+  const [responsable, setResponsable] = useState("");
+  const [prixPlace, setPrixPlace] = useState("");
+
   return (
     <KeyboardAvoidingView
       style={styles.container && styleScreen.container}
@@ -19,20 +34,52 @@ export const CreateCinemaScreen = () => {
           />
         </View>
         <View style={styleScreen.inputContainer}>
-          <Text style={styleScreen.label}>Durée</Text>
+          <Text style={styleScreen.label}>Responsable</Text>
           <TextInput
             style={styleScreen.input}
-            onChangeText={setDuree}
-            value={duree}
+            onChangeText={setResponsable}
+            value={responsable}
+          />
+        </View>
+        <View style={styleScreen.inputContainer}>
+          <Text style={styleScreen.label}>Adresse</Text>
+          <TextInput
+            style={styleScreen.input}
+            onChangeText={setAdresse}
+            value={adresse}
+          />
+        </View>
+        <View style={styleScreen.inputContainer}>
+          <Text style={styleScreen.label}>Code Postal</Text>
+          <TextInput
+            style={styleScreen.input}
+            onChangeText={setCodePostal}
+            value={codePostal}
+          />
+        </View>
+        <View style={styleScreen.inputContainer}>
+          <Text style={styleScreen.label}>Ville</Text>
+          <TextInput
+            style={styleScreen.input}
+            onChangeText={setVille}
+            value={ville}
+          />
+        </View>
+        <View style={styleScreen.inputContainer}>
+          <Text style={styleScreen.label}>Prix de la place </Text>
+          <TextInput
+            style={styleScreen.input}
+            onChangeText={setPrixPlace}
+            value={prixPlace}
           />
         </View>
       </View>
-      <Button text="Ajouter" onPress={() => handleSubmitMovieRoom()} />
+      <Button text="Ajouter" onPress={() => handleSubmitCinema()} />
     </KeyboardAvoidingView>
   );
 };
 
-export default CreateMovieScreen;
+export default CreateCinemaScreen;
 
 const styleScreen = StyleSheet.create({
   container: { justifyContent: "center", alignItems: "center" },
