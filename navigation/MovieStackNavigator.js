@@ -11,13 +11,13 @@ const MovieStack = createNativeStackNavigator();
 const MovieStackNavigator = () => {
   return (
     <MovieStack.Navigator
-      initialRouteName="Films"
+      initialRouteName="Movie"
       screenOptions={screenOptions}
     >
       <MovieStack.Screen
-        name="Films"
+        name="Movie"
         component={MovieScreen}
-        options={{ title: "Les films disponibles" }}
+        options={{ title: "Films" }}
       />
       <MovieStack.Screen
         name="Details"

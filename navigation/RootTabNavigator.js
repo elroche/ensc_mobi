@@ -3,7 +3,7 @@ import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { NavigationContainer } from "@react-navigation/native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import HomeStackNavigator from "./HomeStackNavigator";
-import UserStackNavigator from "./UserStackNavigator";
+import SeanceStackNavigator from "./SeanceStackNavigator";
 import CinemaStackNavigator from "./CinemaStackNavigator";
 import MovieStackNavigator from "./MovieStackNavigator";
 
@@ -23,8 +23,10 @@ const RootTabNavigator = () => {
               iconName = focused ? "warehouse" : "warehouse";
             } else if (route.name === "Les films") {
               iconName = focused ? "movie-open" : "movie-open-outline";
-            } else if (route.name === "Profil") {
-              iconName = focused ? "account" : "account-outline";
+            } else if (route.name === "Les séances") {
+              iconName = focused
+                ? "ticket-confirmation"
+                : "ticket-confirmation-outline";
             }
             // You can return any component that you like here!
             return (
@@ -44,7 +46,7 @@ const RootTabNavigator = () => {
         <Tab.Screen name="Accueil" component={HomeStackNavigator} />
         <Tab.Screen name="Les cinémas" component={CinemaStackNavigator} />
         <Tab.Screen name="Les films" component={MovieStackNavigator} />
-        <Tab.Screen name="Profil" component={UserStackNavigator} />
+        <Tab.Screen name="Les séances" component={SeanceStackNavigator} />
       </Tab.Navigator>
     </NavigationContainer>
   );
