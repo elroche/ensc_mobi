@@ -20,7 +20,7 @@ export const editMovieRoom = async (_id, _cinemaId, _nbPlace, _numeroSalle) => {
   console.log("Nombre de place : " + typeof _nbPlace);
   console.log("Numero de la salle : " + typeof _numeroSalle);
   try {
-    const response = await fetch(`${rootEndpoint}/SalleApi/${_id}/`, {
+    const response = await fetch(`${rootEndpoint}/Salleapi/${_id}/`, {
       method: `PUT`,
       headers: {
         Accept: `application/json`,
@@ -41,18 +41,21 @@ export const editMovieRoom = async (_id, _cinemaId, _nbPlace, _numeroSalle) => {
   }
 };
 
-export const addMovieRoom = async (_cinemaId, _nbPlace, _numeroSalle) => {
+export const addMovieRoom = async (cinemaId, nbPlace, numeroSalle) => {
   try {
-    const response = await fetch(`${rootEndpoint}/`, {
+    console.log("Id du ciné : " + cinemaId);
+    console.log("Nombre d eplace : " + nbPlace);
+    console.log("Numero de la salle : " + numeroSalle);
+    const response = await fetch(`${rootEndpoint}/Salleapi/`, {
       method: `POST`,
       headers: {
         Accept: `application/json`,
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        cinemaId: _cinemaId,
-        nbPlace: _nbPlace,
-        numeroSalle: _numeroSalle,
+        cinemaId: cinemaId,
+        nbPlace: nbPlace,
+        numeroSalle: numeroSalle,
       }),
     });
     const movieRoom = await response.json();

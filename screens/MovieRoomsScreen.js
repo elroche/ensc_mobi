@@ -38,6 +38,10 @@ const MovieRoomsScreen = ({ navigation, route }) => {
       navigation.navigate("Delete", { movieRoom: movieRoom });
   };
 
+  const addMovieRoom = () => {
+    navigation.navigate("MovieRoomCreate");
+};
+
   
     if (loading) {
       return (

@@ -7,6 +7,7 @@ import EditCinemaScreen from "../screens/EditCinemaScreen";
 import  CreateCinemaScreen  from "../screens/CreateCinemaScreen";
 import MovieRoomsScreen from "../screens/MovieRoomsScreen";
 import EditMovieRoomScreen from "../screens/EditMovieRoomScreen";
+import CreateMovieRoomScreen from "../screens/CreateMovieRoomScreen";
 
 
 
@@ -48,6 +49,11 @@ const CinemaStackNavigator = () => {
         name="MovieRoomEdit"
         component={EditMovieRoomScreen}
         options={{ title: "Modifier la salle" }}
+      />
+      <CinemaStack.Screen
+        name="MovieRoomCreate"
+        component={CreateMovieRoomScreen}
+        options={{ title: "Creer une salle" }}
       />
     </CinemaStack.Navigator>
   );
