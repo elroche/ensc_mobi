@@ -1,5 +1,12 @@
 ﻿import React, { useState, useEffect } from "react";
-import { StyleSheet, Text, View, Image, ActivityIndicator, ScrollView } from "react-native";
+import {
+  StyleSheet,
+  Text,
+  View,
+  Image,
+  ActivityIndicator,
+  ScrollView,
+} from "react-native";
 import styles from "../theme/styles";
 import { fetchCinemaApi } from "../api/CinemaApi";
 import Button from "../components/Button";
@@ -31,13 +38,13 @@ const DetailsCinemaScreen = ({ navigation, route }) => {
     loadCinema();
   }, []);
 
-  const editCinema = async() => {
-    navigation.navigate("Edit", {cinema: cinema})
-  }
+  const editCinema = async () => {
+    navigation.navigate("Edit", { cinema: cinema });
+  };
 
-  const onPressMovieRooms = async() => {
-    navigation.navigate("MovieRooms", {cinemaId: cinemaId})
-  }
+  const onPressMovieRooms = async () => {
+    navigation.navigate("MovieRooms", { cinemaId: cinemaId });
+  };
 
   if (loading) {
     return (
@@ -57,29 +64,39 @@ const DetailsCinemaScreen = ({ navigation, route }) => {
 
   return (
     <ScrollView style={styles.container}>
-        <Text style={styles.title}>{cinema.nom}</Text>
-          <Image 
-              source={require("../assets/cinemas/salleCinema.webp")}
-              style={styleScreen.image}
-          />
-        <View style={styleScreen.descriptionContainer}>
-            <Text style={styleScreen.label}>Adresse :</Text> 
-            <Text>{cinema.adresse}, {cinema.codePostal} {cinema.ville}</Text>
-            <Text style={{ marginTop: 15 }}> 
-                <Text style={styleScreen.label}>Responsable : </Text>
-                {cinema.responsable}
-            </Text>
-            <Text style={{ marginTop: 15 }}> 
-                <Text style={styleScreen.label}>Prix d'une place : </Text>
-                {cinema.prixPlace}€
-            </Text>
-        </View>
-        <View style={styleScreen.buttonView}>
-            <Button style={styleScreen.buttonScreen} text={"Modifier"} onPress={() => editCinema()} />
-        </View>
-        <View style={styleScreen.buttonView}>
-            <Button style={styleScreen.buttonScreen} text={"Afficher les salles"} onPress={() => onPressMovieRooms()} />
-        </View>
+      <Text style={styles.title}>{cinema.nom}</Text>
+      <Image
+        source={require("../assets/cinemas/salleCinema.webp")}
+        style={styleScreen.image}
+      />
+      <View style={styleScreen.descriptionContainer}>
+        <Text style={styleScreen.label}>Adresse :</Text>
+        <Text>
+          {cinema.adresse}, {cinema.codePostal} {cinema.ville}
+        </Text>
+        <Text style={{ marginTop: 15 }}>
+          <Text style={styleScreen.label}>Responsable : </Text>
+          {cinema.responsable}
+        </Text>
+        <Text style={{ marginTop: 15 }}>
+          <Text style={styleScreen.label}>Prix d'une place : </Text>
+          {cinema.prixPlace}€
+        </Text>
+      </View>
+      <View style={styleScreen.buttonView}>
+        <Button
+          style={styleScreen.buttonScreen}
+          text={"Modifier"}
+          onPress={() => editCinema()}
+        />
+      </View>
+      <View style={styleScreen.buttonView}>
+        <Button
+          style={styleScreen.buttonScreen}
+          text={"Afficher les salles"}
+          onPress={() => onPressMovieRooms()}
+        />
+      </View>
     </ScrollView>
   );
 };
@@ -87,9 +104,9 @@ const DetailsCinemaScreen = ({ navigation, route }) => {
 export default DetailsCinemaScreen;
 
 const styleScreen = StyleSheet.create({
-    label : {
-        fontWeight: 700,
-    },
+  label: {
+    fontWeight: 700,
+  },
 
   image: {
     width: 300,
@@ -98,24 +115,24 @@ const styleScreen = StyleSheet.create({
     alignSelf: "center",
   },
 
-    editButton : {
-        alignSelf: 'center',
-    },
+  editButton: {
+    alignSelf: "center",
+  },
 
-    descriptionContainer : {
-        marginTop : 20,
-        padding : 10,
-        borderRadius : 10,
-        backgroundColor : 'white',
-    },
+  descriptionContainer: {
+    marginTop: 20,
+    padding: 10,
+    borderRadius: 10,
+    backgroundColor: "white",
+  },
 
-    buttonView : {
-      flexDirection: 'row',
-      justifyContent: 'center',
-      marginTop : 30,
-    },
+  buttonView: {
+    flexDirection: "row",
+    justifyContent: "center",
+    marginTop: 30,
+  },
 
-    buttonScreen : {
-      alignSelf: 'center',
-    }
+  buttonScreen: {
+    alignSelf: "center",
+  },
 });
