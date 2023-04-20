@@ -11,17 +11,29 @@ import Button from "../components/Button";
 import { addSeance } from "../api/SeanceApi";
 
 export const CreateSeanceScreen = ({ navigation }) => {
-  const [date, setDate] = useState("");
   const [filmId, setFilmId] = useState("");
   const [salleId, setSalleId] = useState("");
   const [cinemaId, setCinemaId] = useState("");
+  const date = new Date("1994-10-26");
+  const [nbPlaceAchete, setNbPlaceAchete] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
 
-  const handleSubmitSeance = () => {
-    if (date !== "" && filmId !== "" && salleId !== "" && cinemaId !== "") {
+  const handleCreateSeance = () => {
+    if (
+      filmId !== "" &&
+      salleId !== "" &&
+      cinemaId !== "" &&
+      date !== "" &&
+      nbPlaceAchete !== ""
+    ) {
       try {
-        const seance = addSeance(date, filmId, salleId, cinemaId);
-        console.log("New seance created:", seance);
+        const seance = addSeance(
+          filmId,
+          salleId,
+          cinemaId,
+          date,
+          nbPlaceAchete
+        );
         navigation.goBack();
       } catch (error) {
         console.error(error);
@@ -52,39 +64,43 @@ export const CreateSeanceScreen = ({ navigation }) => {
           </Text>
         ) : null}
         <View style={styleScreen.inputContainer}>
-          <Text style={styleScreen.label}>Date</Text>
-          <TextInput
-            style={styleScreen.input}
-            onChangeText={setDate}
-            value={date}
-          />
-        </View>
-        <View style={styleScreen.inputContainer}>
-          <View style={styleScreen.inputContainer}>
-            <Text style={styleScreen.label}>Cinéma</Text>
-            <TextInput
-              style={styleScreen.input}
-              onChangeText={setCinemaId}
-              value={cinemaId}
-            />
-          </View>
-          <Text style={styleScreen.label}>Film</Text>
+          <Text style={styleScreen.label}>Id du film</Text>
           <TextInput
             style={styleScreen.input}
             onChangeText={setFilmId}
             value={filmId}
+            keyboardType="numeric"
           />
         </View>
         <View style={styleScreen.inputContainer}>
-          <Text style={styleScreen.label}>Salle</Text>
+          <Text style={styleScreen.label}>Id de la salle</Text>
           <TextInput
             style={styleScreen.input}
             onChangeText={setSalleId}
             value={salleId}
+            keyboardType="numeric"
+          />
+        </View>
+        <View style={styleScreen.inputContainer}>
+          <Text style={styleScreen.label}>Id du cinéma</Text>
+          <TextInput
+            style={styleScreen.input}
+            onChangeText={setCinemaId}
+            value={cinemaId}
+          />
+        </View>
+        <View style={styleScreen.inputContainer}>
+          <Text style={styleScreen.label}>Nombre de place achetée(s)</Text>
+          <TextInput
+            style={styleScreen.input}
+            onChangeText={setNbPlaceAchete}
+            value={nbPlaceAchete}
+            keyboardType="numeric"
           />
         </View>
       </View>
-      <Button text="Ajouter" onPress={() => handleSubmitSeance()} />
+      <Button text="Ajouter" onPress={() => handleCreateSeance()} />
+
     </KeyboardAvoidingView>
   );
 };

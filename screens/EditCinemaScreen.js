@@ -1,51 +1,57 @@
 ﻿import React, { useState, useEffect } from "react";
-import { StyleSheet, Text, View, TextInput, KeyboardAvoidingView } from "react-native";
+import {
+  StyleSheet,
+  Text,
+  View,
+  TextInput,
+  KeyboardAvoidingView,
+} from "react-native";
 import styles from "../theme/styles";
 import Button from "../components/Button";
 import { editCinema } from "../api/CinemaApi";
 
-const EditCinemaScreen = ({navigation, route}) => {
-    const { cinema } = route.params;
-    const cinemaId = cinema.id;
-    const [nom, setNom] = useState(cinema.nom);
-    const [adresse, setAdresse] = useState(cinema.adresse);
-    const [codePostal, setCodePostal] = useState(`${cinema.codePostal}`);
-    const [ville, setVille] = useState(cinema.ville);    
-    const [responsable, setResponsable] = useState(cinema.responsable);
-    const [prixPlace, setPrixPlace] = useState(`${cinema.prixPlace}`);
-    const [errorMessage, setErrorMessage] = useState("");
-  
-    const handleEditCinema = async () => {
-            if (
-              nom !== "" &&
-              adresse !== "" &&
-              codePostal !== "" &&
-              ville !== "" &&
-              responsable !== "" &&
-              prixPlace !== ""
-            ) {
-              try {
-                const cinema = editCinema(
-                  cinemaId,
-                  nom,
-                  adresse,
-                  codePostal,
-                  ville,
-                  responsable,
-                  prixPlace
-                );
-                navigation.goBack();
-              } catch (error) {
-                console.error(error);
-              }
-            } else {
-              setErrorMessage("Attention ! Veuillez remplir tous les champs."); // Affichage d'un message d'erreur
-              return;
-            }
-      };
-  
-      return (
-        <KeyboardAvoidingView
+const EditCinemaScreen = ({ navigation, route }) => {
+  const { cinema } = route.params;
+  const cinemaId = cinema.id;
+  const [nom, setNom] = useState(cinema.nom);
+  const [adresse, setAdresse] = useState(cinema.adresse);
+  const [codePostal, setCodePostal] = useState(`${cinema.codePostal}`);
+  const [ville, setVille] = useState(cinema.ville);
+  const [responsable, setResponsable] = useState(cinema.responsable);
+  const [prixPlace, setPrixPlace] = useState(`${cinema.prixPlace}`);
+  const [errorMessage, setErrorMessage] = useState("");
+
+  const handleEditCinema = async () => {
+    if (
+      nom !== "" &&
+      adresse !== "" &&
+      codePostal !== "" &&
+      ville !== "" &&
+      responsable !== "" &&
+      prixPlace !== ""
+    ) {
+      try {
+        const cinema = editCinema(
+          cinemaId,
+          nom,
+          adresse,
+          codePostal,
+          ville,
+          responsable,
+          prixPlace
+        );
+        navigation.goBack();
+      } catch (error) {
+        console.error(error);
+      }
+    } else {
+      setErrorMessage("Attention ! Veuillez remplir tous les champs."); // Affichage d'un message d'erreur
+      return;
+    }
+  };
+
+  return (
+    <KeyboardAvoidingView
       style={styles.container && styleScreen.container}
       behavior="padding"
     >
@@ -120,30 +126,27 @@ const EditCinemaScreen = ({navigation, route}) => {
 
 export default EditCinemaScreen;
 
-
 const styleScreen = StyleSheet.create({
-    container: { justifyContent: "center", alignItems: "center" },
-    content: {
-      width: "90%",
-      backgroundColor: "white",
-      borderRadius: 8,
-      padding: 10,
-      marginBottom: 10,
-    },
-    inputContainer: {
-      marginBottom: 16,
-    },
-    label: {
-      fontSize: 18,
-      marginBottom: 8,
-    },
-    input: {
-      borderWidth: 1,
-      borderColor: "lightgray",
-      borderRadius: 4,
-      padding: 8,
-      fontSize: 16,
-    },
-  });
-  
-
+  container: { justifyContent: "center", alignItems: "center" },
+  content: {
+    width: "90%",
+    backgroundColor: "white",
+    borderRadius: 8,
+    padding: 10,
+    marginBottom: 10,
+  },
+  inputContainer: {
+    marginBottom: 16,
+  },
+  label: {
+    fontSize: 18,
+    marginBottom: 8,
+  },
+  input: {
+    borderWidth: 1,
+    borderColor: "lightgray",
+    borderRadius: 4,
+    padding: 8,
+    fontSize: 16,
+  },
+});

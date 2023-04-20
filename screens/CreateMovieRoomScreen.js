@@ -8,10 +8,27 @@ import {
 import React, { useState, useEffect } from "react";
 import styles from "../theme/styles";
 import Button from "../components/Button";
-import { addSalle } from "../api/SalleApi";
+import { addMovieRoom, fetchMovieRoomsApi } from "../api/MovieRoomApi";
 
-export const CreateSalleScreen = ({navigation}) => {
+const CreateMovieRoomScreen = ({ navigation }) => {
+  const [cinemaId, setCinemaId] = useState("");
+  const [nbPlace, setNbPlace] = useState("");
+  const [numeroSalle, setNumeroSalle] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
+
+  const handleCreateMovieRoom = async () => {
+    if (cinemaId !== "" && nbPlace !== "" && numeroSalle !== "") {
+      try {
+        const movieRoom = await addMovieRoom(cinemaId, nbPlace, numeroSalle);
+        navigation.goBack();
+      } catch (error) {
+        console.error(error);
+      }
+    } else {
+      setErrorMessage("Attention ! Veuillez remplir tous les champs."); // Affichage d'un message d'erreur
+      return;
+    }
+  };
 
   return (
     <KeyboardAvoidingView
@@ -33,28 +50,40 @@ export const CreateSalleScreen = ({navigation}) => {
           </Text>
         ) : null}
         <View style={styleScreen.inputContainer}>
-          <Text style={styleScreen.label}>Nom</Text>
+          <Text style={styleScreen.label}>Id du cinéma</Text>
           <TextInput
             style={styleScreen.input}
-            onChangeText={setNom}
-            value={nom}
+            onChangeText={setCinemaId}
+            value={cinemaId}
+            keyboardType="numeric"
           />
         </View>
         <View style={styleScreen.inputContainer}>
-          <Text style={styleScreen.label}>Durée</Text>
+          <Text style={styleScreen.label}>Nombre de place</Text>
           <TextInput
             style={styleScreen.input}
-            onChangeText={setDuree}
-            value={duree}
+            onChangeText={setNbPlace}
+            value={nbPlace}
+            keyboardType="numeric"
+          />
+        </View>
+
+        <View style={styleScreen.inputContainer}>
+          <Text style={styleScreen.label}>Numéro de la salle</Text>
+          <TextInput
+            style={styleScreen.input}
+            onChangeText={setNumeroSalle}
+            value={numeroSalle}
+            keyboardType="numeric"
           />
         </View>
       </View>
-      <Button text="Ajouter" onPress={() => handleSubmitMovieRoom()} />
+      <Button text="Ajouter" onPress={() => handleCreateMovieRoom()} />
     </KeyboardAvoidingView>
   );
 };
 
-export default CreateMovieScreen;
+export default CreateMovieRoomScreen;
 
 const styleScreen = StyleSheet.create({
   container: { justifyContent: "center", alignItems: "center" },

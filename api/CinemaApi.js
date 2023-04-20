@@ -1,4 +1,4 @@
-﻿const rootEndpoint = "https://ensccinema.azurewebsites.net/api";
+const rootEndpoint = "https://ensccinema.azurewebsites.net/api";
 
 export const fetchCinemasApi = async() => {
     try {
