@@ -37,7 +37,6 @@ export const CreateCinemaScreen = ({navigation}) => {
           responsable,
           prixPlace
         );
-        console.log("Nouveau cinema créé:", cinema);
         navigation.goBack();
       } catch (error) {
         console.error(error);
