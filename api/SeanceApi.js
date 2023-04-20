@@ -12,13 +12,7 @@ export const fetchSeancesApi = async () => {
   }
 };
 
-export const addMovieSession = async (
-  _filmId,
-  _salleId,
-  _cinemaId,
-  _date,
-  _nbPlaceAchete
-) => {
+export const addSeance = async (_date, _filmId, _salleId, _cinemaId) => {
   try {
     const response = await fetch(`${rootEndpoint}/`, {
       method: `POST`,
@@ -31,12 +25,12 @@ export const addMovieSession = async (
         salleId: _salleId,
         cinemaId: _cinemaId,
         date: _date,
-        nbPlaceAchete: _nbPlaceAchete,
+        nbPlaceAchete: 0,
       }),
     });
-    const movieSession = await response.json();
-    return movieSession;
+    const seance = await response.json();
+    return seance;
   } catch (e) {
-    console.error("Erreur dans la création d'une session de film");
+    console.error("Erreur dans la création d'une séance de film");
   }
 };

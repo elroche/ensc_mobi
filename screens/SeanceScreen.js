@@ -58,6 +58,10 @@ const SeanceScreen = ({ navigation }) => {
     return [];
   };
 
+  const addSeance = async () => {
+    navigation.navigate("Create");
+  };
+
   if (loading) {
     return (
       <View style={styles.loadingContainer}>

@@ -4,11 +4,14 @@ import {
   TextInput,
   StyleSheet,
   KeyboardAvoidingView,
+  ScrollView,
 } from "react-native";
 import React, { useState, useEffect } from "react";
 import styles from "../theme/styles";
 import Button from "../components/Button";
 import { addMovie } from "../api/MovieApi";
+import { GENRE } from "../api/global";
+import { Picker } from "@react-native-picker/picker";
 
 const CreateMovieScreen = ({ navigation }) => {
   const [nom, setNom] = useState("");
@@ -17,6 +20,7 @@ const CreateMovieScreen = ({ navigation }) => {
   const [genre, setGenre] = useState("");
   const [date, setDate] = useState("");
   const [duree, setDuree] = useState("");
+  const [selectedGenre, setSelectedGenre] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
 
   const handleSubmitMovie = () => {
@@ -42,101 +46,97 @@ const CreateMovieScreen = ({ navigation }) => {
   };
 
   return (
-    <KeyboardAvoidingView
-      style={styles.container && styleScreen.container}
-      behavior="padding"
-    >
-      <Text style={styles.title}>Ajouter un film</Text>
-      <View style={styleScreen.content}>
-        {errorMessage ? (
-          <Text
-            style={{
-              color: "red",
-              textAlign: "center",
-              fontSize: 16,
-              paddingVertical: 10,
-            }}
-          >
-            {errorMessage}
-          </Text>
-        ) : null}
-        <View style={styleScreen.inputContainer}>
-          <Text style={styleScreen.label}>Nom</Text>
-          <TextInput
-            style={styleScreen.input}
-            onChangeText={setNom}
-            value={nom}
-          />
+    <ScrollView>
+      <View style={styles.container && styleScreen.container}>
+        <Text style={styles.title}>Ajouter un film</Text>
+        <View style={styleScreen.content}>
+          {errorMessage ? (
+            <Text
+              style={{
+                color: "red",
+                textAlign: "center",
+                fontSize: 16,
+                paddingVertical: 10,
+              }}
+            >
+              {errorMessage}
+            </Text>
+          ) : null}
+          <View style={styleScreen.inputContainer}>
+            <Text style={styleScreen.label}>Nom</Text>
+            <TextInput
+              style={styleScreen.input}
+              onChangeText={setNom}
+              value={nom}
+            />
+          </View>
+          <View style={styleScreen.inputContainer}>
+            <Text style={styleScreen.label}>Réalisateur</Text>
+            <TextInput
+              style={styleScreen.input}
+              onChangeText={setRealisateur}
+              value={realisateur}
+            />
+          </View>
+          <View style={styleScreen.inputContainer}>
+            <Text style={styleScreen.label}>Résumé</Text>
+            <TextInput
+              style={styleScreen.input}
+              onChangeText={setResume}
+              value={resume}
+            />
+          </View>
+          <View style={styleScreen.inputContainer}>
+            <Text style={styleScreen.label}>Genre</Text>
+            <Picker
+              style={styleScreen.pickerGenre}
+              selectedValue={selectedGenre}
+              onValueChange={(itemValue) => setSelectedGenre(itemValue)}
+            >
+              {GENRE.map((genre, index) => (
+                <Picker.Item key={index} label={genre} value={genre} />
+              ))}
+            </Picker>
+          </View>
+
+          <View style={styleScreen.inputContainer}>
+            <Text style={styleScreen.label}>Date</Text>
+            <TextInput
+              style={styleScreen.input}
+              onChangeText={setDate}
+              value={date}
+            />
+          </View>
+          <View style={styleScreen.inputContainer}>
+            <Text style={styleScreen.label}>Durée</Text>
+            <TextInput
+              style={styleScreen.input}
+              onChangeText={setDuree}
+              value={duree}
+            />
+          </View>
         </View>
-        <View style={styleScreen.inputContainer}>
-          <Text style={styleScreen.label}>Réalisateur</Text>
-          <TextInput
-            style={styleScreen.input}
-            onChangeText={setRealisateur}
-            value={realisateur}
-          />
-        </View>
-        <View style={styleScreen.inputContainer}>
-          <Text style={styleScreen.label}>Résumé</Text>
-          <TextInput
-            style={styleScreen.input}
-            onChangeText={setResume}
-            value={resume}
-          />
-        </View>
-        <View style={styleScreen.inputContainer}>
-          <Text style={styleScreen.label}>Genre</Text>
-          <TextInput
-            style={styleScreen.input}
-            onChangeText={setGenre}
-            value={genre}
-          />
-        </View>
-        <View style={styleScreen.inputContainer}>
-          <Text style={styleScreen.label}>Date</Text>
-          {/* <DatePicker
-            style={styles.datePicker}
-            date={date}
-            mode="date"
-            placeholder="Sélectionner une date"
-            format="YYYY-MM-DD"
-            minDate="1900-01-01"
-            maxDate="2100-01-01"
-            confirmBtnText="Confirmer"
-            cancelBtnText="Annuler"
-            useNativeDriver={true}
-            onDateChange={(newDate) => setDate(newDate)}
-          /> */}
-          <TextInput
-            style={styleScreen.input}
-            onChangeText={setDate}
-            value={date}
-          />
-        </View>
-        <View style={styleScreen.inputContainer}>
-          <Text style={styleScreen.label}>Durée</Text>
-          <TextInput
-            style={styleScreen.input}
-            onChangeText={setDuree}
-            value={duree}
-          />
-        </View>
+        <Button text="Ajouter" onPress={() => handleSubmitMovie()} />
       </View>
-      <Button text="Ajouter" onPress={() => handleSubmitMovie()} />
-    </KeyboardAvoidingView>
+    </ScrollView>
   );
 };
 
 export default CreateMovieScreen;
 
 const styleScreen = StyleSheet.create({
-  container: { justifyContent: "center", alignItems: "center" },
+  container: {
+    justifyContent: "center",
+    alignItems: "center",
+    paddingVertical: 10,
+    marginBottom: 15,
+  },
   content: {
     width: "90%",
     backgroundColor: "white",
     borderRadius: 8,
     padding: 10,
-    marginBottom: 10,
+    marginBottom: 15,
   },
   inputContainer: {
     marginBottom: 16,

@@ -1,14 +1,29 @@
 import React, { useState, useEffect } from "react";
-import { StyleSheet, Text, View, Image, ActivityIndicator, ScrollView } from "react-native";
+import {
+  StyleSheet,
+  Text,
+  View,
+  Image,
+  ActivityIndicator,
+  ScrollView,
+} from "react-native";
 import styles from "../theme/styles";
-import { fetchMovieApi } from "../api/MovieApi";
+import { fetchMovieApi, deleteMovieApi } from "../api/MovieApi";
 import Button from "../components/Button";
+import ButtonOutline from "../components/ButtonOutline";
+import moment from "moment";
+import "moment/locale/fr";
 
 const DetailsMovieScreen = ({ navigation, route }) => {
   const { movieId } = route.params;
   const [movie, setMovie] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(false);
+  const date = moment(movie.date).locale("fr");
+  const formattedDate = date.format("DD/MM/YYYY");
+  const totalMinutes = movie.duree;
+  const heures = Math.floor(totalMinutes / 60);
+  const minutes = totalMinutes % 60;
 
   useEffect(() => {
     navigation.setOptions({ title: movie.nom });
@@ -31,6 +46,15 @@ const DetailsMovieScreen = ({ navigation, route }) => {
     loadMovie();
   }, []);
 
+  const deleteMovie = async () => {
+    try {
+      const movie = await deleteMovieApi(movieId);
+      navigation.goBack();
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
   if (loading) {
     return (
       <View style={styles.loadingContainer}>
@@ -50,34 +74,37 @@ const DetailsMovieScreen = ({ navigation, route }) => {
   return (
     <ScrollView style={styles.container}>
       <Text style={styles.title}>{movie.nom}</Text>
-      <Image 
+      <Image
         source={require("../assets/movie/movieImage2.avif")}
         style={styleScreen.image}
-          />
+      />
       <View style={styles.descriptionContainer}>
-        <Text style={{ marginTop: 15 }}> 
+        <Text style={{ marginTop: 15 }}>
           <Text style={styles.labelDetails}>Genre : </Text>
-            {movie.genre}
+          {movie.genre}
         </Text>
-        <Text style={{ marginTop: 15 }}> 
+        <Text style={{ marginTop: 15 }}>
           <Text style={styles.labelDetails}>Réalisateur : </Text>
-            {movie.realisateur}
+          {movie.realisateur}
         </Text>
         <View style={{ marginTop: 15 }}>
-          <Text style={styles.labelDetails}>Resumé :</Text> 
+          <Text style={styles.labelDetails}>Resumé :</Text>
           <Text>{movie.resume}</Text>
         </View>
-        <Text style={{ marginTop: 15 }}> 
+        <Text style={{ marginTop: 15 }}>
           <Text style={styles.labelDetails}>Date : </Text>
-            {movie.date}
+          {formattedDate}
         </Text>
-        <Text style={{ marginTop: 15 }}> 
+        <Text style={{ marginTop: 15 }}>
           <Text style={styles.labelDetails}>Durée : </Text>
-            {movie.duree}
+          {heures} heures et {minutes} minutes
         </Text>
       </View>
-      <View style={{ flexDirection: 'row', justifyContent: 'center' }}>
-        <Button style={{alignSelf: 'center'}} text={"Modifier"} action={() => editMovie()} />
+      <View style={styleScreen.containerButton}>
+        <Button text={"Modifier"} onPress={() => editMovie()} />
+      </View>
+      <View style={styleScreen.containerButton}>
+        <ButtonOutline text={"Supprimer"} onPress={() => deleteMovie()} />
       </View>
     </ScrollView>
   );
@@ -86,10 +113,15 @@ const DetailsMovieScreen = ({ navigation, route }) => {
 export default DetailsMovieScreen;
 
 const styleScreen = StyleSheet.create({
-  image : {
+  image: {
     width: 300,
     height: 200,
-    borderRadius : 20,
-    alignSelf: 'center',
-},
+    borderRadius: 20,
+    alignSelf: "center",
+  },
+  containerButton: {
+    flexDirection: "row",
+    justifyContent: "center",
+    paddingBottom: 8,
+  },
 });

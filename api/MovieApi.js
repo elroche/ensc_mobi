@@ -10,9 +10,9 @@ export const fetchMoviesApi = async () => {
   }
 };
 
-export const fetchMovieApi = async (filmId) => {
+export const fetchMovieApi = async (movieId) => {
   try {
-    const response = await fetch(`${rootEndpoint}/${filmId}`);
+    const response = await fetch(`${rootEndpoint}/${movieId}`);
     const movie = await response.json();
     return movie;
   } catch (e) {
@@ -49,5 +49,21 @@ export const addMovie = async (
     return movie;
   } catch (e) {
     console.error("Erreur dans la création d'un film");
+  }
+};
+
+export const deleteMovieApi = async (movieId) => {
+  try {
+    const response = await fetch(`${rootEndpoint}/${movieId}`, {
+      method: `DELETE`,
+      headers: {
+        Accept: `application/json`,
+        "Content-Type": "application/json",
+      },
+    });
+    const movie = await response.json();
+    return movie;
+  } catch (e) {
+    console.error("Erreur dans la suppression d'un film");
   }
 };

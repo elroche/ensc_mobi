@@ -11,7 +11,26 @@ import Button from "../components/Button";
 import { addSeance } from "../api/SeanceApi";
 
 export const CreateSeanceScreen = ({ navigation }) => {
+  const [date, setDate] = useState("");
+  const [filmId, setFilmId] = useState("");
+  const [salleId, setSalleId] = useState("");
+  const [cinemaId, setCinemaId] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
+
+  const handleSubmitSeance = () => {
+    if (date !== "" && filmId !== "" && salleId !== "" && cinemaId !== "") {
+      try {
+        const seance = addSeance(date, filmId, salleId, cinemaId);
+        console.log("New seance created:", seance);
+        navigation.goBack();
+      } catch (error) {
+        console.error(error);
+      }
+    } else {
+      setErrorMessage("Attention ! Veuillez remplir tous les champs."); // Affichage d'un message d'erreur
+      return;
+    }
+  };
 
   return (
     <KeyboardAvoidingView
@@ -33,28 +52,44 @@ export const CreateSeanceScreen = ({ navigation }) => {
           </Text>
         ) : null}
         <View style={styleScreen.inputContainer}>
-          <Text style={styleScreen.label}>Nom</Text>
+          <Text style={styleScreen.label}>Date</Text>
           <TextInput
             style={styleScreen.input}
-            onChangeText={setNom}
-            value={nom}
+            onChangeText={setDate}
+            value={date}
           />
         </View>
         <View style={styleScreen.inputContainer}>
-          <Text style={styleScreen.label}>Durée</Text>
+          <View style={styleScreen.inputContainer}>
+            <Text style={styleScreen.label}>Cinéma</Text>
+            <TextInput
+              style={styleScreen.input}
+              onChangeText={setCinemaId}
+              value={cinemaId}
+            />
+          </View>
+          <Text style={styleScreen.label}>Film</Text>
           <TextInput
             style={styleScreen.input}
-            onChangeText={setDuree}
-            value={duree}
+            onChangeText={setFilmId}
+            value={filmId}
+          />
+        </View>
+        <View style={styleScreen.inputContainer}>
+          <Text style={styleScreen.label}>Salle</Text>
+          <TextInput
+            style={styleScreen.input}
+            onChangeText={setSalleId}
+            value={salleId}
           />
         </View>
       </View>
-      <Button text="Ajouter" onPress={() => handleSubmitMovieRoom()} />
+      <Button text="Ajouter" onPress={() => handleSubmitSeance()} />
     </KeyboardAvoidingView>
   );
 };
 
-export default CreateMovieScreen;
+export default CreateSeanceScreen;
 
 const styleScreen = StyleSheet.create({
   container: { justifyContent: "center", alignItems: "center" },
