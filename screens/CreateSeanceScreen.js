@@ -100,6 +100,7 @@ export const CreateSeanceScreen = ({ navigation }) => {
         </View>
       </View>
       <Button text="Ajouter" onPress={() => handleCreateSeance()} />
+
     </KeyboardAvoidingView>
   );
 };

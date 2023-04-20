@@ -4,6 +4,7 @@ import SeanceScreen from "../screens/SeanceScreen";
 import { screenOptions } from "../theme/styles";
 import CreateSeanceScreen from "../screens/CreateSeanceScreen";
 
+
 // Screen stack for user tab
 const SeanceStack = createNativeStackNavigator();
 
@@ -21,7 +22,7 @@ const SeanceStackNavigator = () => {
       <SeanceStack.Screen
         name="Create"
         component={CreateSeanceScreen}
-        options={{ title: "Créer une séance" }}
+        options={{ title: "Ajouter une séance" }}
       />
     </SeanceStack.Navigator>
   );

@@ -62,7 +62,6 @@ const SeanceScreen = ({ navigation }) => {
     navigation.navigate("Create");
   };
 
-
   if (loading) {
     return (
       <View style={styles.loadingContainer}>
