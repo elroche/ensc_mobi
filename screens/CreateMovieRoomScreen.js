@@ -8,7 +8,7 @@ import {
 import React, { useState, useEffect } from "react";
 import styles from "../theme/styles";
 import Button from "../components/Button";
-import { addMovieRoom } from "../api/MovieRoomApi";
+import { addMovieRoom, fetchMovieRoomsApi } from "../api/MovieRoomApi";
 
 const CreateMovieRoomScreen = ({ navigation }) => {
   const [cinemaId, setCinemaId] = useState("");
@@ -19,14 +19,7 @@ const CreateMovieRoomScreen = ({ navigation }) => {
   const handleCreateMovieRoom = async () => {
     if (cinemaId !== "" && nbPlace !== "" && numeroSalle !== "") {
       try {
-        const parsedNbPlace = parseInt(nbPlace);
-        const parsedNumeroSalle = parseInt(numeroSalle);
-        const movieRoom = await addMovieRoom(
-          cinemaId,
-          parsedNbPlace,
-          parsedNumeroSalle
-        );
-        console.log("Nouvelle salle créée:", movieRoom);
+        const movieRoom = await addMovieRoom(cinemaId, nbPlace, numeroSalle);
         navigation.goBack();
       } catch (error) {
         console.error(error);
@@ -56,24 +49,24 @@ const CreateMovieRoomScreen = ({ navigation }) => {
             {errorMessage}
           </Text>
         ) : null}
-      </View>
-      <View style={styleScreen.inputContainer}>
-        <Text style={styleScreen.label}>Id du cinéma</Text>
-        <TextInput
-          style={styleScreen.input}
-          onChangeText={setCinemaId}
-          value={cinemaId}
-          keyboardType="numeric"
-        />
-      </View>
-      <View style={styleScreen.inputContainer}>
-        <Text style={styleScreen.label}>Nombre de place</Text>
-        <TextInput
-          style={styleScreen.input}
-          onChangeText={setNbPlace}
-          value={nbPlace}
-          keyboardType="numeric"
-        />
+        <View style={styleScreen.inputContainer}>
+          <Text style={styleScreen.label}>Id du cinéma</Text>
+          <TextInput
+            style={styleScreen.input}
+            onChangeText={setCinemaId}
+            value={cinemaId}
+            keyboardType="numeric"
+          />
+        </View>
+        <View style={styleScreen.inputContainer}>
+          <Text style={styleScreen.label}>Nombre de place</Text>
+          <TextInput
+            style={styleScreen.input}
+            onChangeText={setNbPlace}
+            value={nbPlace}
+            keyboardType="numeric"
+          />
+        </View>
 
         <View style={styleScreen.inputContainer}>
           <Text style={styleScreen.label}>Numéro de la salle</Text>

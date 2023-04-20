@@ -65,14 +65,11 @@ const MovieRoomsScreen = ({ navigation, route }) => {
   }
 
   return (
-    <ScrollView>
-      <View style={[styles.container, styleScreen.containerScreen]}>
-        <View style={styleScreen.ButtonScreen}>
+    <ScrollView style={styles.container}>
+      <View style={styleScreen.containerScreen}>
+        <View style={styleScreen.buttonScreen}>
           {movieRooms.length > 0 ? (
-            <Button
-              text={"Ajouter une salle !"}
-              onPress={() => addMovieRoom()}
-            />
+            <Button text={"Ajouter !"} onPress={() => addMovieRoom()} />
           ) : (
             <Text></Text>
           )}
@@ -90,14 +87,13 @@ const MovieRoomsScreen = ({ navigation, route }) => {
             );
           })
         ) : (
-          <View style={{ alignItems: "center" }}>
+          <View style={styleScreen.containerNoMovieRoom}>
             <Text style={styleScreen.noMovieRoom}>
-              Il n'y a pas encore de salle à ce cinéma...
+              Il n'y a pas encore de salle pour ce cinéma...
             </Text>
-            <Button
-              text={"Ajouter une salle !"}
-              onPress={() => addMovieRoom()}
-            />
+            <View style={styleScreen.buttonScreen}>
+              <Button text={"Ajouter !"} onPress={() => addMovieRoom()} />
+            </View>
           </View>
         )}
       </View>
@@ -106,6 +102,7 @@ const MovieRoomsScreen = ({ navigation, route }) => {
 };
 
 const styleScreen = StyleSheet.create({
+  containerNoMovieRoom: { alignItems: "center", justifyContent: "center" },
   noMovieRoom: {
     textAlign: "center",
     fontSize: 16,
@@ -125,12 +122,11 @@ const styleScreen = StyleSheet.create({
   },
 
   containerScreen: {
-    flexDirection: "row",
-    flexWrap: "wrap",
-    justifyContent: "space-between",
+    alignItems: "center",
+    justifyContent: "center",
   },
 
-  ButtonScreen: {
+  buttonScreen: {
     width: "100%",
     marginBottom: 15,
   },
