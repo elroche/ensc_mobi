@@ -3,36 +3,61 @@ import {
   Text,
   TextInput,
   StyleSheet,
-  KeyboardAvoidingView,
+  KeyboardAvoidingView, 
+  TouchableOpacity,
+  ScrollView
 } from "react-native";
+import DateTimePicker from '@react-native-community/datetimepicker';
 import React, { useState, useEffect } from "react";
 import styles from "../theme/styles";
 import Button from "../components/Button";
 import { addSeance } from "../api/SeanceApi";
+import { Picker } from "@react-native-picker/picker";
+import {fetchCinemasApi } from "../api/CinemaApi";
+
 
 export const CreateSeanceScreen = ({ navigation }) => {
   const [filmId, setFilmId] = useState("");
   const [salleId, setSalleId] = useState("");
-  const [cinemaId, setCinemaId] = useState("");
-  const date = new Date("1994-10-26");
-  const [nbPlaceAchete, setNbPlaceAchete] = useState("");
+  const [cinema, setCinema] = useState(null);
+  const [cinemas, setCinemas] = useState([]);
+  const [date, setDate] = useState(new Date());
+  const [showDatePicker, setShowDatePicker] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
+
+  useEffect(() => {
+    const fetchCinemas = async () => {
+      const cinemas = await fetchCinemasApi();
+      setCinemas(cinemas);
+    };
+    fetchCinemas();
+  }, []);
+
+const handleCinemaChange = (selectedCinemaId) => {
+  const selectedCinema = cinemas.find(c => c.id === selectedCinemaId);
+  setCinema(selectedCinema);
+}
+
+
+  const onDateChange = (event, selectedDate) => {
+    const currentDate = selectedDate || date;
+    setDate(currentDate);
+    setShowDatePicker(false); // Masque le date picker une fois la date sélectionnée
+  };
 
   const handleCreateSeance = () => {
     if (
       filmId !== "" &&
       salleId !== "" &&
-      cinemaId !== "" &&
-      date !== "" &&
-      nbPlaceAchete !== ""
+      cinema?.id !== null &&
+      date !== ""
     ) {
       try {
         const seance = addSeance(
+          date,
           filmId,
           salleId,
-          cinemaId,
-          date,
-          nbPlaceAchete
+          cinema?.id
         );
         navigation.goBack();
       } catch (error) {
@@ -45,8 +70,9 @@ export const CreateSeanceScreen = ({ navigation }) => {
   };
 
   return (
+    <ScrollView>
     <KeyboardAvoidingView
-      style={styles.container && styleScreen.container}
+      style={[styles.container, styleScreen.container]}
       behavior="padding"
     >
       <Text style={styles.title}>Ajouter une séance</Text>
@@ -82,26 +108,46 @@ export const CreateSeanceScreen = ({ navigation }) => {
           />
         </View>
         <View style={styleScreen.inputContainer}>
-          <Text style={styleScreen.label}>Id du cinéma</Text>
-          <TextInput
-            style={styleScreen.input}
-            onChangeText={setCinemaId}
-            value={cinemaId}
-          />
+          <Text style={styleScreen.label}>Cinéma</Text>
+          <Picker
+            style={styleScreen.pickerCinema}
+            selectedValue={cinema}
+            onValueChange={handleCinemaChange}
+          >
+            {cinemas.map((cinema) => (
+              <Picker.Item
+                key={cinema.id}
+                label={cinema.nom}
+                value={cinema.id}
+              />
+            ))}
+          </Picker>
         </View>
         <View style={styleScreen.inputContainer}>
-          <Text style={styleScreen.label}>Nombre de place achetée(s)</Text>
-          <TextInput
-            style={styleScreen.input}
-            onChangeText={setNbPlaceAchete}
-            value={nbPlaceAchete}
-            keyboardType="numeric"
-          />
+          <Text style={styleScreen.label}>Date</Text>
+          <TouchableOpacity
+            style={[styles.buttonContainer, styles.signInButton]}
+            onPress={() => setShowDatePicker(true)}
+          >
+            <Text style={styles.loginText}>Sélectionner une date</Text>
+          </TouchableOpacity>
+          <Text style={styles.text}>
+            Date sélectionnée : {date.toLocaleDateString()}
+          </Text>
+          {showDatePicker && (
+            <DateTimePicker
+              value={date}
+              mode="date"
+              display="spinner"
+              maximumDate={new Date()} // désactive les dates futures
+              onChange={onDateChange}
+            />
+          )}
         </View>
-      </View>
       <Button text="Ajouter" onPress={() => handleCreateSeance()} />
-
+      </View>
     </KeyboardAvoidingView>
+    </ScrollView>
   );
 };
 

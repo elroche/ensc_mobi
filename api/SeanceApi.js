@@ -14,7 +14,11 @@ export const fetchSeancesApi = async () => {
 
 export const addSeance = async (_date, _filmId, _salleId, _cinemaId) => {
   try {
-    const response = await fetch(`${rootEndpoint}/`, {
+    console.log("date : " + _date);
+    console.log("id du ciné : " + _cinemaId);
+    console.log("id du film : " + _filmId);
+    console.log("id de la salle : " + _salleId);
+    const response = await fetch(`${rootEndpoint}/Seanceapi/`, {
       method: `POST`,
       headers: {
         Accept: `application/json`,
@@ -31,6 +35,6 @@ export const addSeance = async (_date, _filmId, _salleId, _cinemaId) => {
     const seance = await response.json();
     return seance;
   } catch (e) {
-    console.error("Erreur dans la création d'une séance de film");
+    console.error("Erreur dans la création d'une séance");
   }
 };

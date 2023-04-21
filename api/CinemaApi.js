@@ -17,7 +17,7 @@ export const fetchCinemaApi = async(cinemaId) => {
         );
         const cinema = await response.json();
         return cinema;
-    } catch (e) {
+    } catch (e) {   
         console.error(
             "Erreur dans la récupération des données d'un cinema via l'API"
         );
