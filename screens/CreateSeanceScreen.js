@@ -26,6 +26,9 @@ export const CreateSeanceScreen = ({ navigation }) => {
   const [movie, setMovie] = useState(null);
   const [movies, setMovies] = useState([]);
   const [selectedMovieId, setSelectedMovieId] = useState(null);
+  const [movieRoom, setMovieRoom] = useState(null);
+  const [movieRooms, setMovieRooms] = useState([]);
+  const [selectedMovieRoomId, setSelectedMovieRoomId] = useState(null);
   const [date, setDate] = useState(new Date());
   const [showDatePicker, setShowDatePicker] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
@@ -36,25 +39,50 @@ export const CreateSeanceScreen = ({ navigation }) => {
       setCinemas(cinemas);
     };
     fetchCinemas();
-
+  
     const fetchMovies = async () => {
       const movies = await fetchMoviesApi();
       setMovies(movies);
     };
     fetchMovies();
   }, []);
+  
+  useEffect(() => {
+    console.log("selectedCinemaId : " + selectedCinemaId);
+    const fetchRooms = async () => {
+      if (selectedCinemaId !== null) {
+        setMovieRooms([]);
+        setSelectedMovieRoomId(null);
+        const MovieRooms = await fetchMovieRoomsApi(selectedCinemaId);
+        console.log("rooms : " + MovieRooms);
+        setMovieRooms(MovieRooms);
+      }
+    };
+    fetchRooms();
+  }, [selectedCinemaId]);
 
 
-  const handleCinemaChange = (selectedCinemaId) => {
+  const handleCinemaChange = async (selectedCinemaId) => {
     setSelectedCinemaId(selectedCinemaId);
     const selectedCinema = cinemas.find(c => c.id === selectedCinemaId);
     setCinema(selectedCinema);
+    setSelectedMovieRoomId(null);
+    setMovieRooms([]);
+    const rooms = await fetchMovieRoomsApi(selectedCinemaId);
+    setMovieRooms(rooms);
   };
 
   const handleMovieChange = (selectedMovieId) => {
     setSelectedMovieId(selectedMovieId);
-    const selectedMovie = movies.find(c => c.id === selectedMovieId);
+    const selectedMovie = movies.find(m => m.id === selectedMovieId);
     setMovie(selectedMovie);
+  };
+
+  const handleMovieRoomChange = (selectedMovieRoomId) => {
+    setSelectedMovieRoomId(selectedMovieRoomId);
+    const selectedMovieRoom = movieRooms.find(m => m.id === selectedMovieRoomId);
+    console.log("movieRooms." + movieRooms.id);
+    setMovieRoom(selectedMovieRoom);
   };
   
 
@@ -68,7 +96,7 @@ export const CreateSeanceScreen = ({ navigation }) => {
   const handleCreateSeance = async () => {
     if (
       selectedMovieId !== "" &&
-      salleId !== "" &&
+      selectedMovieRoomId !== "" &&
       selectedCinemaId !== null &&
       date !== ""
     ) {
@@ -76,7 +104,7 @@ export const CreateSeanceScreen = ({ navigation }) => {
         const seance = await addSeance(
           date,
           selectedMovieId,
-          salleId,
+          selectedMovieRoomId,
           selectedCinemaId
         );
         navigation.goBack();
@@ -143,13 +171,20 @@ export const CreateSeanceScreen = ({ navigation }) => {
           </Picker>
         </View>
         <View style={styleScreen.inputContainer}>
-          <Text style={styleScreen.label}>Id de la salle</Text>
-          <TextInput
-            style={styleScreen.input}
-            onChangeText={setSalleId}
-            value={salleId}
-            keyboardType="numeric"
-          />
+          <Text style={styleScreen.label}>Salle</Text>
+          <Picker
+            itemStyle={styleScreen.pickerScreen}
+            selectedValue={selectedMovieRoomId}
+            onValueChange={handleMovieRoomChange}
+          >
+            {movieRooms.map((movieRoom) => (
+              <Picker.Item
+                key={movieRoom.id}
+                label={movieRoom.numeroSalle.toString()}
+                value={movieRoom.id}
+              />
+            ))}
+          </Picker>
         </View>
         <View style={styleScreen.inputContainer}>
           <Text style={styleScreen.label}>Date</Text>
