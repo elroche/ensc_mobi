@@ -14,13 +14,18 @@ import Button from "../components/Button";
 import { addSeance } from "../api/SeanceApi";
 import { Picker } from "@react-native-picker/picker";
 import {fetchCinemasApi } from "../api/CinemaApi";
+import {fetchMoviesApi } from "../api/MovieApi";
+import { fetchMovieRoomsApi } from "../api/MovieRoomApi";
 
 
 export const CreateSeanceScreen = ({ navigation }) => {
-  const [filmId, setFilmId] = useState("");
   const [salleId, setSalleId] = useState("");
   const [cinema, setCinema] = useState(null);
   const [cinemas, setCinemas] = useState([]);
+  const [selectedCinemaId, setSelectedCinemaId] = useState(null);
+  const [movie, setMovie] = useState(null);
+  const [movies, setMovies] = useState([]);
+  const [selectedMovieId, setSelectedMovieId] = useState(null);
   const [date, setDate] = useState(new Date());
   const [showDatePicker, setShowDatePicker] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
@@ -31,12 +36,27 @@ export const CreateSeanceScreen = ({ navigation }) => {
       setCinemas(cinemas);
     };
     fetchCinemas();
+
+    const fetchMovies = async () => {
+      const movies = await fetchMoviesApi();
+      setMovies(movies);
+    };
+    fetchMovies();
   }, []);
 
-const handleCinemaChange = (selectedCinemaId) => {
-  const selectedCinema = cinemas.find(c => c.id === selectedCinemaId);
-  setCinema(selectedCinema);
-}
+
+  const handleCinemaChange = (selectedCinemaId) => {
+    setSelectedCinemaId(selectedCinemaId);
+    const selectedCinema = cinemas.find(c => c.id === selectedCinemaId);
+    setCinema(selectedCinema);
+  };
+
+  const handleMovieChange = (selectedMovieId) => {
+    setSelectedMovieId(selectedMovieId);
+    const selectedMovie = movies.find(c => c.id === selectedMovieId);
+    setMovie(selectedMovie);
+  };
+  
 
 
   const onDateChange = (event, selectedDate) => {
@@ -45,29 +65,30 @@ const handleCinemaChange = (selectedCinemaId) => {
     setShowDatePicker(false); // Masque le date picker une fois la date sélectionnée
   };
 
-  const handleCreateSeance = () => {
+  const handleCreateSeance = async () => {
     if (
-      filmId !== "" &&
+      selectedMovieId !== "" &&
       salleId !== "" &&
-      cinema?.id !== null &&
+      selectedCinemaId !== null &&
       date !== ""
     ) {
       try {
-        const seance = addSeance(
+        const seance = await addSeance(
           date,
-          filmId,
+          selectedMovieId,
           salleId,
-          cinema?.id
+          selectedCinemaId
         );
         navigation.goBack();
       } catch (error) {
         console.error(error);
       }
     } else {
-      setErrorMessage("Attention ! Veuillez remplir tous les champs."); // Affichage d'un message d'erreur
+      setErrorMessage("Attention ! Veuillez remplir tous les champs.");
       return;
     }
   };
+  
 
   return (
     <ScrollView>
@@ -90,28 +111,26 @@ const handleCinemaChange = (selectedCinemaId) => {
           </Text>
         ) : null}
         <View style={styleScreen.inputContainer}>
-          <Text style={styleScreen.label}>Id du film</Text>
-          <TextInput
-            style={styleScreen.input}
-            onChangeText={setFilmId}
-            value={filmId}
-            keyboardType="numeric"
-          />
-        </View>
-        <View style={styleScreen.inputContainer}>
-          <Text style={styleScreen.label}>Id de la salle</Text>
-          <TextInput
-            style={styleScreen.input}
-            onChangeText={setSalleId}
-            value={salleId}
-            keyboardType="numeric"
-          />
+          <Text style={styleScreen.label}>Film</Text>
+          <Picker
+            itemStyle={styleScreen.pickerScreen}
+            selectedValue={selectedMovieId}
+            onValueChange={handleMovieChange}
+          >
+            {movies.map((movie) => (
+              <Picker.Item
+                key={movie.id}
+                label={movie.nom}
+                value={movie.id}
+              />
+            ))}
+          </Picker>
         </View>
         <View style={styleScreen.inputContainer}>
           <Text style={styleScreen.label}>Cinéma</Text>
           <Picker
-            style={styleScreen.pickerCinema}
-            selectedValue={cinema}
+            itemStyle={styleScreen.pickerScreen}
+            selectedValue={selectedCinemaId}
             onValueChange={handleCinemaChange}
           >
             {cinemas.map((cinema) => (
@@ -124,12 +143,21 @@ const handleCinemaChange = (selectedCinemaId) => {
           </Picker>
         </View>
         <View style={styleScreen.inputContainer}>
+          <Text style={styleScreen.label}>Id de la salle</Text>
+          <TextInput
+            style={styleScreen.input}
+            onChangeText={setSalleId}
+            value={salleId}
+            keyboardType="numeric"
+          />
+        </View>
+        <View style={styleScreen.inputContainer}>
           <Text style={styleScreen.label}>Date</Text>
           <TouchableOpacity
-            style={[styles.buttonContainer, styles.signInButton]}
+            style={styleScreen.dateButton}
             onPress={() => setShowDatePicker(true)}
           >
-            <Text style={styles.loginText}>Sélectionner une date</Text>
+            <Text style={styleScreen.dateButtonText}>Sélectionner une date</Text>
           </TouchableOpacity>
           <Text style={styles.text}>
             Date sélectionnée : {date.toLocaleDateString()}
@@ -139,7 +167,6 @@ const handleCinemaChange = (selectedCinemaId) => {
               value={date}
               mode="date"
               display="spinner"
-              maximumDate={new Date()} // désactive les dates futures
               onChange={onDateChange}
             />
           )}
@@ -175,5 +202,25 @@ const styleScreen = StyleSheet.create({
     borderRadius: 4,
     padding: 8,
     fontSize: 16,
+  },
+  dateButton: {
+    backgroundColor: '#fff',
+    borderRadius: 5,
+    paddingVertical: 10,
+    paddingHorizontal: 15,
+    borderWidth: 1,
+    borderColor: '#ccc',
+    marginTop: 10,
+    alignItems: 'center',
+  },
+  dateButtonText: {
+    color: '#333',
+    fontSize: 16,
+    fontWeight: 'bold',
+  },
+
+  pickerScreen: {
+    height: 100, 
+    fontSize: 14,
   },
 });
