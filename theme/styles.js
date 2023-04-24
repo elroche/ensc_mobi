@@ -23,6 +23,14 @@ const styles = StyleSheet.create({
     padding: 10,
     borderRadius: 10,
     backgroundColor: "white",
+    shadowColor: "#808080",
+    shadowOffset: {
+      width: 0,
+      height: 1,
+    },
+    shadowOpacity: 0.5,
+    shadowRadius: 2.5,
+    elevation: 3,
   },
 
   labelDetails: {

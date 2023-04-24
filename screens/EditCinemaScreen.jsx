@@ -8,7 +8,7 @@ import {
 } from "react-native";
 import styles from "../theme/styles";
 import Button from "../components/Button";
-import { editCinema } from "../api/CinemaApi";
+import { editCinemaApi } from "../api/CinemaApi";
 
 const EditCinemaScreen = ({ navigation, route }) => {
   const { cinema } = route.params;
@@ -31,7 +31,7 @@ const EditCinemaScreen = ({ navigation, route }) => {
       prixPlace !== ""
     ) {
       try {
-        const cinema = editCinema(
+        const cinema = editCinemaApi(
           cinemaId,
           nom,
           adresse,
