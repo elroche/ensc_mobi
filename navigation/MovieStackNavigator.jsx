@@ -4,6 +4,7 @@ import MovieScreen from "../screens/MovieScreen";
 import { screenOptions } from "../theme/styles";
 import DetailsMovieScreen from "../screens/DetailsMovieScreen";
 import CreateMovieScreen from "../screens/CreateMovieScreen";
+import EditMovieScreen from "../screens/EditMovieScreen";
 
 // Screen stack for movie tab
 const MovieStack = createNativeStackNavigator();
@@ -28,6 +29,11 @@ const MovieStackNavigator = () => {
         name="Create"
         component={CreateMovieScreen}
         options={{ title: "Ajouter un film" }}
+      />
+      <MovieStack.Screen
+        name="Edit"
+        component={EditMovieScreen}
+        options={{ title: "Modifier le film" }}
       />
     </MovieStack.Navigator>
   );

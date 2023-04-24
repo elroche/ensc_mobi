@@ -69,7 +69,7 @@ const DetailsCinemaScreen = ({ navigation, route }) => {
         source={require("../assets/cinemas/salleCinema.webp")}
         style={styleScreen.image}
       />
-      <View style={styleScreen.descriptionContainer}>
+      <View style={styles.descriptionContainer}>
         <Text style={styleScreen.label}>Adresse :</Text>
         <Text>
           {cinema.adresse}, {cinema.codePostal} {cinema.ville}
@@ -117,13 +117,6 @@ const styleScreen = StyleSheet.create({
 
   editButton: {
     alignSelf: "center",
-  },
-
-  descriptionContainer: {
-    marginTop: 20,
-    padding: 10,
-    borderRadius: 10,
-    backgroundColor: "white",
   },
 
   buttonView: {

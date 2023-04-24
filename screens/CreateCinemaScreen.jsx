@@ -8,9 +8,9 @@ import {
 } from "react-native";
 import Button from "../components/Button";
 import styles from "../theme/styles";
-import { addCinema } from "../api/CinemaApi";
+import { addCinemaApi } from "../api/CinemaApi";
 
-export const CreateCinemaScreen = ({navigation}) => {
+export const CreateCinemaScreen = ({ navigation }) => {
   const [nom, setNom] = useState("");
   const [adresse, setAdresse] = useState("");
   const [codePostal, setCodePostal] = useState("");
@@ -29,7 +29,7 @@ export const CreateCinemaScreen = ({navigation}) => {
       prixPlace !== ""
     ) {
       try {
-        const cinema = addCinema(
+        const cinema = addCinemaApi(
           nom,
           adresse,
           codePostal,

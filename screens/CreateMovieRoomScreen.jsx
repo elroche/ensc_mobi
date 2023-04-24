@@ -1,35 +1,25 @@
-﻿import React, { useState, useEffect } from "react";
 import {
-  StyleSheet,
-  Text,
   View,
+  Text,
   TextInput,
+  StyleSheet,
   KeyboardAvoidingView,
 } from "react-native";
+import React, { useState, useEffect } from "react";
 import styles from "../theme/styles";
 import Button from "../components/Button";
-import { editMovieRoom } from "../api/MovieRoomApi";
+import { addMovieRoomApi, fetchMovieRoomsApi } from "../api/MovieRoomApi";
 
-const EditMovieRoomScreen = ({ navigation, route }) => {
-  const { movieRoom } = route.params;
-  const movieRoomId = movieRoom.id;
-  const [cinemaId, setCinemaId] = useState(movieRoom.cinemaId.toString());
-  const [nbPlace, setNbPlace] = useState(movieRoom.nbPlace.toString());
-  const [numeroSalle, setNumeroSalle] = useState(
-    movieRoom.numeroSalle.toString()
-  );
-
+const CreateMovieRoomScreen = ({ navigation }) => {
+  const [cinemaId, setCinemaId] = useState("");
+  const [nbPlace, setNbPlace] = useState("");
+  const [numeroSalle, setNumeroSalle] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
 
-  const handleEditMovieRoom = async () => {
-    if (nbPlace !== "") {
+  const handleCreateMovieRoom = async () => {
+    if (cinemaId !== "" && nbPlace !== "" && numeroSalle !== "") {
       try {
-        const movieRoom = await editMovieRoom(
-          movieRoomId,
-          cinemaId,
-          nbPlace,
-          numeroSalle
-        );
+        const movieRoom = await addMovieRoomApi(cinemaId, nbPlace, numeroSalle);
         navigation.goBack();
       } catch (error) {
         console.error(error);
@@ -45,7 +35,7 @@ const EditMovieRoomScreen = ({ navigation, route }) => {
       style={styles.container && styleScreen.container}
       behavior="padding"
     >
-      <Text style={styles.title}>Modifier une salle</Text>
+      <Text style={styles.title}>Ajouter une salle</Text>
       <View style={styleScreen.content}>
         {errorMessage ? (
           <Text
@@ -60,6 +50,15 @@ const EditMovieRoomScreen = ({ navigation, route }) => {
           </Text>
         ) : null}
         <View style={styleScreen.inputContainer}>
+          <Text style={styleScreen.label}>Id du cinéma</Text>
+          <TextInput
+            style={styleScreen.input}
+            onChangeText={setCinemaId}
+            value={cinemaId}
+            keyboardType="numeric"
+          />
+        </View>
+        <View style={styleScreen.inputContainer}>
           <Text style={styleScreen.label}>Nombre de place</Text>
           <TextInput
             style={styleScreen.input}
@@ -68,13 +67,23 @@ const EditMovieRoomScreen = ({ navigation, route }) => {
             keyboardType="numeric"
           />
         </View>
+
+        <View style={styleScreen.inputContainer}>
+          <Text style={styleScreen.label}>Numéro de la salle</Text>
+          <TextInput
+            style={styleScreen.input}
+            onChangeText={setNumeroSalle}
+            value={numeroSalle}
+            keyboardType="numeric"
+          />
+        </View>
       </View>
-      <Button text="Modifier" onPress={() => handleEditMovieRoom()} />
+      <Button text="Ajouter" onPress={() => handleCreateMovieRoom()} />
     </KeyboardAvoidingView>
   );
 };
 
-export default EditMovieRoomScreen;
+export default CreateMovieRoomScreen;
 
 const styleScreen = StyleSheet.create({
   container: { justifyContent: "center", alignItems: "center" },

@@ -22,7 +22,7 @@ export const fetchMovieApi = async (movieId) => {
   }
 };
 
-export const addMovie = async (
+export const addMovieApi = async (
   _nom,
   _realisateur,
   _resume,
@@ -49,6 +49,39 @@ export const addMovie = async (
     return movie;
   } catch (e) {
     console.error("Erreur dans la création d'un film");
+  }
+};
+
+export const editMovieApi = async (
+  _id,
+  _nom,
+  _realisateur,
+  _resume,
+  _genre,
+  _date,
+  _duree
+) => {
+  try {
+    const response = await fetch(`${rootEndpoint}/${_id}/`, {
+      method: `PUT`,
+      headers: {
+        Accept: `application/json`,
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        Id: _id,
+        Nom: _nom,
+        Realisateur: _realisateur,
+        Resume: _resume,
+        Genre: _genre,
+        Duree: _duree,
+      }),
+    });
+
+    return true;
+  } catch (error) {
+    console.error(error);
+    return false;
   }
 };
 

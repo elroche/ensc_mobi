@@ -55,6 +55,9 @@ const DetailsMovieScreen = ({ navigation, route }) => {
     }
   };
 
+  const editMovie = async () => {
+    navigation.navigate("Edit", { movie: movie });
+  };
   if (loading) {
     return (
       <View style={styles.loadingContainer}>

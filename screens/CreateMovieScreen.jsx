@@ -9,7 +9,7 @@ import {
 import React, { useState, useEffect } from "react";
 import styles from "../theme/styles";
 import Button from "../components/Button";
-import { addMovie } from "../api/MovieApi";
+import { addMovieApi } from "../api/MovieApi";
 import { GENRE } from "../api/global";
 import { Picker } from "@react-native-picker/picker";
 
@@ -33,7 +33,7 @@ const CreateMovieScreen = ({ navigation }) => {
       duree !== ""
     ) {
       try {
-        const movie = addMovie(nom, realisateur, resume, genre, date, duree);
+        const movie = addMovieApi(nom, realisateur, resume, genre, date, duree);
         console.log("New movie created:", movie);
         navigation.goBack();
       } catch (error) {

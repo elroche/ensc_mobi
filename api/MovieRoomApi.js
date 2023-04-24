@@ -14,7 +14,7 @@ export const fetchMovieRoomsApi = async(cinemaId) => {
     }
 };
 
-export const editMovieRoom = async(_id, _cinemaId, _nbPlace, _numeroSalle) => {
+export const editMovieRoomApi = async(_id, _cinemaId, _nbPlace, _numeroSalle) => {
     const cinemaId = parseInt(_cinemaId);
     const nbPlace = parseInt(_nbPlace);
     const numeroSalle = parseInt(_numeroSalle);
@@ -41,7 +41,7 @@ export const editMovieRoom = async(_id, _cinemaId, _nbPlace, _numeroSalle) => {
     }
 };
 
-export const addMovieRoom = async(cinemaId, nbPlace, numeroSalle) => {
+export const addMovieRoomApi = async(cinemaId, nbPlace, numeroSalle) => {
     try {
         console.log("Id du ciné : " + cinemaId);
         console.log("Nombre d eplace : " + nbPlace);
