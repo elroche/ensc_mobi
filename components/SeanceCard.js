@@ -3,6 +3,7 @@ import { View, Text, Image, StyleSheet } from "react-native";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import moment from "moment";
 import "moment/locale/fr";
+import IconButton from "../components/IconButton";
 
 const SeanceCard = ({ item }) => {
   const date = moment(item.date).locale("fr");
@@ -10,19 +11,34 @@ const SeanceCard = ({ item }) => {
 
   return (
     <View style={styles.main}>
-      <View style={styles.header}>
+      <View>
         <View style={styles.logoContainer}>
           <Image
             source={require("../assets/seances/seance.jpg")}
             style={styles.image}
           />
         </View>
+        </View>
+        <View>
         <View style={styles.cardText}>
           <Text style={styles.cardTitle}>{item.film.nom}</Text>
           <Text style={styles.cardSubtitle}>Salle {item.salle.numeroSalle}</Text>
-
           <Text style={styles.cardSubtitle}>Le {formattedDate}</Text>
         </View>
+      </View>
+      <View style={styles.buttonContainer}>
+        <IconButton
+          onPress={() => onEdit()}
+          color="#1b69bc"
+        >
+          <MaterialCommunityIcons name={"pencil"} size={20} color="white"/>
+        </IconButton>
+        <IconButton
+          onPress={() => onDelete()}
+          color="#CE2725"
+        >
+          <MaterialCommunityIcons name={"trash-can"} size={20} color="white"/>
+        </IconButton>
       </View>
     </View>
   );
@@ -43,6 +59,12 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.5,
     shadowRadius: 2.5,
     elevation: 3,
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "space-between",
+    paddingHorizontal : 2,
+    paddingRight : 4,
+    paddingVertical : 4,
   },
   cardText: {
     alignItems: "flex-start",
@@ -60,24 +82,16 @@ const styles = StyleSheet.create({
     marginVertical: 4,
   },
   cardTitle: {
-    fontSize: 20,
+    fontSize: 16,
     fontWeight: "bold",
     marginVertical: 4,
     marginTop: 4,
+    width : 168,
   },
   cardSubtitle: {
-    fontSize: 16,
+    fontSize: 13,
     color: "#555",
     paddingBottom: 15,
-  },
-  buttonContainer: {
-    alignItems: "flex-end",
-    paddingHorizontal: 8,
-  },
-  header: {
-    flexDirection: "row",
-    alignItems: "center",
-    padding: 2,
   },
   logoContainer: {
     width: 90,

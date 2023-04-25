@@ -1,7 +1,6 @@
 ﻿import React from "react";
 import { View, Text, Image, TouchableOpacity, StyleSheet } from "react-native";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
-import Button from "../components/Button";
 import IconButton from "../components/IconButton";
 
 
@@ -33,7 +32,7 @@ const MovieRoomCard = ({item, onEdit, onDelete }) => {
                 </IconButton>
                 <IconButton
                   onPress={() => onDelete()}
-                  color="#ff0000"
+                  color="#CE2725"
                 >
                   <MaterialCommunityIcons name={"trash-can"} size={20} color="white"/>
                 </IconButton>
