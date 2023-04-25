@@ -5,7 +5,7 @@ import styles from "../theme/styles";
 const HomeScreen = ({ navigation }) => {
   return (
     <SafeAreaView style={styles.container}>
-      <Text style={styles.text}>This is the home screen</Text>
+      <Text style={styles.title}>Les derniers films à l'affiche</Text>
     </SafeAreaView>
   );
 };

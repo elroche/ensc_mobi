@@ -2,7 +2,8 @@ import { StyleSheet } from "react-native";
 
 // Common styles
 const styles = StyleSheet.create({
-  container: { flex: 1, padding: 10 },
+  container: { flex: 1 },
+  main: { padding: 10 },
   text: { fontSize: 18, paddingBottom: 10 },
   title: {
     fontSize: 22,

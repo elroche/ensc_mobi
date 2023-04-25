@@ -105,8 +105,6 @@ const DetailsMovieScreen = ({ navigation, route }) => {
       </View>
       <View style={styleScreen.containerButton}>
         <Button text={"Modifier"} onPress={() => editMovie()} />
-      </View>
-      <View style={styleScreen.containerButton}>
         <ButtonOutline text={"Supprimer"} onPress={() => deleteMovie()} />
       </View>
     </ScrollView>
@@ -123,8 +121,8 @@ const styleScreen = StyleSheet.create({
     alignSelf: "center",
   },
   containerButton: {
-    flexDirection: "row",
     justifyContent: "center",
-    paddingBottom: 8,
+    alignItems: "center",
+    marginBottom: 20,
   },
 });

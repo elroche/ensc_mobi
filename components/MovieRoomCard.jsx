@@ -1,7 +1,7 @@
 ﻿import React from "react";
 import { View, Text, Image, TouchableOpacity, StyleSheet } from "react-native";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
-import IconButton from "../components/IconButton";
+import IconButton from "./IconButton";
 
 
 const MovieRoomCard = ({item, onEdit, onDelete }) => {

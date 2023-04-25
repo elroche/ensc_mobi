@@ -3,7 +3,7 @@ import { View, Text, Image, StyleSheet } from "react-native";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import moment from "moment";
 import "moment/locale/fr";
-import IconButton from "../components/IconButton";
+import IconButton from "./IconButton";
 
 const SeanceCard = ({ item }) => {
   const date = moment(item.date).locale("fr");

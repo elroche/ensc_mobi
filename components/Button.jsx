@@ -1,7 +1,7 @@
 import { StyleSheet, Text, View, TouchableOpacity } from "react-native";
 import React from "react";
 
-const ButtonOutline = ({ text, onPress }) => {
+const Button = ({ text, onPress }) => {
   return (
     <View style={styles.buttonContainer}>
       <TouchableOpacity onPress={() => onPress()} style={styles.button}>
@@ -11,23 +11,22 @@ const ButtonOutline = ({ text, onPress }) => {
   );
 };
 
-export default ButtonOutline;
+export default Button;
 
 const styles = StyleSheet.create({
   buttonContainer: {
-    width: "40%",
+    width: "50%",
     justifyContent: "center",
     alignItems: "center",
+    paddingBottom: 5,
   },
   button: {
-    backgroundColor: "white",
+    backgroundColor: "#1b69bc",
     width: "100%",
     padding: 15,
     marginTop: 2,
     borderRadius: 8,
     alignItems: "center",
-    borderColor: "#CE2725",
-    borderWidth: 1,
     shadowColor: "#808080",
     shadowOffset: {
       width: 0,
@@ -38,7 +37,7 @@ const styles = StyleSheet.create({
     elevation: 3,
   },
   buttonText: {
-    color: "#CE2725",
+    color: "white",
     fontWeight: "500",
     fontSize: 16,
   },
