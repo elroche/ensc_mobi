@@ -42,6 +42,7 @@ export const addMovieApi = async (
         realisateur: _realisateur,
         resume: _resume,
         genre: _genre,
+        date: _date,
         duree: _duree,
       }),
     });
@@ -94,9 +95,13 @@ export const deleteMovieApi = async (movieId) => {
         "Content-Type": "application/json",
       },
     });
-    const movie = await response.json();
-    return movie;
+    if (!response.ok) {
+      throw new Error('Erreur lors de la suppression de la séance');
+    }
+    const responseBody = await response.text();
+    return responseBody ? JSON.parse(responseBody) : null;
   } catch (e) {
-    console.error("Erreur dans la suppression d'un film");
+    console.error(e.message);
+    throw e;
   }
 };

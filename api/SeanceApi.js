@@ -60,7 +60,6 @@ export const editSeanceApi = async (_id, _date, _filmId, _salleId, _cinemaId) =>
 };
 
 export const deleteSeanceApi = async (seanceId) => {
-  console.log(seanceId);
   try {
     const response = await fetch(`${rootEndpoint}/Seanceapi/${seanceId}`, {
       method: `DELETE`,
@@ -69,9 +68,13 @@ export const deleteSeanceApi = async (seanceId) => {
         "Content-Type": "application/json",
       },
     });
-    const seance = await response.json();
-    return seance;
+    if (!response.ok) {
+      throw new Error('Erreur lors de la suppression de la séance');
+    }
+    const responseBody = await response.text();
+    return responseBody ? JSON.parse(responseBody) : null;
   } catch (e) {
-    console.error("Erreur dans la suppression d'une séance");
+    console.error(e.message);
+    throw e;
   }
 };
