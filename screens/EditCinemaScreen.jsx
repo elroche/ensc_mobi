@@ -110,7 +110,7 @@ const EditCinemaScreen = ({ navigation, route }) => {
           />
         </View>
         <View style={styleScreen.inputContainer}>
-          <Text style={styleScreen.label}>Prix de la place </Text>
+          <Text style={styleScreen.label}>Prix de la place (€) </Text>
           <TextInput
             style={styleScreen.input}
             onChangeText={setPrixPlace}

@@ -90,6 +90,7 @@ const SeanceScreen = ({ navigation }) => {
             Veuillez sélectionner le cinéma :
           </Text>
           <Picker
+            itemStyle={styleScreen.pickerScreen}
             selectedValue={selectedCinema}
             onValueChange={(itemValue) => setSelectedCinema(itemValue)}
           >
@@ -157,6 +158,11 @@ const styleScreen = StyleSheet.create({
   },
   subtitle: {
     fontSize: 18,
+  },
+  pickerScreen: {
+    height: 120,
+    fontSize: 17,
+    marginVertical: 10,
   },
 });
 

@@ -3,7 +3,7 @@ import {
   Text,
   TextInput,
   StyleSheet,
-  KeyboardAvoidingView,
+  TouchableOpacity,
   ScrollView,
 } from "react-native";
 import React, { useState, useEffect } from "react";
@@ -12,15 +12,17 @@ import Button from "../components/Button";
 import { addMovieApi } from "../api/MovieApi";
 import { GENRE } from "../api/global";
 import { Picker } from "@react-native-picker/picker";
+import DateTimePicker from "@react-native-community/datetimepicker";
 
 const CreateMovieScreen = ({ navigation }) => {
   const [nom, setNom] = useState("");
   const [realisateur, setRealisateur] = useState("");
   const [resume, setResume] = useState("");
   const [genre, setGenre] = useState("");
-  const [date, setDate] = useState("");
   const [duree, setDuree] = useState("");
   const [selectedGenre, setSelectedGenre] = useState("");
+  const [date, setDate] = useState(new Date());
+  const [showDatePicker, setShowDatePicker] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
 
   const handleSubmitMovie = () => {
@@ -43,6 +45,12 @@ const CreateMovieScreen = ({ navigation }) => {
       setErrorMessage("Attention ! Veuillez remplir tous les champs."); // Affichage d'un message d'erreur
       return;
     }
+  };
+
+  const onDateChange = (event, selectedDate) => {
+    const currentDate = selectedDate || date;
+    setDate(currentDate);
+    setShowDatePicker(false); // Masque le date picker une fois la date sélectionnée
   };
 
   return (
@@ -89,7 +97,7 @@ const CreateMovieScreen = ({ navigation }) => {
           <View style={styleScreen.inputContainer}>
             <Text style={styleScreen.label}>Genre</Text>
             <Picker
-              style={styleScreen.pickerGenre}
+              itemStyle={styleScreen.pickerScreen}
               selectedValue={selectedGenre}
               onValueChange={(itemValue) => setSelectedGenre(itemValue)}
             >
@@ -101,12 +109,27 @@ const CreateMovieScreen = ({ navigation }) => {
 
           <View style={styleScreen.inputContainer}>
             <Text style={styleScreen.label}>Date</Text>
-            <TextInput
-              style={styleScreen.input}
-              onChangeText={setDate}
-              value={date}
-            />
+            <TouchableOpacity
+              style={styleScreen.dateButton}
+              onPress={() => setShowDatePicker(true)}
+            >
+              <Text style={styleScreen.dateButtonText}>
+                Sélectionner une date
+              </Text>
+            </TouchableOpacity>
+            <Text style={styles.text}>
+              Date sélectionnée : {date.toLocaleDateString()}
+            </Text>
+            {showDatePicker && (
+              <DateTimePicker
+                value={date}
+                mode="date"
+                display="spinner"
+                onChange={onDateChange}
+              />
+            )}
           </View>
+
           <View style={styleScreen.inputContainer}>
             <Text style={styleScreen.label}>Durée</Text>
             <TextInput
@@ -151,5 +174,24 @@ const styleScreen = StyleSheet.create({
     borderRadius: 4,
     padding: 8,
     fontSize: 16,
+  },
+  dateButton: {
+    backgroundColor: "#fff",
+    borderRadius: 5,
+    paddingVertical: 10,
+    paddingHorizontal: 15,
+    borderWidth: 1,
+    borderColor: "#ccc",
+    marginTop: 10,
+    alignItems: "center",
+  },
+  dateButtonText: {
+    color: "#333",
+    fontSize: 16,
+    fontWeight: "bold",
+  },
+  pickerScreen: {
+    height: 100,
+    fontSize: 14,
   },
 });

@@ -47,13 +47,11 @@ export const CreateSeanceScreen = ({ navigation }) => {
   }, []);
 
   useEffect(() => {
-    console.log("selectedCinemaId : " + selectedCinemaId);
     const fetchRooms = async () => {
       if (selectedCinemaId !== null) {
         setMovieRooms([]);
         setSelectedMovieRoomId(null);
         const MovieRooms = await fetchMovieRoomsApi(selectedCinemaId);
-        console.log("rooms : " + MovieRooms);
         setMovieRooms(MovieRooms);
       }
     };
@@ -81,7 +79,6 @@ export const CreateSeanceScreen = ({ navigation }) => {
     const selectedMovieRoom = movieRooms.find(
       (m) => m.id === selectedMovieRoomId
     );
-    console.log("movieRooms." + movieRooms.id);
     setMovieRoom(selectedMovieRoom);
   };
 
@@ -252,7 +249,6 @@ const styleScreen = StyleSheet.create({
     fontSize: 16,
     fontWeight: "bold",
   },
-
   pickerScreen: {
     height: 100,
     fontSize: 14,
