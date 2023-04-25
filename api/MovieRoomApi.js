@@ -64,3 +64,23 @@ export const addMovieRoomApi = async(cinemaId, nbPlace, numeroSalle) => {
         console.error("Erreur dans la création d'une salle");
     }
 };
+
+export const deleteMovieRoomApi = async (movieRoomId) => {
+    try {
+      const response = await fetch(`${rootEndpoint}/Salleapi/${movieRoomId}`, {
+        method: `DELETE`,
+        headers: {
+          Accept: `application/json`,
+          "Content-Type": "application/json",
+        },
+      });
+      if (!response.ok) {
+        throw new Error('Erreur lors de la suppression de la salle');
+      }
+      const responseBody = await response.text();
+      return responseBody ? JSON.parse(responseBody) : null;
+    } catch (e) {
+      console.error(e.message);
+      throw e;
+    }
+  };
