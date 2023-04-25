@@ -19,7 +19,7 @@ const SeanceCard = ({ item }) => {
         </View>
         <View style={styles.cardText}>
           <Text style={styles.cardTitle}>{item.film.nom}</Text>
-          <Text style={styles.cardSubtitle}>Salle {item.salle.id}</Text>
+          <Text style={styles.cardSubtitle}>Salle {item.salle.numeroSalle}</Text>
 
           <Text style={styles.cardSubtitle}>Le {formattedDate}</Text>
         </View>
