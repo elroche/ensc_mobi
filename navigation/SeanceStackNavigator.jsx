@@ -3,6 +3,8 @@ import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import SeanceScreen from "../screens/SeanceScreen";
 import { screenOptions } from "../theme/styles";
 import CreateSeanceScreen from "../screens/CreateSeanceScreen";
+import EditSeanceScreen from "../screens/EditSeanceScreen";
+
 
 
 // Screen stack for user tab
@@ -23,6 +25,11 @@ const SeanceStackNavigator = () => {
         name="Create"
         component={CreateSeanceScreen}
         options={{ title: "Ajouter une séance" }}
+      />
+      <SeanceStack.Screen
+        name="Edit"
+        component={EditSeanceScreen}
+        options={{ title: "Modifier la séance" }}
       />
     </SeanceStack.Navigator>
   );
