@@ -18,10 +18,10 @@ const styles = StyleSheet.create({
     alignItems: "center",
     backgroundColor: "white",
   },
-
   descriptionContainer: {
     marginVertical: 20,
-    padding: 10,
+    marginHorizontal: 20,
+    padding: 14,
     borderRadius: 10,
     backgroundColor: "white",
     shadowColor: "#808080",

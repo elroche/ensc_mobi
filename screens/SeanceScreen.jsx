@@ -6,6 +6,7 @@ import {
   ActivityIndicator,
   ScrollView,
   Alert,
+  SafeAreaView,
 } from "react-native";
 import styles from "../theme/styles";
 import Button from "../components/Button";
@@ -14,7 +15,8 @@ import { fetchCinemasApi } from "../api/CinemaApi";
 import SeanceCard from "../components/SeanceCard";
 import { Picker } from "@react-native-picker/picker";
 import { deleteSeanceApi } from "../api/SeanceApi";
-
+import { MaterialCommunityIcons } from "@expo/vector-icons";
+import IconButton from "../components/IconButton";
 
 const SeanceScreen = ({ navigation }) => {
   const [cinemas, setCinemas] = useState([]);
@@ -23,7 +25,6 @@ const SeanceScreen = ({ navigation }) => {
   const [seances, setSeances] = useState([]);
   const [selectedCinema, setSelectedCinema] = useState(null);
   const [showBox, setShowBox] = useState(true);
-
 
   const showConfirmDialog = (seance) => {
     return Alert.alert(
@@ -45,7 +46,7 @@ const SeanceScreen = ({ navigation }) => {
       ]
     );
   };
-  
+
   const handleDeleteSeance = async (id) => {
     setShowBox(false);
     await deleteSeanceApi(id);
@@ -115,11 +116,14 @@ const SeanceScreen = ({ navigation }) => {
   }
 
   return (
-    <View style={styles.container}>
-      <Text style={styles.title}>Les séances</Text>
-      <View style={styleScreen.buttonAdd}>
-        <Button text="Ajouter" onPress={() => addSeance()} />
+    <SafeAreaView style={styles.container}>
+      <View style={styleScreen.header}>
+        <Text style={styles.title}>Les séances</Text>
+        <IconButton onPress={() => addSeance()} color="#1b69bc">
+          <MaterialCommunityIcons name={"plus"} size={20} color="white" />
+        </IconButton>
       </View>
+
       <View style={styleScreen.selectContainer}>
         <Text style={styleScreen.subtitle}>
           Veuillez sélectionner le cinéma :
@@ -142,7 +146,7 @@ const SeanceScreen = ({ navigation }) => {
         </View>
       ) : (
         <ScrollView>
-          <View>
+          <View style={styles.main}>
             {filterSeancesByCinema().length > 0 ? (
               filterSeancesByCinema().map((seance) => {
                 return (
@@ -168,11 +172,19 @@ const SeanceScreen = ({ navigation }) => {
           </View>
         </ScrollView>
       )}
-    </View>
+    </SafeAreaView>
   );
 };
 
 const styleScreen = StyleSheet.create({
+  header: {
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "space-between",
+    paddingVertical: 10,
+    marginBottom: 7,
+    paddingHorizontal: 10,
+  },
   noSeances: {
     textAlign: "center",
     fontSize: 16,
@@ -191,6 +203,7 @@ const styleScreen = StyleSheet.create({
   },
   subtitle: {
     fontSize: 18,
+    paddingHorizontal: 10,
   },
   pickerScreen: {
     height: 120,

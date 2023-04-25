@@ -6,6 +6,7 @@ import {
   Image,
   ActivityIndicator,
   ScrollView,
+  SafeAreaView,
 } from "react-native";
 import styles from "../theme/styles";
 import { fetchMovieApi, deleteMovieApi } from "../api/MovieApi";
@@ -75,39 +76,43 @@ const DetailsMovieScreen = ({ navigation, route }) => {
   }
 
   return (
-    <ScrollView style={styles.container}>
-      <Text style={styles.title}>{movie.nom}</Text>
-      <Image
-        source={require("../assets/movie/movieImage2.avif")}
-        style={styleScreen.image}
-      />
-      <View style={styles.descriptionContainer}>
-        <Text style={{ marginTop: 15 }}>
-          <Text style={styles.labelDetails}>Genre : </Text>
-          {movie.genre}
-        </Text>
-        <Text style={{ marginTop: 15 }}>
-          <Text style={styles.labelDetails}>Réalisateur : </Text>
-          {movie.realisateur}
-        </Text>
-        <View style={{ marginTop: 15 }}>
-          <Text style={styles.labelDetails}>Resumé :</Text>
-          <Text>{movie.resume}</Text>
+    <SafeAreaView style={styles.container}>
+      <ScrollView>
+        <View style={styles.main}>
+          <Text style={styles.title}>{movie.nom}</Text>
+          <Image
+            source={require("../assets/movie/movieImage2.avif")}
+            style={styleScreen.image}
+          />
+          <View style={styles.descriptionContainer}>
+            <Text style={{ marginTop: 15 }}>
+              <Text style={styles.labelDetails}>Genre : </Text>
+              {movie.genre}
+            </Text>
+            <Text style={{ marginTop: 15 }}>
+              <Text style={styles.labelDetails}>Réalisateur : </Text>
+              {movie.realisateur}
+            </Text>
+            <View style={{ marginTop: 15 }}>
+              <Text style={styles.labelDetails}>Resumé :</Text>
+              <Text>{movie.resume}</Text>
+            </View>
+            <Text style={{ marginTop: 15 }}>
+              <Text style={styles.labelDetails}>Date : </Text>
+              {formattedDate}
+            </Text>
+            <Text style={{ marginTop: 15 }}>
+              <Text style={styles.labelDetails}>Durée : </Text>
+              {heures} heures et {minutes} minutes
+            </Text>
+          </View>
+          <View style={styleScreen.containerButton}>
+            <Button text={"Modifier"} onPress={() => editMovie()} />
+            <ButtonOutline text={"Supprimer"} onPress={() => deleteMovie()} />
+          </View>
         </View>
-        <Text style={{ marginTop: 15 }}>
-          <Text style={styles.labelDetails}>Date : </Text>
-          {formattedDate}
-        </Text>
-        <Text style={{ marginTop: 15 }}>
-          <Text style={styles.labelDetails}>Durée : </Text>
-          {heures} heures et {minutes} minutes
-        </Text>
-      </View>
-      <View style={styleScreen.containerButton}>
-        <Button text={"Modifier"} onPress={() => editMovie()} />
-        <ButtonOutline text={"Supprimer"} onPress={() => deleteMovie()} />
-      </View>
-    </ScrollView>
+      </ScrollView>
+    </SafeAreaView>
   );
 };
 

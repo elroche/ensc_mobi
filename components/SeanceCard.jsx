@@ -18,26 +18,22 @@ const SeanceCard = ({ item, onDelete, onEdit }) => {
             style={styles.image}
           />
         </View>
-        </View>
-        <View>
+      </View>
+      <View>
         <View style={styles.cardText}>
           <Text style={styles.cardTitle}>{item.film.nom}</Text>
-          <Text style={styles.cardSubtitle}>Salle {item.salle.numeroSalle}</Text>
+          <Text style={styles.cardSubtitle}>
+            Salle {item.salle.numeroSalle}
+          </Text>
           <Text style={styles.cardSubtitle}>Le {formattedDate}</Text>
         </View>
       </View>
       <View style={styles.buttonContainer}>
-        <IconButton
-          onPress={onEdit}
-          color="#1b69bc"
-        >
-          <MaterialCommunityIcons name={"pencil"} size={20} color="white"/>
+        <IconButton onPress={onEdit} color="#1b69bc">
+          <MaterialCommunityIcons name={"pencil"} size={20} color="white" />
         </IconButton>
-        <IconButton
-          onPress={onDelete}
-          color="#CE2725"
-        >
-          <MaterialCommunityIcons name={"trash-can"} size={20} color="white"/>
+        <IconButton onPress={onDelete} color="#CE2725">
+          <MaterialCommunityIcons name={"trash-can"} size={20} color="white" />
         </IconButton>
       </View>
     </View>
@@ -62,9 +58,9 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "space-between",
-    paddingHorizontal : 2,
-    paddingRight : 4,
-    paddingVertical : 4,
+    paddingHorizontal: 2,
+    paddingRight: 4,
+    paddingVertical: 4,
   },
   cardText: {
     alignItems: "flex-start",
@@ -86,7 +82,7 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     marginVertical: 4,
     marginTop: 4,
-    width : 168,
+    width: 168,
   },
   cardSubtitle: {
     fontSize: 13,
