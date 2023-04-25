@@ -66,7 +66,7 @@ const DetailsCinemaScreen = ({ navigation, route }) => {
     <ScrollView style={styles.container}>
       <Text style={styles.title}>{cinema.nom}</Text>
       <Image
-        source={require("../assets/cinemas/salleCinema.webp")}
+        source={require("../assets/cinemas/cinema.jpg")}
         style={styleScreen.image}
       />
       <View style={styles.descriptionContainer}>

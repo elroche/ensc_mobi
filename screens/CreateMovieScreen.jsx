@@ -30,12 +30,12 @@ const CreateMovieScreen = ({ navigation }) => {
       nom !== "" &&
       realisateur !== "" &&
       resume !== "" &&
-      genre !== "" &&
+      selectedGenre !== "" &&
       date !== "" &&
       duree !== ""
     ) {
       try {
-        const movie = addMovieApi(nom, realisateur, resume, genre, date, duree);
+        const movie = addMovieApi(nom, realisateur, resume, selectedGenre, date, duree);
         console.log("New movie created:", movie);
         navigation.goBack();
       } catch (error) {

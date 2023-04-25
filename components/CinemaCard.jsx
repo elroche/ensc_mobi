@@ -9,7 +9,7 @@ const CinemaCard = ({ item, onPress }) => {
         <View style={styles.header}>
           <View style={styles.logoContainer}>
             <Image
-              source={require("../assets/cinemas/salleCinema.webp")}
+              source={require("../assets/cinemas/cinema.jpg")}
               style={styles.image}
             />
           </View>

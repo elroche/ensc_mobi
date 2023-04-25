@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import {
+  SafeAreaView,
   Text,
   View,
   StyleSheet,
@@ -10,6 +11,8 @@ import styles from "../theme/styles";
 import Button from "../components/Button";
 import CinemaCard from "../components/CinemaCard";
 import { fetchCinemasApi } from "../api/CinemaApi";
+import { MaterialCommunityIcons } from "@expo/vector-icons";
+import IconButton from "../components/IconButton";
 
 const CinemaScreen = ({ navigation }) => {
   const [loading, setLoading] = useState(true);
@@ -57,11 +60,15 @@ const CinemaScreen = ({ navigation }) => {
   };
 
   return (
-    <ScrollView>
-      <View style={styles.container}>
-        <Text style={styles.title}>Les cinémas existants</Text>
-        <Button text={"Ajouter un cinéma !"} onPress={() => addCinema()} />
-        <View style={{ marginTop: 15 }}>
+    <SafeAreaView style={styles.container}>
+      <View style={styleScreen.header}>
+        <Text style={styles.title}>Les cinémas disponibles</Text>
+        <IconButton onPress={() => addCinema()} color="#1b69bc">
+          <MaterialCommunityIcons name={"plus"} size={20} color="white" />
+        </IconButton>
+      </View>
+      <ScrollView>
+        <View style={styles.main}>
           {cinemas.length > 0 ? (
             cinemas.map((cinema) => {
               return (
@@ -84,12 +91,20 @@ const CinemaScreen = ({ navigation }) => {
             </View>
           )}
         </View>
-      </View>
-    </ScrollView>
+      </ScrollView>
+    </SafeAreaView>
   );
 };
 
 const styleScreen = StyleSheet.create({
+  header: {
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "space-between",
+    paddingVertical: 10,
+    marginBottom: 7,
+    paddingHorizontal: 10,
+  },
   noCinemas: {
     textAlign: "center",
     fontSize: 16,

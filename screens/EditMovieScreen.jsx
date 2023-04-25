@@ -6,6 +6,7 @@ import {
   TextInput,
   KeyboardAvoidingView,
   TouchableOpacity,
+  ScrollView,
 } from "react-native";
 import styles from "../theme/styles";
 import Button from "../components/Button";
@@ -22,8 +23,8 @@ const EditMovieScreen = ({ navigation, route }) => {
   const [realisateur, setRealisateur] = useState(movie.realisateur);
   const [resume, setResume] = useState(movie.resume);
   const [genre, setGenre] = useState(movie.genre);
-  const [date, setDate] = useState(`${movie.date}`);
-  const [duree, setDuree] = useState(new Date(movie.duree));
+  const [date, setDate] = useState(new Date(movie.date));
+  const [duree, setDuree] = useState(`${movie.duree}`);
   const [showDatePicker, setShowDatePicker] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
 
@@ -63,102 +64,108 @@ const EditMovieScreen = ({ navigation, route }) => {
   };
 
   return (
-    <KeyboardAvoidingView
-      style={styles.container && styleScreen.container}
-      behavior="padding"
-    >
-      <Text style={styles.title}>Modifier un film</Text>
-      <View style={styleScreen.content}>
-        {errorMessage ? (
-          <Text
-            style={{
-              color: "red",
-              textAlign: "center",
-              fontSize: 16,
-              paddingVertical: 10,
-            }}
-          >
-            {errorMessage}
-          </Text>
-        ) : null}
-        <View style={styleScreen.inputContainer}>
-          <Text style={styleScreen.label}>Nom</Text>
-          <TextInput
-            style={styleScreen.input}
-            onChangeText={setNom}
-            value={nom}
-          />
-        </View>
-        <View style={styleScreen.inputContainer}>
-          <Text style={styleScreen.label}>Réalisateur</Text>
-          <TextInput
-            style={styleScreen.input}
-            onChangeText={setRealisateur}
-            value={realisateur}
-          />
-        </View>
-        <View style={styleScreen.inputContainer}>
-          <Text style={styleScreen.label}>Résumé</Text>
-          <TextInput
-            style={styleScreen.input}
-            onChangeText={setResume}
-            value={resume}
-          />
-        </View>
-        <View style={styleScreen.inputContainer}>
-          <Text style={styleScreen.label}>Genre</Text>
-          <Picker
-            itemStyle={styleScreen.pickerScreen}
-            selectedValue={genre}
-            onValueChange={(itemValue) => setGenre(itemValue)}
-          >
-            {GENRE.map((genre, index) => (
-              <Picker.Item key={index} label={genre} value={genre} />
-            ))}
-          </Picker>
-        </View>
-
-        <View style={styleScreen.inputContainer}>
-          <Text style={styleScreen.label}>Date</Text>
-          <TouchableOpacity
-            style={styleScreen.dateButton}
-            onPress={() => setShowDatePicker(true)}
-          >
-            <Text style={styleScreen.dateButtonText}>
-              Sélectionner une date
+    <ScrollView>
+      <KeyboardAvoidingView
+        style={styles.container && styleScreen.container}
+        behavior="padding"
+      >
+        <Text style={styles.title}>Modifier un film</Text>
+        <View style={styleScreen.content}>
+          {errorMessage ? (
+            <Text
+              style={{
+                color: "red",
+                textAlign: "center",
+                fontSize: 16,
+                paddingVertical: 10,
+              }}
+            >
+              {errorMessage}
             </Text>
-          </TouchableOpacity>
-          <Text style={styles.text}>
-            Date sélectionnée : {date.toLocaleDateString()}
-          </Text>
-          {showDatePicker && (
-            <DateTimePicker
-              value={date}
-              mode="date"
-              display="spinner"
-              onChange={onDateChange}
+          ) : null}
+          <View style={styleScreen.inputContainer}>
+            <Text style={styleScreen.label}>Nom</Text>
+            <TextInput
+              style={styleScreen.input}
+              onChangeText={setNom}
+              value={nom}
             />
-          )}
-        </View>
+          </View>
+          <View style={styleScreen.inputContainer}>
+            <Text style={styleScreen.label}>Réalisateur</Text>
+            <TextInput
+              style={styleScreen.input}
+              onChangeText={setRealisateur}
+              value={realisateur}
+            />
+          </View>
+          <View style={styleScreen.inputContainer}>
+            <Text style={styleScreen.label}>Résumé</Text>
+            <TextInput
+              style={styleScreen.input}
+              onChangeText={setResume}
+              value={resume}
+            />
+          </View>
+          <View style={styleScreen.inputContainer}>
+            <Text style={styleScreen.label}>Genre</Text>
+            <Picker
+              itemStyle={styleScreen.pickerScreen}
+              selectedValue={genre}
+              onValueChange={(itemValue) => setGenre(itemValue)}
+            >
+              {GENRE.map((genre, index) => (
+                <Picker.Item key={index} label={genre} value={genre} />
+              ))}
+            </Picker>
+          </View>
 
-        <View style={styleScreen.inputContainer}>
-          <Text style={styleScreen.label}>Durée</Text>
-          <TextInput
-            style={styleScreen.input}
-            onChangeText={setDuree}
-            value={duree}
-          />
+          <View style={styleScreen.inputContainer}>
+            <Text style={styleScreen.label}>Date</Text>
+            <TouchableOpacity
+              style={styleScreen.dateButton}
+              onPress={() => setShowDatePicker(true)}
+            >
+              <Text style={styleScreen.dateButtonText}>
+                Sélectionner une date
+              </Text>
+            </TouchableOpacity>
+            <Text style={styles.text}>
+              Date sélectionnée : {date.toLocaleDateString()}
+            </Text>
+            {showDatePicker && (
+              <DateTimePicker
+                value={date}
+                mode="date"
+                display="spinner"
+                onChange={onDateChange}
+              />
+            )}
+          </View>
+
+          <View style={styleScreen.inputContainer}>
+            <Text style={styleScreen.label}>Durée</Text>
+            <TextInput
+              style={styleScreen.input}
+              onChangeText={setDuree}
+              value={duree}
+            />
+          </View>
         </View>
-      </View>
-      <Button text="Modifier" onPress={() => handleEditMovie()} />
-    </KeyboardAvoidingView>
+        <Button text="Modifier" onPress={() => handleEditMovie()} />
+      </KeyboardAvoidingView>
+    </ScrollView>
   );
 };
 
 export default EditMovieScreen;
 
 const styleScreen = StyleSheet.create({
-  container: { justifyContent: "center", alignItems: "center" },
+  container: {
+    justifyContent: "center",
+    alignItems: "center",
+    marginBottom: 30,
+  },
   content: {
     width: "90%",
     backgroundColor: "white",
@@ -179,5 +186,24 @@ const styleScreen = StyleSheet.create({
     borderRadius: 4,
     padding: 8,
     fontSize: 16,
+  },
+  dateButton: {
+    backgroundColor: "#fff",
+    borderRadius: 5,
+    paddingVertical: 10,
+    paddingHorizontal: 15,
+    borderWidth: 1,
+    borderColor: "#ccc",
+    marginTop: 10,
+    alignItems: "center",
+  },
+  dateButtonText: {
+    color: "#333",
+    fontSize: 16,
+    fontWeight: "bold",
+  },
+  pickerScreen: {
+    height: 100,
+    fontSize: 14,
   },
 });

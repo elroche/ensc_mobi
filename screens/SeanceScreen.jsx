@@ -115,37 +115,33 @@ const SeanceScreen = ({ navigation }) => {
   }
 
   return (
-    <ScrollView>
-      <View style={styles.container}>
-        <Text style={styles.title}>Les séances</Text>
-        <View style={styleScreen.buttonAdd}>
-          <Button text="Ajouter" onPress={() => addSeance()} />
-        </View>
-        <View style={styleScreen.selectContainer}>
-          <Text style={styleScreen.subtitle}>
-            Veuillez sélectionner le cinéma :
+    <View style={styles.container}>
+      <Text style={styles.title}>Les séances</Text>
+      <View style={styleScreen.buttonAdd}>
+        <Button text="Ajouter" onPress={() => addSeance()} />
+      </View>
+      <View style={styleScreen.selectContainer}>
+        <Text style={styleScreen.subtitle}>
+          Veuillez sélectionner le cinéma :
+        </Text>
+        <Picker
+          itemStyle={styleScreen.pickerScreen}
+          selectedValue={selectedCinema}
+          onValueChange={(itemValue) => setSelectedCinema(itemValue)}
+        >
+          {cinemas.map((cinema) => (
+            <Picker.Item key={cinema.id} label={cinema.nom} value={cinema.id} />
+          ))}
+        </Picker>
+      </View>
+      {selectedCinema === null ? (
+        <View style={{ alignItems: "center" }}>
+          <Text style={styleScreen.noSeances}>
+            Veuillez sélectionner un cinéma pour voir les séances.
           </Text>
-          <Picker
-            itemStyle={styleScreen.pickerScreen}
-            selectedValue={selectedCinema}
-            onValueChange={(itemValue) => setSelectedCinema(itemValue)}
-          >
-            {cinemas.map((cinema) => (
-              <Picker.Item
-                key={cinema.id}
-                label={cinema.nom}
-                value={cinema.id}
-              />
-            ))}
-          </Picker>
         </View>
-        {selectedCinema === null ? (
-          <View style={{ alignItems: "center" }}>
-            <Text style={styleScreen.noSeances}>
-              Veuillez sélectionner un cinéma pour voir les séances.
-            </Text>
-          </View>
-        ) : (
+      ) : (
+        <ScrollView>
           <View>
             {filterSeancesByCinema().length > 0 ? (
               filterSeancesByCinema().map((seance) => {
@@ -170,9 +166,9 @@ const SeanceScreen = ({ navigation }) => {
               </View>
             )}
           </View>
-        )}
-      </View>
-    </ScrollView>
+        </ScrollView>
+      )}
+    </View>
   );
 };
 

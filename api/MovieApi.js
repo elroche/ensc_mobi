@@ -44,6 +44,7 @@ export const addMovieApi = async (
         genre: _genre,
         date: _date,
         duree: _duree,
+        date: _date,
       }),
     });
     const movie = await response.json();

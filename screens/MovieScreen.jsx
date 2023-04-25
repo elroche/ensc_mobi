@@ -5,17 +5,21 @@ import {
   StyleSheet,
   ActivityIndicator,
   ScrollView,
-  TouchableOpacity,
+  SafeAreaView,
 } from "react-native";
 import styles from "../theme/styles";
 import { fetchMoviesApi } from "../api/MovieApi";
 import Button from "../components/Button";
 import MovieCard from "../components/MovieCard";
+import GenrePicker from "../components/GenrePicker";
+import { MaterialCommunityIcons } from "@expo/vector-icons";
+import IconButton from "../components/IconButton";
 
 const MovieScreen = ({ navigation }) => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(false);
   const [movies, setMovies] = useState([]);
+  const [selectedGenre, setSelectedGenre] = useState(null);
 
   const loadMovies = async () => {
     setLoading(true);
@@ -23,11 +27,26 @@ const MovieScreen = ({ navigation }) => {
 
     try {
       const movies = await fetchMoviesApi();
-      setMovies(movies);
+      const filteredMovies = filterMoviesByGenre(movies, selectedGenre);
+      setMovies(filteredMovies);
     } catch (e) {
       setError(true);
     }
     setLoading(false);
+  };
+
+  const filterMoviesByGenre = (movies, genre) => {
+    if (!genre) {
+      return movies;
+    }
+    return movies.filter((movie) => {
+      return genre === "all" || movie.genre === genre;
+    });
+  };
+
+  const onSelectGenre = (genre) => {
+    setSelectedGenre(genre);
+    loadMovies();
   };
 
   const addMovie = async () => {
@@ -36,7 +55,7 @@ const MovieScreen = ({ navigation }) => {
 
   useEffect(() => {
     loadMovies();
-  }, []);
+  }, [selectedGenre]);
 
   if (loading) {
     return (
@@ -59,13 +78,19 @@ const MovieScreen = ({ navigation }) => {
   };
 
   return (
-    <ScrollView>
-      <View style={styles.container}>
+    <SafeAreaView style={styles.container}>
+      <View style={styleScreen.header}>
         <Text style={styles.title}>Les films disponibles</Text>
-        <View style={styleScreen.buttonAdd}>
-          <Button text="Ajouter un film !" onPress={() => addMovie()} />
-        </View>
-        <View>
+        <IconButton onPress={() => addMovie()} color="#1b69bc">
+          <MaterialCommunityIcons name={"plus"} size={20} color="white" />
+        </IconButton>
+      </View>
+      <GenrePicker
+        selectedGenre={selectedGenre}
+        onSelectGenre={onSelectGenre}
+      />
+      <ScrollView>
+        <View style={styles.main}>
           {movies.length > 0 ? (
             movies.map((movie) => {
               return (
@@ -85,12 +110,20 @@ const MovieScreen = ({ navigation }) => {
             </View>
           )}
         </View>
-      </View>
-    </ScrollView>
+      </ScrollView>
+    </SafeAreaView>
   );
 };
 
 const styleScreen = StyleSheet.create({
+  header: {
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "space-between",
+    paddingVertical: 10,
+    marginBottom: 7,
+    paddingHorizontal:10
+  },
   noMovies: {
     textAlign: "center",
     fontSize: 16,
@@ -105,7 +138,7 @@ const styleScreen = StyleSheet.create({
     fontSize: 17,
   },
   buttonAdd: {
-    marginBottom: 20,
+    marginBottom: 10,
   },
 });
 
