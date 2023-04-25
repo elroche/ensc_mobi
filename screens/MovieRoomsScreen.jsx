@@ -118,7 +118,7 @@ const styleScreen = StyleSheet.create({
   },
 
   movieRoomCard: {
-    width: "49%",
+    width: "100%",
   },
 
   containerScreen: {
