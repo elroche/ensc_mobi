@@ -5,7 +5,7 @@ import moment from "moment";
 import "moment/locale/fr";
 import IconButton from "./IconButton";
 
-const SeanceCard = ({ item }) => {
+const SeanceCard = ({ item, onDelete, onEdit }) => {
   const date = moment(item.date).locale("fr");
   const formattedDate = date.format("DD/MM/YYYY à HH[h]mm");
 
@@ -28,13 +28,13 @@ const SeanceCard = ({ item }) => {
       </View>
       <View style={styles.buttonContainer}>
         <IconButton
-          onPress={() => onEdit()}
+          onPress={onEdit}
           color="#1b69bc"
         >
           <MaterialCommunityIcons name={"pencil"} size={20} color="white"/>
         </IconButton>
         <IconButton
-          onPress={() => onDelete()}
+          onPress={onDelete}
           color="#CE2725"
         >
           <MaterialCommunityIcons name={"trash-can"} size={20} color="white"/>

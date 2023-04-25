@@ -5,6 +5,7 @@ import {
   StyleSheet,
   ActivityIndicator,
   ScrollView,
+  Alert,
 } from "react-native";
 import styles from "../theme/styles";
 import Button from "../components/Button";
@@ -12,6 +13,8 @@ import { fetchSeancesApi } from "../api/SeanceApi";
 import { fetchCinemasApi } from "../api/CinemaApi";
 import SeanceCard from "../components/SeanceCard";
 import { Picker } from "@react-native-picker/picker";
+import { deleteSeanceApi } from "../api/SeanceApi";
+
 
 const SeanceScreen = ({ navigation }) => {
   const [cinemas, setCinemas] = useState([]);
@@ -19,6 +22,35 @@ const SeanceScreen = ({ navigation }) => {
   const [error, setError] = useState(false);
   const [seances, setSeances] = useState([]);
   const [selectedCinema, setSelectedCinema] = useState(null);
+  const [showBox, setShowBox] = useState(true);
+
+
+  const showConfirmDialog = (seance) => {
+    return Alert.alert(
+      "Êtes-vous sûr(e) ?",
+      "Êtes-vous sûr(e) de vouloir supprimer la séance compte ?",
+      [
+        // Le bouton Oui
+        {
+          text: "Oui",
+          onPress: () => {
+            handleDeleteSeance(seance.id);
+          },
+        },
+        // Le bouton Non
+        // Ne fait rien mais enlève le message
+        {
+          text: "Non",
+        },
+      ]
+    );
+  };
+  
+  const handleDeleteSeance = async (id) => {
+    setShowBox(false);
+    await deleteSeanceApi(id);
+    //setAuthenticated(false);
+  };
 
   const loadCinemas = async () => {
     setLoading(true);
@@ -60,6 +92,10 @@ const SeanceScreen = ({ navigation }) => {
 
   const addSeance = async () => {
     navigation.navigate("Create");
+  };
+
+  const onEditSeance = async (seance) => {
+    navigation.navigate("Edit", { seance: seance });
   };
 
   if (loading) {
@@ -113,7 +149,8 @@ const SeanceScreen = ({ navigation }) => {
                   <SeanceCard
                     key={seance.id}
                     item={seance}
-                    onPress={() => onPressSeance(seance)}
+                    onDelete={() => showConfirmDialog(seance)}
+                    onEdit={() => onEditSeance(seance)}
                   />
                 );
               })

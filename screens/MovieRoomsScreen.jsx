@@ -41,7 +41,7 @@ const MovieRoomsScreen = ({ navigation, route }) => {
   };
 
   const deleteMovieRoom = (movieRoom) => {
-    navigation.navigate("Delete", { movieRoom: movieRoom });
+    navigation.navigate("MovieRoomDelete", { movieRoom: movieRoom });
   };
 
   const addMovieRoom = () => {
