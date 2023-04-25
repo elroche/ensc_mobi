@@ -29,7 +29,7 @@ const SeanceScreen = ({ navigation }) => {
   const showConfirmDialog = (seance) => {
     return Alert.alert(
       "Êtes-vous sûr(e) ?",
-      "Êtes-vous sûr(e) de vouloir supprimer la séance compte ?",
+      "Êtes-vous sûr(e) de vouloir supprimer la séance ?",
       [
         // Le bouton Oui
         {
@@ -50,7 +50,6 @@ const SeanceScreen = ({ navigation }) => {
   const handleDeleteSeance = async (id) => {
     setShowBox(false);
     await deleteSeanceApi(id);
-    //setAuthenticated(false);
   };
 
   const loadCinemas = async () => {

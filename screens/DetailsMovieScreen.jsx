@@ -6,6 +6,7 @@ import {
   Image,
   ActivityIndicator,
   ScrollView,
+  Alert,
   SafeAreaView,
 } from "react-native";
 import styles from "../theme/styles";
@@ -24,7 +25,37 @@ const DetailsMovieScreen = ({ navigation, route }) => {
   const formattedDate = date.format("DD/MM/YYYY");
   const totalMinutes = movie.duree;
   const heures = Math.floor(totalMinutes / 60);
-  const minutes = totalMinutes % 60;
+  const minutes = totalMinutes % 60;  
+  const [showBox, setShowBox] = useState(true);
+
+
+  const showConfirmDialog = (movie) => {
+    return Alert.alert(
+      "Êtes-vous sûr(e) ?",
+      "Êtes-vous sûr(e) de vouloir supprimer le film?",
+      [
+        // Le bouton Oui
+        {
+          text: "Oui",
+          onPress: () => {
+            handleDeleteSeance(movie.id);
+          },
+        },
+        // Le bouton Non
+        // Ne fait rien mais enlève le message
+        {
+          text: "Non",
+        },
+      ]
+    );
+  };
+  
+  const handleDeleteSeance = async (id) => {
+    await deleteMovieApi(id);
+    navigation.goBack();
+    setShowBox(false);
+  };
+
 
   useEffect(() => {
     navigation.setOptions({ title: movie.nom });
