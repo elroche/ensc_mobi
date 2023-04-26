@@ -156,6 +156,7 @@ const CreateMovieScreen = ({ navigation }) => {
         <Button text="Ajouter" onPress={() => handleSubmitMovie()} />
       </View>
     </ScrollView>
+    </SafeAreaView>
   );
 };
 
