@@ -35,7 +35,14 @@ const CreateMovieScreen = ({ navigation }) => {
       duree !== ""
     ) {
       try {
-        const movie = addMovieApi(nom, realisateur, resume, selectedGenre, date, duree);
+        const movie = addMovieApi(
+          nom,
+          realisateur,
+          resume,
+          selectedGenre,
+          date,
+          duree
+        );
         console.log("New movie created:", movie);
         navigation.goBack();
       } catch (error) {
@@ -57,6 +64,9 @@ const CreateMovieScreen = ({ navigation }) => {
     <ScrollView>
       <View style={styles.container && styleScreen.container}>
         <Text style={styles.title}>Ajouter un film</Text>
+        <Text style={styles.text}>
+          Afin d'ajouter un film, veuillez saisir les données suivantes :
+        </Text>
         <View style={styleScreen.content}>
           {errorMessage ? (
             <Text

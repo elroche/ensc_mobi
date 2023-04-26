@@ -1,11 +1,5 @@
 ﻿import React, { useState, useEffect } from "react";
-import {
-  StyleSheet,
-  Text,
-  View,
-  TextInput,
-  KeyboardAvoidingView,
-} from "react-native";
+import { StyleSheet, Text, View, TextInput, SafeAreaView } from "react-native";
 import styles from "../theme/styles";
 import Button from "../components/Button";
 import { editMovieRoomApi } from "../api/MovieRoomApi";
@@ -41,36 +35,38 @@ const EditMovieRoomScreen = ({ navigation, route }) => {
   };
 
   return (
-    <KeyboardAvoidingView
-      style={styles.container && styleScreen.container}
-      behavior="padding"
-    >
-      <Text style={styles.title}>Modifier une salle</Text>
-      <View style={styleScreen.content}>
-        {errorMessage ? (
-          <Text
-            style={{
-              color: "red",
-              textAlign: "center",
-              fontSize: 16,
-              paddingVertical: 10,
-            }}
-          >
-            {errorMessage}
-          </Text>
-        ) : null}
-        <View style={styleScreen.inputContainer}>
-          <Text style={styleScreen.label}>Nombre de place</Text>
-          <TextInput
-            style={styleScreen.input}
-            onChangeText={setNbPlace}
-            value={nbPlace}
-            keyboardType="numeric"
-          />
+    <SafeAreaView style={styles.container}>
+      <View style={[styles.main && styleScreen.container]}>
+        <Text style={styles.title}>Modifier une salle</Text>
+        <Text style={styles.text}>
+          Pour modifier la salle, veuillez modifier les données suivantes :
+        </Text>
+        <View style={styleScreen.content}>
+          {errorMessage ? (
+            <Text
+              style={{
+                color: "red",
+                textAlign: "center",
+                fontSize: 16,
+                paddingVertical: 10,
+              }}
+            >
+              {errorMessage}
+            </Text>
+          ) : null}
+          <View style={styleScreen.inputContainer}>
+            <Text style={styleScreen.label}>Nombre de place : </Text>
+            <TextInput
+              style={styleScreen.input}
+              onChangeText={setNbPlace}
+              value={nbPlace}
+              keyboardType="numeric"
+            />
+          </View>
         </View>
+        <Button text="Modifier" onPress={() => handleEditMovieRoom()} />
       </View>
-      <Button text="Modifier" onPress={() => handleEditMovieRoom()} />
-    </KeyboardAvoidingView>
+    </SafeAreaView>
   );
 };
 
@@ -91,6 +87,8 @@ const styleScreen = StyleSheet.create({
   label: {
     fontSize: 18,
     marginBottom: 8,
+    fontWeight: "600",
+    color: "#1F3976",
   },
   input: {
     borderWidth: 1,

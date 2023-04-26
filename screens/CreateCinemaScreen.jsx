@@ -3,8 +3,9 @@ import {
   StyleSheet,
   Text,
   View,
-  KeyboardAvoidingView,
+  SafeAreaView,
   TextInput,
+  ScrollView,
 } from "react-native";
 import Button from "../components/Button";
 import styles from "../theme/styles";
@@ -48,75 +49,79 @@ export const CreateCinemaScreen = ({ navigation }) => {
   };
 
   return (
-    <KeyboardAvoidingView
-      style={styles.container && styleScreen.container}
-      behavior="padding"
-    >
-      <Text style={styles.title}>Ajouter un cinéma</Text>
-      <View style={styleScreen.content}>
-        {errorMessage ? (
-          <Text
-            style={{
-              color: "red",
-              textAlign: "center",
-              fontSize: 16,
-              paddingVertical: 10,
-            }}
-          >
-            {errorMessage}
+    <SafeAreaView style={styles.container}>
+      <ScrollView>
+        <View style={[styles.main && styleScreen.container]}>
+          <Text style={styles.title}>Ajouter un cinéma</Text>
+          <Text style={styles.text}>
+            Afin d'ajouter un cinéma, veuillez saisir les données suivantes :
           </Text>
-        ) : null}
-        <View style={styleScreen.inputContainer}>
-          <Text style={styleScreen.label}>Nom</Text>
-          <TextInput
-            style={styleScreen.input}
-            onChangeText={setNom}
-            value={nom}
-          />
+          <View style={styleScreen.content}>
+            {errorMessage ? (
+              <Text
+                style={{
+                  color: "red",
+                  textAlign: "center",
+                  fontSize: 16,
+                  paddingVertical: 10,
+                }}
+              >
+                {errorMessage}
+              </Text>
+            ) : null}
+            <View style={styleScreen.inputContainer}>
+              <Text style={styleScreen.label}>Nom</Text>
+              <TextInput
+                style={styleScreen.input}
+                onChangeText={setNom}
+                value={nom}
+              />
+            </View>
+            <View style={styleScreen.inputContainer}>
+              <Text style={styleScreen.label}>Responsable</Text>
+              <TextInput
+                style={styleScreen.input}
+                onChangeText={setResponsable}
+                value={responsable}
+              />
+            </View>
+            <View style={styleScreen.inputContainer}>
+              <Text style={styleScreen.label}>Adresse</Text>
+              <TextInput
+                style={styleScreen.input}
+                onChangeText={setAdresse}
+                value={adresse}
+              />
+            </View>
+            <View style={styleScreen.inputContainer}>
+              <Text style={styleScreen.label}>Code Postal</Text>
+              <TextInput
+                style={styleScreen.input}
+                onChangeText={setCodePostal}
+                value={codePostal}
+              />
+            </View>
+            <View style={styleScreen.inputContainer}>
+              <Text style={styleScreen.label}>Ville</Text>
+              <TextInput
+                style={styleScreen.input}
+                onChangeText={setVille}
+                value={ville}
+              />
+            </View>
+            <View style={styleScreen.inputContainer}>
+              <Text style={styleScreen.label}>Prix de la place </Text>
+              <TextInput
+                style={styleScreen.input}
+                onChangeText={setPrixPlace}
+                value={prixPlace}
+              />
+            </View>
+          </View>
+          <Button text="Ajouter" onPress={() => handleSubmitCinema()} />
         </View>
-        <View style={styleScreen.inputContainer}>
-          <Text style={styleScreen.label}>Responsable</Text>
-          <TextInput
-            style={styleScreen.input}
-            onChangeText={setResponsable}
-            value={responsable}
-          />
-        </View>
-        <View style={styleScreen.inputContainer}>
-          <Text style={styleScreen.label}>Adresse</Text>
-          <TextInput
-            style={styleScreen.input}
-            onChangeText={setAdresse}
-            value={adresse}
-          />
-        </View>
-        <View style={styleScreen.inputContainer}>
-          <Text style={styleScreen.label}>Code Postal</Text>
-          <TextInput
-            style={styleScreen.input}
-            onChangeText={setCodePostal}
-            value={codePostal}
-          />
-        </View>
-        <View style={styleScreen.inputContainer}>
-          <Text style={styleScreen.label}>Ville</Text>
-          <TextInput
-            style={styleScreen.input}
-            onChangeText={setVille}
-            value={ville}
-          />
-        </View>
-        <View style={styleScreen.inputContainer}>
-          <Text style={styleScreen.label}>Prix de la place </Text>
-          <TextInput
-            style={styleScreen.input}
-            onChangeText={setPrixPlace}
-            value={prixPlace}
-          />
-        </View>
-      </View>
-      <Button text="Ajouter" onPress={() => handleSubmitCinema()} />
-    </KeyboardAvoidingView>
+      </ScrollView>
+    </SafeAreaView>
   );
 };
 
@@ -137,6 +142,8 @@ const styleScreen = StyleSheet.create({
   label: {
     fontSize: 18,
     marginBottom: 8,
+    fontWeight: "600",
+    color: "#1F3976",
   },
   input: {
     borderWidth: 1,

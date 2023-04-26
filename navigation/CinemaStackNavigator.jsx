@@ -4,12 +4,10 @@ import CinemaScreen from "../screens/CinemaScreen";
 import { screenOptions } from "../theme/styles";
 import DetailsCinemaScreen from "../screens/DetailsCinemaScreen";
 import EditCinemaScreen from "../screens/EditCinemaScreen";
-import  CreateCinemaScreen  from "../screens/CreateCinemaScreen";
+import CreateCinemaScreen from "../screens/CreateCinemaScreen";
 import MovieRoomsScreen from "../screens/MovieRoomsScreen";
 import EditMovieRoomScreen from "../screens/EditMovieRoomScreen";
 import CreateMovieRoomScreen from "../screens/CreateMovieRoomScreen";
-
-
 
 // Screen stack for cinema tab
 const CinemaStack = createNativeStackNavigator();
@@ -53,7 +51,7 @@ const CinemaStackNavigator = () => {
       <CinemaStack.Screen
         name="MovieRoomCreate"
         component={CreateMovieRoomScreen}
-        options={{ title: "Creer une salle" }}
+        options={{ title: "Créer une salle" }}
       />
     </CinemaStack.Navigator>
   );

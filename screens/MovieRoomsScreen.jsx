@@ -97,7 +97,7 @@ const MovieRoomsScreen = ({ navigation, route }) => {
               <View style={styles.headerDelimiter}>
                 <Text style={styles.title}>{cinema.nom} - Les salles</Text>
               </View>
-              <IconButton onPress={() => addSeance()} color="#1F3976">
+              <IconButton onPress={() => addMovieRoom()} color="#1F3976">
                 <MaterialCommunityIcons name={"plus"} size={20} color="white" />
               </IconButton>
             </View>

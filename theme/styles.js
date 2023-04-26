@@ -4,7 +4,12 @@ import { StyleSheet } from "react-native";
 const styles = StyleSheet.create({
   container: { flex: 1, backgroundColor: "#F4F7FE" },
   main: { padding: 10 },
-  text: { fontSize: 18, paddingBottom: 10 },
+  text: {
+    fontSize: 16,
+    padding: 5,
+    marginBottom: 10,
+    color: "#1F3976",
+  },
   title: {
     fontSize: 22,
     fontWeight: "600",

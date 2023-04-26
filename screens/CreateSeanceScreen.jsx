@@ -119,6 +119,9 @@ export const CreateSeanceScreen = ({ navigation }) => {
         behavior="padding"
       >
         <Text style={styles.title}>Ajouter une séance</Text>
+        <Text style={styles.text}>
+          Afin d'ajouter une séance, veuillez saisir les données suivantes :
+        </Text>
         <View style={styleScreen.content}>
           {errorMessage ? (
             <Text

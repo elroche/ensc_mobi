@@ -70,6 +70,9 @@ const EditMovieScreen = ({ navigation, route }) => {
         behavior="padding"
       >
         <Text style={styles.title}>Modifier un film</Text>
+        <Text style={styles.text}>
+          Pour modifier le film, veuillez modifier les données suivantes :
+        </Text>
         <View style={styleScreen.content}>
           {errorMessage ? (
             <Text
@@ -84,7 +87,7 @@ const EditMovieScreen = ({ navigation, route }) => {
             </Text>
           ) : null}
           <View style={styleScreen.inputContainer}>
-            <Text style={styleScreen.label}>Nom</Text>
+            <Text style={styleScreen.label}>Nom :</Text>
             <TextInput
               style={styleScreen.input}
               onChangeText={setNom}
@@ -92,7 +95,7 @@ const EditMovieScreen = ({ navigation, route }) => {
             />
           </View>
           <View style={styleScreen.inputContainer}>
-            <Text style={styleScreen.label}>Réalisateur</Text>
+            <Text style={styleScreen.label}>Réalisateur :</Text>
             <TextInput
               style={styleScreen.input}
               onChangeText={setRealisateur}
@@ -100,7 +103,7 @@ const EditMovieScreen = ({ navigation, route }) => {
             />
           </View>
           <View style={styleScreen.inputContainer}>
-            <Text style={styleScreen.label}>Résumé</Text>
+            <Text style={styleScreen.label}>Résumé :</Text>
             <TextInput
               style={styleScreen.input}
               onChangeText={setResume}
@@ -108,7 +111,7 @@ const EditMovieScreen = ({ navigation, route }) => {
             />
           </View>
           <View style={styleScreen.inputContainer}>
-            <Text style={styleScreen.label}>Genre</Text>
+            <Text style={styleScreen.label}>Genre :</Text>
             <Picker
               itemStyle={styleScreen.pickerScreen}
               selectedValue={genre}
@@ -121,7 +124,7 @@ const EditMovieScreen = ({ navigation, route }) => {
           </View>
 
           <View style={styleScreen.inputContainer}>
-            <Text style={styleScreen.label}>Date</Text>
+            <Text style={styleScreen.label}>Date :</Text>
             <TouchableOpacity
               style={styleScreen.dateButton}
               onPress={() => setShowDatePicker(true)}
@@ -144,7 +147,7 @@ const EditMovieScreen = ({ navigation, route }) => {
           </View>
 
           <View style={styleScreen.inputContainer}>
-            <Text style={styleScreen.label}>Durée</Text>
+            <Text style={styleScreen.label}>Durée :</Text>
             <TextInput
               style={styleScreen.input}
               onChangeText={setDuree}
@@ -179,6 +182,8 @@ const styleScreen = StyleSheet.create({
   label: {
     fontSize: 18,
     marginBottom: 8,
+    fontWeight: "600",
+    color: "#1F3976",
   },
   input: {
     borderWidth: 1,

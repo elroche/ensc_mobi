@@ -18,13 +18,15 @@ import { fetchMoviesApi } from "../api/MovieApi";
 import { fetchMovieRoomsApi } from "../api/MovieRoomApi";
 
 export const EditSeanceScreen = ({ navigation, route }) => {
-    const [seance, setSeance] = useState(route.params.seance);
-    const seanceId = seance.id;
+  const [seance, setSeance] = useState(route.params.seance);
+  const seanceId = seance.id;
   const [cinema, setCinema] = useState(null);
   const [cinemas, setCinemas] = useState([]);
   const [selectedCinemaId, setSelectedCinemaId] = useState(seance.cinema.id);
   const [selectedMovieId, setSelectedMovieId] = useState(seance.film.id);
-  const [selectedMovieRoomId, setSelectedMovieRoomId] = useState(seance.salle.id);
+  const [selectedMovieRoomId, setSelectedMovieRoomId] = useState(
+    seance.salle.id
+  );
   const [date, setDate] = useState(new Date(seance.date));
   const [movie, setMovie] = useState(null);
   const [movies, setMovies] = useState([]);
@@ -128,6 +130,9 @@ export const EditSeanceScreen = ({ navigation, route }) => {
         behavior="padding"
       >
         <Text style={styles.title}>Modifier une séance</Text>
+        <Text style={styles.text}>
+          Pour modifier la séance, veuillez modifier les données suivantes :
+        </Text>
         <View style={styleScreen.content}>
           {errorMessage ? (
             <Text
@@ -174,7 +179,7 @@ export const EditSeanceScreen = ({ navigation, route }) => {
             </Picker>
           </View>
           <View style={styleScreen.inputContainer}>
-            <Text style={styleScreen.label}>Salle</Text>
+            <Text style={styleScreen.label}>Numéro de la salle :</Text>
             <Picker
               itemStyle={styleScreen.pickerScreen}
               selectedValue={selectedMovieRoomId}
@@ -211,8 +216,8 @@ export const EditSeanceScreen = ({ navigation, route }) => {
               />
             )}
           </View>
-          <Button text="Modifier" onPress={() => handleCreateSeance()} />
         </View>
+        <Button text="Modifier" onPress={() => handleCreateSeance()} />
       </KeyboardAvoidingView>
     </ScrollView>
   );
@@ -235,6 +240,8 @@ const styleScreen = StyleSheet.create({
   label: {
     fontSize: 18,
     marginBottom: 8,
+    fontWeight: "600",
+    color: "#1F3976",
   },
   input: {
     borderWidth: 1,
