@@ -61,9 +61,11 @@ const CinemaScreen = ({ navigation }) => {
 
   return (
     <SafeAreaView style={styles.container}>
-      <View style={styleScreen.header}>
-        <Text style={styles.title}>Les cinémas disponibles</Text>
-        <IconButton onPress={() => addCinema()} color="#1b69bc">
+      <View style={styles.header}>
+        <View style={styles.headerDelimiter}>
+          <Text style={styles.title}>Les cinémas</Text>
+        </View>
+        <IconButton onPress={() => addCinema()} color="#1F3976">
           <MaterialCommunityIcons name={"plus"} size={20} color="white" />
         </IconButton>
       </View>

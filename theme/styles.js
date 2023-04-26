@@ -2,7 +2,7 @@ import { StyleSheet } from "react-native";
 
 // Common styles
 const styles = StyleSheet.create({
-  container: { flex: 1 },
+  container: { flex: 1, backgroundColor: "#F4F7FE" },
   main: { padding: 10 },
   text: { fontSize: 18, paddingBottom: 10 },
   title: {
@@ -10,7 +10,7 @@ const styles = StyleSheet.create({
     fontWeight: "600",
     marginVertical: 10,
     padding: 5,
-    color: "#1b69bc",
+    color: "#1F3976",
   },
   loadingContainer: {
     flex: 1,
@@ -33,7 +33,21 @@ const styles = StyleSheet.create({
     shadowRadius: 2.5,
     elevation: 3,
   },
-
+  header: {
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "space-between",
+    paddingVertical: 10,
+    marginBottom: 7,
+    paddingHorizontal: 10,
+  },
+  headerDelimiter: {
+    borderBottomColor: "#1F3976",
+    borderBottomWidth: 2,
+    paddingBottom: 5,
+    marginBottom: 20,
+    maxWidth: 200,
+  },
   labelDetails: {
     fontWeight: 700,
   },
@@ -42,7 +56,7 @@ const styles = StyleSheet.create({
 // Common stack header options
 export const screenOptions = {
   headerStyle: {
-    backgroundColor: "#1b69bc",
+    backgroundColor: "#1F3976",
   },
   headerTintColor: "#fff",
   headerTitleStyle: {

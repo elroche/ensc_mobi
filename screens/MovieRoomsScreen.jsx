@@ -12,10 +12,10 @@ import { fetchMovieRoomsApi } from "../api/MovieRoomApi";
 import MovieRoomCard from "../components/MovieRoomCard";
 import Button from "../components/Button";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
+import IconButton from "../components/IconButton";
 
 const MovieRoomsScreen = ({ navigation, route }) => {
-  const { cinemaId } = route.params;
-  const [cinema, setCinema] = useState([]);
+  const { cinema } = route.params;
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(false);
   const [movieRooms, setMovieRooms] = useState([]);
@@ -24,7 +24,7 @@ const MovieRoomsScreen = ({ navigation, route }) => {
     setLoading(true);
     setError(false);
     try {
-      const movieRooms = await fetchMovieRoomsApi(cinemaId);
+      const movieRooms = await fetchMovieRoomsApi(cinema.id);
       setMovieRooms(movieRooms);
     } catch (e) {
       setError(true);
@@ -69,7 +69,14 @@ const MovieRoomsScreen = ({ navigation, route }) => {
       <View style={styleScreen.containerScreen}>
         <View style={styleScreen.buttonScreen}>
           {movieRooms.length > 0 ? (
-            <Button text={"Ajouter !"} onPress={() => addMovieRoom()} />
+            <View style={styles.header}>
+              <View style={styles.headerDelimiter}>
+                <Text style={styles.title}>{cinema.nom} - Les salles</Text>
+              </View>
+              <IconButton onPress={() => addSeance()} color="#1F3976">
+                <MaterialCommunityIcons name={"plus"} size={20} color="white" />
+              </IconButton>
+            </View>
           ) : (
             <Text></Text>
           )}
@@ -92,7 +99,10 @@ const MovieRoomsScreen = ({ navigation, route }) => {
               Il n'y a pas encore de salle pour ce cinéma...
             </Text>
             <View style={styleScreen.buttonScreen}>
-              <Button text={"Ajouter !"} onPress={() => addMovieRoom()} />
+              <Button
+                text={"Ajouter une salle !"}
+                onPress={() => addMovieRoom()}
+              />
             </View>
           </View>
         )}

@@ -64,6 +64,7 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     marginVertical: 4,
     marginTop: 4,
+    color:"#1F3976"
   },
   cardSubtitle: {
     fontSize: 16,

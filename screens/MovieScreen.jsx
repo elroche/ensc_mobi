@@ -79,9 +79,11 @@ const MovieScreen = ({ navigation }) => {
 
   return (
     <SafeAreaView style={styles.container}>
-      <View style={styleScreen.header}>
-        <Text style={styles.title}>Les films disponibles</Text>
-        <IconButton onPress={() => addMovie()} color="#1b69bc">
+      <View style={styles.header}>
+        <View style={styles.headerDelimiter}>
+          <Text style={styles.title}>Les films disponibles</Text>
+        </View>
+        <IconButton onPress={() => addMovie()} color="#1F3976">
           <MaterialCommunityIcons name={"plus"} size={20} color="white" />
         </IconButton>
       </View>
@@ -116,14 +118,6 @@ const MovieScreen = ({ navigation }) => {
 };
 
 const styleScreen = StyleSheet.create({
-  header: {
-    flexDirection: "row",
-    alignItems: "center",
-    justifyContent: "space-between",
-    paddingVertical: 10,
-    marginBottom: 7,
-    paddingHorizontal:10
-  },
   noMovies: {
     textAlign: "center",
     fontSize: 16,
