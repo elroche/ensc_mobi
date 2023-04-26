@@ -57,13 +57,20 @@ const HomeScreen = ({ navigation }) => {
   return (
     <SafeAreaView style={styles.container}>
       <ScrollView>
-        <View style={styles.main}>
+        <View style={styleScreen.header}>
+          <Text style={styleScreen.homeTitle}>Gestion de vos cinémas</Text>
+          <Text style={styleScreen.homeSubtitle}>
+            Gérez tous vos cinémas, vos salles, les films proposés, ainsi que
+            les séances à travers cette application !
+          </Text>
           <View style={styleScreen.imageContainer}>
             <Image
               source={require("../assets/accueilCinema.jpg")}
               style={styleScreen.image}
             />
           </View>
+        </View>
+        <View style={styles.main}>
           <View style={styleScreen.lastMovies}>
             <Text style={styleScreen.moviesTitle}>Derniers films ajoutés</Text>
             <TouchableOpacity onPress={() => navigation.navigate("Les films")}>
@@ -90,6 +97,32 @@ const HomeScreen = ({ navigation }) => {
 export default HomeScreen;
 
 const styleScreen = StyleSheet.create({
+  header: {
+    justifyContent: "center",
+    width: "100%",
+    alignItems: "center",
+    backgroundColor: "#DBE5FD",
+    borderBottomLeftRadius: 30,
+    borderBottomRightRadius: 30,
+    borderWidth: 2,
+    padding: 10,
+    borderColor: "#CCDBFF",
+  },
+  homeTitle: {
+    textAlign: "center",
+    fontSize: 22,
+    fontWeight: "600",
+    marginVertical: 10,
+    padding: 5,
+    color: "#1F3976",
+  },
+  homeSubtitle: {
+    textAlign: "center",
+    fontSize: 15,
+    fontWeight: "300",
+    color: "#1F3976",
+    marginBottom: 14,
+  },
   image: {
     width: "100%",
     height: "100%",
@@ -99,8 +132,8 @@ const styleScreen = StyleSheet.create({
     marginVertical: 4,
   },
   imageContainer: {
-    width: 360,
-    height: 260,
+    width: 260,
+    height: 160,
     alignSelf: "center",
     borderRadius: 30,
     marginRight: 5,
@@ -108,7 +141,7 @@ const styleScreen = StyleSheet.create({
   },
   moviesTitle: {
     textAlign: "left",
-    fontSize: 22,
+    fontSize: 20,
     fontWeight: "600",
     color: "#1F3976",
     marginBottom: 16,
