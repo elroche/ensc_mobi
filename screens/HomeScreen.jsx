@@ -72,7 +72,7 @@ const HomeScreen = ({ navigation }) => {
         </View>
         <View style={styles.main}>
           <View style={styleScreen.lastMovies}>
-            <Text style={styleScreen.moviesTitle}>Derniers films ajoutés</Text>
+            <Text style={styleScreen.moviesTitle}>Les films récents</Text>
             <TouchableOpacity onPress={() => navigation.navigate("Les films")}>
               <Text style={styleScreen.seeAllMovie}>Voir tout</Text>
             </TouchableOpacity>

@@ -134,6 +134,7 @@ const SeanceScreen = ({ navigation }) => {
           selectedValue={selectedCinema}
           onValueChange={(itemValue) => setSelectedCinema(itemValue)}
         >
+          <Picker.Item label="Choisir un cinéma" value="" />
           {cinemas.map((cinema) => (
             <Picker.Item key={cinema.id} label={cinema.nom} value={cinema.id} />
           ))}

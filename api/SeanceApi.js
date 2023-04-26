@@ -1,3 +1,4 @@
+// Définition de la racine de l'URL de l'API
 const rootEndpoint = "https://ensccinema.azurewebsites.net/api";
 
 export const fetchSeancesApi = async() => {
@@ -35,46 +36,46 @@ export const addSeanceApi = async(_date, _filmId, _salleId, _cinemaId) => {
     }
 };
 
-export const editSeanceApi = async (_id, _date, _filmId, _salleId, _cinemaId) => {
-  try {
-    const response = await fetch(`${rootEndpoint}/Seanceapi/${_id}/`, {
-      method: `PUT`,
-      headers: {
-        Accept: `application/json`,
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        Id: _id,
-        Date: _date,
-        FilmId: _filmId,
-        SalleId: _salleId,
-        CinemaId: _cinemaId,
-      }),
-    });
+export const editSeanceApi = async(_id, _date, _filmId, _salleId, _cinemaId) => {
+    try {
+        const response = await fetch(`${rootEndpoint}/Seanceapi/${_id}/`, {
+            method: `PUT`,
+            headers: {
+                Accept: `application/json`,
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+                Id: _id,
+                Date: _date,
+                FilmId: _filmId,
+                SalleId: _salleId,
+                CinemaId: _cinemaId,
+            }),
+        });
 
-    return true;
-  } catch (error) {
-    console.error(error);
-    return false;
-  }
+        return true;
+    } catch (error) {
+        console.error(error);
+        return false;
+    }
 };
 
-export const deleteSeanceApi = async (seanceId) => {
-  try {
-    const response = await fetch(`${rootEndpoint}/Seanceapi/${seanceId}`, {
-      method: `DELETE`,
-      headers: {
-        Accept: `application/json`,
-        "Content-Type": "application/json",
-      },
-    });
-    if (!response.ok) {
-      throw new Error('Erreur lors de la suppression de la séance');
+export const deleteSeanceApi = async(seanceId) => {
+    try {
+        const response = await fetch(`${rootEndpoint}/Seanceapi/${seanceId}`, {
+            method: `DELETE`,
+            headers: {
+                Accept: `application/json`,
+                "Content-Type": "application/json",
+            },
+        });
+        if (!response.ok) {
+            throw new Error('Erreur lors de la suppression de la séance');
+        }
+        const responseBody = await response.text();
+        return responseBody ? JSON.parse(responseBody) : null;
+    } catch (e) {
+        console.error(e.message);
+        throw e;
     }
-    const responseBody = await response.text();
-    return responseBody ? JSON.parse(responseBody) : null;
-  } catch (e) {
-    console.error(e.message);
-    throw e;
-  }
 };

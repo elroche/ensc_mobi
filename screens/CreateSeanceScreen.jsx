@@ -134,12 +134,13 @@ export const CreateSeanceScreen = ({ navigation }) => {
               </Text>
             ) : null}
             <View style={styleScreen.inputContainer}>
-              <Text style={styleScreen.label}>Film</Text>
+              <Text style={styleScreen.label}>Film :</Text>
               <Picker
                 itemStyle={styleScreen.pickerScreen}
                 selectedValue={selectedMovieId}
                 onValueChange={handleMovieChange}
               >
+                <Picker.Item label="Choisir un film" value="" />
                 {movies.map((movie) => (
                   <Picker.Item
                     key={movie.id}
@@ -150,12 +151,13 @@ export const CreateSeanceScreen = ({ navigation }) => {
               </Picker>
             </View>
             <View style={styleScreen.inputContainer}>
-              <Text style={styleScreen.label}>Cinéma</Text>
+              <Text style={styleScreen.label}>Cinéma :</Text>
               <Picker
                 itemStyle={styleScreen.pickerScreen}
                 selectedValue={selectedCinemaId}
                 onValueChange={handleCinemaChange}
               >
+                <Picker.Item label="Choisir un cinéma" value="" />
                 {cinemas.map((cinema) => (
                   <Picker.Item
                     key={cinema.id}
@@ -166,12 +168,13 @@ export const CreateSeanceScreen = ({ navigation }) => {
               </Picker>
             </View>
             <View style={styleScreen.inputContainer}>
-              <Text style={styleScreen.label}>Salle</Text>
+              <Text style={styleScreen.label}>Numéro de la salle :</Text>
               <Picker
                 itemStyle={styleScreen.pickerScreen}
                 selectedValue={selectedMovieRoomId}
                 onValueChange={handleMovieRoomChange}
               >
+                <Picker.Item label="Choisir une salle" value="" />
                 {movieRooms.map((movieRoom) => (
                   <Picker.Item
                     key={movieRoom.id}
@@ -182,7 +185,7 @@ export const CreateSeanceScreen = ({ navigation }) => {
               </Picker>
             </View>
             <View style={styleScreen.inputContainer}>
-              <Text style={styleScreen.label}>Date</Text>
+              <Text style={styleScreen.label}>Date :</Text>
               <TouchableOpacity
                 style={styleScreen.dateButton}
                 onPress={() => setShowDatePicker(true)}

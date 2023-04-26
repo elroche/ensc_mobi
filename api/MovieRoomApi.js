@@ -1,3 +1,4 @@
+// Définition de la racine de l'URL de l'API
 const rootEndpoint = "https://ensccinema.azurewebsites.net/api";
 
 export const fetchMovieRoomsApi = async(cinemaId) => {
@@ -65,22 +66,22 @@ export const addMovieRoomApi = async(cinemaId, nbPlace, numeroSalle) => {
     }
 };
 
-export const deleteMovieRoomApi = async (movieRoomId) => {
+export const deleteMovieRoomApi = async(movieRoomId) => {
     try {
-      const response = await fetch(`${rootEndpoint}/Salleapi/${movieRoomId}`, {
-        method: `DELETE`,
-        headers: {
-          Accept: `application/json`,
-          "Content-Type": "application/json",
-        },
-      });
-      if (!response.ok) {
-        throw new Error('Erreur lors de la suppression de la salle');
-      }
-      const responseBody = await response.text();
-      return responseBody ? JSON.parse(responseBody) : null;
+        const response = await fetch(`${rootEndpoint}/Salleapi/${movieRoomId}`, {
+            method: `DELETE`,
+            headers: {
+                Accept: `application/json`,
+                "Content-Type": "application/json",
+            },
+        });
+        if (!response.ok) {
+            throw new Error('Erreur lors de la suppression de la salle');
+        }
+        const responseBody = await response.text();
+        return responseBody ? JSON.parse(responseBody) : null;
     } catch (e) {
-      console.error(e.message);
-      throw e;
+        console.error(e.message);
+        throw e;
     }
-  };
+};

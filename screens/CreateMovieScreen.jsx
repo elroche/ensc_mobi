@@ -113,6 +113,7 @@ const CreateMovieScreen = ({ navigation }) => {
                 selectedValue={selectedGenre}
                 onValueChange={(itemValue) => setSelectedGenre(itemValue)}
               >
+                <Picker.Item label="Choisir un genre" value="" />
                 {GENRE.map((genre, index) => (
                   <Picker.Item key={index} label={genre} value={genre} />
                 ))}

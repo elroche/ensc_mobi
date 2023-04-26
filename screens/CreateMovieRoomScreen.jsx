@@ -81,6 +81,7 @@ const CreateMovieRoomScreen = ({ navigation }) => {
                 selectedValue={selectedCinemaId}
                 onValueChange={handleCinemaChange}
               >
+                <Picker.Item label="Choisir un cinéma" value="" />
                 {cinemas.map((cinema) => (
                   <Picker.Item
                     key={cinema.id}

@@ -1,5 +1,7 @@
-﻿const rootEndpoint = "https://ensccinema.azurewebsites.net/api";
+﻿// Définition de la racine de l'URL de l'API
+const rootEndpoint = "https://ensccinema.azurewebsites.net/api";
 
+// Récupération de tous les cinémas de l'API
 export const fetchCinemasApi = async () => {
   try {
     const response = await fetch(`${rootEndpoint}/Cinemaapi/`);
@@ -10,6 +12,7 @@ export const fetchCinemasApi = async () => {
   }
 };
 
+// Récupération d'un cinéma de l'API en fonction de son identifiant
 export const fetchCinemaApi = async (cinemaId) => {
   try {
     const response = await fetch(
@@ -24,6 +27,7 @@ export const fetchCinemaApi = async (cinemaId) => {
   }
 };
 
+// Récupération de tous les cinémas de l'API en fonction d'une ville
 export const fetchCinemasByVilleApi = async (ville) => {
   try {
     const response = await fetch(
@@ -38,6 +42,7 @@ export const fetchCinemasByVilleApi = async (ville) => {
   }
 };
 
+// Création d'un cinéma
 export const addCinemaApi = async (
   _nom,
   _adresse,
@@ -69,6 +74,7 @@ export const addCinemaApi = async (
   }
 };
 
+// Modification d'un cinéma
 export const editCinemaApi = async (
   _id,
   _nom,
