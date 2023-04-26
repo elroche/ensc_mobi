@@ -24,6 +24,20 @@ export const fetchCinemaApi = async (cinemaId) => {
   }
 };
 
+export const fetchCinemasByVilleApi = async (ville) => {
+  try {
+    const response = await fetch(
+      `${rootEndpoint}/Cinemaapi/${ville}/getCinemas`
+    );
+    const cinema = await response.json();
+    return cinema;
+  } catch (e) {
+    console.error(
+      "Erreur dans la récupération des données d'un cinema via l'API"
+    );
+  }
+};
+
 export const addCinemaApi = async (
   _nom,
   _adresse,
