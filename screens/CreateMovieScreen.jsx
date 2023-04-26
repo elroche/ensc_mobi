@@ -136,6 +136,7 @@ const CreateMovieScreen = ({ navigation }) => {
               style={styleScreen.input}
               onChangeText={setDuree}
               value={duree}
+              keyboardType="numeric"
             />
           </View>
         </View>

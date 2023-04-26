@@ -61,8 +61,11 @@ const MovieRoomsScreen = ({ navigation, route }) => {
   };
 
   useEffect(() => {
-    loadMovieRooms();
-  }, []);
+    const unsubscribe = navigation.addListener("focus", () => {
+      loadMovieRooms();
+    });
+    return unsubscribe;
+  }, [navigation]);
 
   const editMovieRoom = (movieRoom) => {
     navigation.navigate("MovieRoomEdit", { movieRoom: movieRoom });

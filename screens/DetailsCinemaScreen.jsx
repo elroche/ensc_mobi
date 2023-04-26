@@ -39,6 +39,18 @@ const DetailsCinemaScreen = ({ navigation, route }) => {
     loadCinema();
   }, []);
 
+  useEffect(() => {
+    const reloadCinema = async () => {
+      try {
+        const cinema = await fetchCinemaApi(cinemaId);
+        setCinema(cinema);
+      } catch (e) {
+        setError(true);
+      }
+    };
+    reloadCinema();
+  }, [cinema]);
+
   const editCinema = async () => {
     navigation.navigate("Edit", { cinema: cinema });
   };

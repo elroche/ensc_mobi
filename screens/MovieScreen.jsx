@@ -54,8 +54,11 @@ const MovieScreen = ({ navigation }) => {
   };
 
   useEffect(() => {
-    loadMovies();
-  }, [selectedGenre]);
+    const unsubscribe = navigation.addListener('focus', () => {
+      loadMovies();
+    });
+    return unsubscribe;
+  }, [navigation], [selectedGenre]);
 
   if (loading) {
     return (

@@ -75,8 +75,11 @@ const DetailsMovieScreen = ({ navigation, route }) => {
   };
 
   useEffect(() => {
+  const unsubscribe = navigation.addListener('focus', () => {
     loadMovie();
-  }, []);
+  });
+  return unsubscribe;
+}, [navigation]);
 
   const deleteMovie = async () => {
     try {

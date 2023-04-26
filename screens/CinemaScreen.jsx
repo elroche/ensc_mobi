@@ -46,8 +46,11 @@ const CinemaScreen = ({ navigation }) => {
   };
 
   useEffect(() => {
-    loadCinemas();
-  }, []);
+    const unsubscribe = navigation.addListener('focus', () => {
+      loadCinemas();
+    });
+    return unsubscribe;
+  }, [navigation]);
 
   if (loading) {
     return (

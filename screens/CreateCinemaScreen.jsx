@@ -112,6 +112,7 @@ export const CreateCinemaScreen = ({ navigation }) => {
             style={styleScreen.input}
             onChangeText={setPrixPlace}
             value={prixPlace}
+            keyboardType="numeric"
           />
         </View>
       </View>

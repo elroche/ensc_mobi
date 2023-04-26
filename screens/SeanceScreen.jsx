@@ -50,6 +50,7 @@ const SeanceScreen = ({ navigation }) => {
   const handleDeleteSeance = async (id) => {
     setShowBox(false);
     await deleteSeanceApi(id);
+    loadSeances();
   };
 
   const loadCinemas = async () => {
@@ -79,9 +80,12 @@ const SeanceScreen = ({ navigation }) => {
   };
 
   useEffect(() => {
-    loadCinemas();
-    loadSeances();
-  }, []);
+    const unsubscribe = navigation.addListener('focus', () => {
+      loadCinemas();
+      loadSeances();
+    });
+    return unsubscribe;
+  }, [navigation]);
 
   const filterSeancesByCinema = () => {
     if (selectedCinema) {
