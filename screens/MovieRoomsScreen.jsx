@@ -6,9 +6,10 @@ import {
   Image,
   ActivityIndicator,
   ScrollView,
+  Alert,
 } from "react-native";
 import styles from "../theme/styles";
-import { fetchMovieRoomsApi } from "../api/MovieRoomApi";
+import { fetchMovieRoomsApi, deleteMovieRoomApi } from "../api/MovieRoomApi";
 import MovieRoomCard from "../components/MovieRoomCard";
 import Button from "../components/Button";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
@@ -19,6 +20,33 @@ const MovieRoomsScreen = ({ navigation, route }) => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(false);
   const [movieRooms, setMovieRooms] = useState([]);
+  const [showBox, setShowBox] = useState(true);
+
+  const showConfirmDialog = (movieRoom) => {
+    return Alert.alert(
+      "Êtes-vous sûr(e) ?",
+      "Êtes-vous sûr(e) de vouloir supprimer la salle ?",
+      [
+        // Le bouton Oui
+        {
+          text: "Oui",
+          onPress: () => {
+            handleDeleteMovieRoom(movieRoom.id);
+          },
+        },
+        // Le bouton Non
+        // Ne fait rien mais enlève le message
+        {
+          text: "Non",
+        },
+      ]
+    );
+  };
+
+  const handleDeleteMovieRoom = async (id) => {
+    setShowBox(false);
+    await deleteMovieRoomApi(id);
+  };
 
   const loadMovieRooms = async () => {
     setLoading(true);
@@ -38,10 +66,6 @@ const MovieRoomsScreen = ({ navigation, route }) => {
 
   const editMovieRoom = (movieRoom) => {
     navigation.navigate("MovieRoomEdit", { movieRoom: movieRoom });
-  };
-
-  const deleteMovieRoom = (movieRoom) => {
-    navigation.navigate("MovieRoomDelete", { movieRoom: movieRoom });
   };
 
   const addMovieRoom = () => {
@@ -87,7 +111,7 @@ const MovieRoomsScreen = ({ navigation, route }) => {
               <View key={movieRoom.id} style={styleScreen.movieRoomCard}>
                 <MovieRoomCard
                   onEdit={() => editMovieRoom(movieRoom)}
-                  onDelete={() => deleteMovieRoom(movieRoom)}
+                  onDelete={() => showConfirmDialog(movieRoom)}
                   item={movieRoom}
                 />
               </View>

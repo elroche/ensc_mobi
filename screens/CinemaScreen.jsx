@@ -6,6 +6,7 @@ import {
   StyleSheet,
   ScrollView,
   ActivityIndicator,
+  TextInput,
 } from "react-native";
 import styles from "../theme/styles";
 import Button from "../components/Button";
@@ -13,17 +14,30 @@ import CinemaCard from "../components/CinemaCard";
 import { fetchCinemasApi } from "../api/CinemaApi";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import IconButton from "../components/IconButton";
+import { fetchCinemasByVilleApi } from "../api/CinemaApi";
+
 
 const CinemaScreen = ({ navigation }) => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(false);
   const [cinemas, setCinemas] = useState([]);
+  const [searchQuery, setSearchQuery] = useState('');
+
+  const filteredCinemas = cinemas.filter((cinema) => {
+    return cinema.ville.toLowerCase().includes(searchQuery.toLowerCase());
+  });
+  
 
   const loadCinemas = async () => {
     setLoading(true);
     setError(false);
     try {
-      const cinemas = await fetchCinemasApi();
+      let cinemas = [];
+      if (searchQuery) {
+        cinemas = await fetchCinemasByVilleApi(searchQuery);
+      } else {
+        cinemas = await fetchCinemasApi();
+      }
       setCinemas(cinemas);
     } catch (e) {
       setError(true);
@@ -69,10 +83,17 @@ const CinemaScreen = ({ navigation }) => {
           <MaterialCommunityIcons name={"plus"} size={20} color="white" />
         </IconButton>
       </View>
+      <View>
+        <TextInput
+          placeholder="Rechercher un cinéma par ville"
+          style={styleScreen.searchBar}
+          onChangeText={(text) => setSearchQuery(text)}
+         />
+      </View>
       <ScrollView>
         <View style={styles.main}>
-          {cinemas.length > 0 ? (
-            cinemas.map((cinema) => {
+          {filteredCinemas.length > 0 ? (
+            filteredCinemas.map((cinema) => {
               return (
                 <CinemaCard
                   key={cinema.id}
@@ -84,12 +105,8 @@ const CinemaScreen = ({ navigation }) => {
           ) : (
             <View style={{ alignItems: "center" }}>
               <Text style={styleScreen.noCinemas}>
-                Il n'y a pas encore de cinema...
+                Aucun cinéma ne correspond à votre recherche...
               </Text>
-              <Button
-                text={"Ajouter un cinema !"}
-                onPress={() => addCinema()}
-              />
             </View>
           )}
         </View>
@@ -119,6 +136,14 @@ const styleScreen = StyleSheet.create({
     fontWeight: "800",
     marginTop: 8,
     fontSize: 17,
+  },
+  searchBar: {
+    backgroundColor: "white",
+    borderRadius: 10,
+    padding: 14,
+    marginHorizontal: 20,
+    marginVertical: 10,
+    fontSize : 14,
   },
 });
 
