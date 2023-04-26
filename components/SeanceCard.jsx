@@ -29,7 +29,7 @@ const SeanceCard = ({ item, onDelete, onEdit }) => {
         </View>
       </View>
       <View style={styles.buttonContainer}>
-        <IconButton onPress={onEdit} color="#1b69bc">
+        <IconButton onPress={onEdit} color="#1F3976">
           <MaterialCommunityIcons name={"pencil"} size={20} color="white" />
         </IconButton>
         <IconButton onPress={onDelete} color="#CE2725">
@@ -47,7 +47,7 @@ const styles = StyleSheet.create({
     marginBottom: 15,
     borderWidth: 1,
     borderColor: "#c0c0c0",
-    shadowColor: "#808080",
+    shadowColor: "#1F3976",
     shadowOffset: {
       width: 0,
       height: 1,
@@ -78,14 +78,15 @@ const styles = StyleSheet.create({
     marginVertical: 4,
   },
   cardTitle: {
-    fontSize: 16,
+    fontSize: 17,
     fontWeight: "bold",
     marginVertical: 4,
     marginTop: 4,
     width: 168,
+    color:"#1F3976"
   },
   cardSubtitle: {
-    fontSize: 13,
+    fontSize: 14,
     color: "#555",
     paddingBottom: 15,
   },

@@ -56,7 +56,7 @@ const DetailsCinemaScreen = ({ navigation, route }) => {
   };
 
   const onPressMovieRooms = async () => {
-    navigation.navigate("MovieRooms", { cinemaId: cinemaId });
+    navigation.navigate("MovieRooms", { cinema: cinema });
   };
 
   if (loading) {

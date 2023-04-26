@@ -32,10 +32,10 @@ const styles = StyleSheet.create({
   main: {
     backgroundColor: "white",
     borderRadius: 5,
-    marginBottom: 15,
+    marginBottom: 8,
     borderWidth: 1,
     borderColor: "#c0c0c0",
-    shadowColor: "#808080",
+    shadowColor: "#1F3976",
     shadowOffset: {
       width: 0,
       height: 1,
@@ -64,6 +64,7 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     marginVertical: 4,
     marginTop: 4,
+    color:"#1F3976"
   },
   cardSubtitle: {
     fontSize: 16,

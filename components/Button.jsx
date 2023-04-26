@@ -21,7 +21,7 @@ const styles = StyleSheet.create({
     paddingBottom: 5,
   },
   button: {
-    backgroundColor: "#1b69bc",
+    backgroundColor: "#1F3976",
     width: "100%",
     padding: 15,
     marginTop: 2,

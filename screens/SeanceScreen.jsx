@@ -120,9 +120,11 @@ const SeanceScreen = ({ navigation }) => {
 
   return (
     <SafeAreaView style={styles.container}>
-      <View style={styleScreen.header}>
-        <Text style={styles.title}>Les séances</Text>
-        <IconButton onPress={() => addSeance()} color="#1b69bc">
+      <View style={styles.header}>
+        <View style={styles.headerDelimiter}>
+          <Text style={styles.title}>Les séances</Text>
+        </View>
+        <IconButton onPress={() => addSeance()} color="#1F3976">
           <MaterialCommunityIcons name={"plus"} size={20} color="white" />
         </IconButton>
       </View>
@@ -136,6 +138,7 @@ const SeanceScreen = ({ navigation }) => {
           selectedValue={selectedCinema}
           onValueChange={(itemValue) => setSelectedCinema(itemValue)}
         >
+          <Picker.Item label="Choisir un cinéma" value="" />
           {cinemas.map((cinema) => (
             <Picker.Item key={cinema.id} label={cinema.nom} value={cinema.id} />
           ))}
@@ -180,14 +183,6 @@ const SeanceScreen = ({ navigation }) => {
 };
 
 const styleScreen = StyleSheet.create({
-  header: {
-    flexDirection: "row",
-    alignItems: "center",
-    justifyContent: "space-between",
-    paddingVertical: 10,
-    marginBottom: 7,
-    paddingHorizontal: 10,
-  },
   noSeances: {
     textAlign: "center",
     fontSize: 16,

@@ -1,3 +1,4 @@
+// Définition de la racine de l'URL de l'API
 const rootEndpoint = "https://ensccinema.azurewebsites.net/api/Filmapi";
 
 export const fetchMoviesApi = async () => {

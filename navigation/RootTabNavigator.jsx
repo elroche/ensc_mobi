@@ -37,7 +37,7 @@ const RootTabNavigator = () => {
               />
             );
           },
-          tabBarActiveTintColor: "cornflowerblue",
+          tabBarActiveTintColor: "#1F3976",
           tabBarInactiveTintColor: "gray",
           // Hiding tab navigator header to show only stack header
           headerShown: false,

@@ -21,7 +21,7 @@ const MovieRoomCard = ({ item, onEdit, onDelete }) => {
         </Text>
       </View>
       <View>
-        <IconButton onPress={() => onEdit()} color="#1b69bc">
+        <IconButton onPress={() => onEdit()} color="#1F3976">
           <MaterialCommunityIcons name={"pencil"} size={20} color="white" />
         </IconButton>
         <IconButton onPress={() => onDelete()} color="#CE2725">
@@ -39,7 +39,7 @@ const styles = StyleSheet.create({
     marginBottom: 15,
     borderWidth: 1,
     borderColor: "#c0c0c0",
-    shadowColor: "#808080",
+    shadowColor: "#1F3976",
     shadowOffset: {
       width: 0,
       height: 1,
@@ -76,9 +76,10 @@ const styles = StyleSheet.create({
     marginTop: 4,
     marginBottom: 10,
     width: 168,
+    color: "#1F3976",
   },
   cardSubtitle: {
-    fontSize: 13,
+    fontSize: 14,
     color: "#555",
     paddingBottom: 15,
   },

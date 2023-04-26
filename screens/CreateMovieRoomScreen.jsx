@@ -3,7 +3,8 @@ import {
   Text,
   TextInput,
   StyleSheet,
-  KeyboardAvoidingView,
+  SafeAreaView,
+  ScrollView,
 } from "react-native";
 import React, { useState, useEffect } from "react";
 import { Picker } from "@react-native-picker/picker";
@@ -37,7 +38,11 @@ const CreateMovieRoomScreen = ({ navigation }) => {
   const handleCreateMovieRoom = async () => {
     if (selectedCinemaId !== "" && nbPlace !== "" && numeroSalle !== "") {
       try {
-        const movieRoom = await addMovieRoomApi(selectedCinemaId, nbPlace, numeroSalle);
+        const movieRoom = await addMovieRoomApi(
+          selectedCinemaId,
+          nbPlace,
+          numeroSalle
+        );
         navigation.goBack();
       } catch (error) {
         console.error(error);
@@ -49,82 +54,93 @@ const CreateMovieRoomScreen = ({ navigation }) => {
   };
 
   return (
-    <KeyboardAvoidingView
-      style={styles.container && styleScreen.container}
-      behavior="padding"
-    >
-      <Text style={styles.title}>Ajouter une salle</Text>
-      <View style={styleScreen.content}>
-        {errorMessage ? (
-          <Text
-            style={{
-              color: "red",
-              textAlign: "center",
-              fontSize: 16,
-              paddingVertical: 10,
-            }}
-          >
-            {errorMessage}
+    <SafeAreaView style={styles.container}>
+      <ScrollView>
+        <View style={[styles.main && styleScreen.container]}>
+          <Text style={styles.title}>Ajouter une salle</Text>
+          <Text style={styles.text}>
+            Afin d'ajouter une salle, veuillez saisir les données suivantes :
           </Text>
-        ) : null}
-        <View style={styleScreen.inputContainer}>
-            <Text style={styleScreen.label}>Cinéma</Text>
-            <Picker
-              itemStyle={styleScreen.pickerScreen}
-              selectedValue={selectedCinemaId}
-              onValueChange={handleCinemaChange}
-            >
-              {cinemas.map((cinema) => (
-                <Picker.Item
-                  key={cinema.id}
-                  label={cinema.nom}
-                  value={cinema.id}
-                />
-              ))}
-            </Picker>
+          <View style={styleScreen.content}>
+            {errorMessage ? (
+              <Text
+                style={{
+                  color: "red",
+                  textAlign: "center",
+                  fontSize: 16,
+                  paddingVertical: 10,
+                }}
+              >
+                {errorMessage}
+              </Text>
+            ) : null}
+            <View style={styleScreen.inputContainer}>
+              <Text style={styleScreen.label}>Cinéma :</Text>
+              <Picker
+                itemStyle={styleScreen.pickerScreen}
+                selectedValue={selectedCinemaId}
+                onValueChange={handleCinemaChange}
+              >
+                <Picker.Item label="Choisir un cinéma" value="" />
+                {cinemas.map((cinema) => (
+                  <Picker.Item
+                    key={cinema.id}
+                    label={cinema.nom}
+                    value={cinema.id}
+                  />
+                ))}
+              </Picker>
+            </View>
+            <View style={styleScreen.inputContainer}>
+              <Text style={styleScreen.label}>Nombre de place :</Text>
+              <TextInput
+                style={styleScreen.input}
+                onChangeText={setNbPlace}
+                value={nbPlace}
+                keyboardType="numeric"
+              />
+            </View>
+            <View style={styleScreen.inputContainer}>
+              <Text style={styleScreen.label}>Numéro de la salle :</Text>
+              <TextInput
+                style={styleScreen.input}
+                onChangeText={setNumeroSalle}
+                value={numeroSalle}
+                keyboardType="numeric"
+              />
+            </View>
           </View>
-        <View style={styleScreen.inputContainer}>
-          <Text style={styleScreen.label}>Nombre de place</Text>
-          <TextInput
-            style={styleScreen.input}
-            onChangeText={setNbPlace}
-            value={nbPlace}
-            keyboardType="numeric"
-          />
+          <Button text="Ajouter" onPress={() => handleCreateMovieRoom()} />
         </View>
-
-        <View style={styleScreen.inputContainer}>
-          <Text style={styleScreen.label}>Numéro de la salle</Text>
-          <TextInput
-            style={styleScreen.input}
-            onChangeText={setNumeroSalle}
-            value={numeroSalle}
-            keyboardType="numeric"
-          />
-        </View>
-      </View>
-      <Button text="Ajouter" onPress={() => handleCreateMovieRoom()} />
-    </KeyboardAvoidingView>
+      </ScrollView>
+    </SafeAreaView>
   );
 };
 
 export default CreateMovieRoomScreen;
 
 const styleScreen = StyleSheet.create({
-  container: { justifyContent: "center", alignItems: "center" },
+  container: {
+    justifyContent: "center",
+    alignItems: "center",
+    paddingVertical: 10,
+    marginBottom: 15,
+  },
   content: {
     width: "90%",
     backgroundColor: "white",
     borderRadius: 8,
     padding: 10,
-    marginBottom: 10,
+    marginVertical: 20,
   },
   inputContainer: {
     marginBottom: 16,
   },
   label: {
     fontSize: 18,
+    fontWeight: "600",
     marginBottom: 8,
+    color: "#1F3976",
   },
   input: {
     borderWidth: 1,

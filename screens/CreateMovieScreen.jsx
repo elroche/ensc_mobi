@@ -5,6 +5,7 @@ import {
   StyleSheet,
   TouchableOpacity,
   ScrollView,
+  SafeAreaView,
 } from "react-native";
 import React, { useState, useEffect } from "react";
 import styles from "../theme/styles";
@@ -35,7 +36,14 @@ const CreateMovieScreen = ({ navigation }) => {
       duree !== ""
     ) {
       try {
-        const movie = addMovieApi(nom, realisateur, resume, selectedGenre, date, duree);
+        const movie = addMovieApi(
+          nom,
+          realisateur,
+          resume,
+          selectedGenre,
+          date,
+          duree
+        );
         console.log("New movie created:", movie);
         navigation.goBack();
       } catch (error) {
@@ -54,58 +62,63 @@ const CreateMovieScreen = ({ navigation }) => {
   };
 
   return (
-    <ScrollView>
-      <View style={styles.container && styleScreen.container}>
-        <Text style={styles.title}>Ajouter un film</Text>
-        <View style={styleScreen.content}>
-          {errorMessage ? (
-            <Text
-              style={{
-                color: "red",
-                textAlign: "center",
-                fontSize: 16,
-                paddingVertical: 10,
-              }}
-            >
-              {errorMessage}
-            </Text>
-          ) : null}
-          <View style={styleScreen.inputContainer}>
-            <Text style={styleScreen.label}>Nom</Text>
-            <TextInput
-              style={styleScreen.input}
-              onChangeText={setNom}
-              value={nom}
-            />
-          </View>
-          <View style={styleScreen.inputContainer}>
-            <Text style={styleScreen.label}>Réalisateur</Text>
-            <TextInput
-              style={styleScreen.input}
-              onChangeText={setRealisateur}
-              value={realisateur}
-            />
-          </View>
-          <View style={styleScreen.inputContainer}>
-            <Text style={styleScreen.label}>Résumé</Text>
-            <TextInput
-              style={styleScreen.input}
-              onChangeText={setResume}
-              value={resume}
-            />
-          </View>
-          <View style={styleScreen.inputContainer}>
-            <Text style={styleScreen.label}>Genre</Text>
-            <Picker
-              itemStyle={styleScreen.pickerScreen}
-              selectedValue={selectedGenre}
-              onValueChange={(itemValue) => setSelectedGenre(itemValue)}
-            >
-              {GENRE.map((genre, index) => (
-                <Picker.Item key={index} label={genre} value={genre} />
-              ))}
-            </Picker>
-          </View>
+    <SafeAreaView style={styles.container}>
+      <ScrollView>
+        <View style={[styles.main && styleScreen.container]}>
+          <Text style={styles.title}>Ajouter un film</Text>
+          <Text style={styles.text}>
+            Afin d'ajouter un film, veuillez saisir les données suivantes :
+          </Text>
+          <View style={styleScreen.content}>
+            {errorMessage ? (
+              <Text
+                style={{
+                  color: "red",
+                  textAlign: "center",
+                  fontSize: 16,
+                  paddingVertical: 10,
+                }}
+              >
+                {errorMessage}
+              </Text>
+            ) : null}
+            <View style={styleScreen.inputContainer}>
+              <Text style={styleScreen.label}>Nom</Text>
+              <TextInput
+                style={styleScreen.input}
+                onChangeText={setNom}
+                value={nom}
+              />
+            </View>
+            <View style={styleScreen.inputContainer}>
+              <Text style={styleScreen.label}>Réalisateur</Text>
+              <TextInput
+                style={styleScreen.input}
+                onChangeText={setRealisateur}
+                value={realisateur}
+              />
+            </View>
+            <View style={styleScreen.inputContainer}>
+              <Text style={styleScreen.label}>Résumé</Text>
+              <TextInput
+                style={styleScreen.input}
+                onChangeText={setResume}
+                value={resume}
+              />
+            </View>
+            <View style={styleScreen.inputContainer}>
+              <Text style={styleScreen.label}>Genre</Text>
+              <Picker
+                itemStyle={styleScreen.pickerScreen}
+                selectedValue={selectedGenre}
+                onValueChange={(itemValue) => setSelectedGenre(itemValue)}
+              >
+                <Picker.Item label="Choisir un genre" value="" />
+                {GENRE.map((genre, index) => (
+                  <Picker.Item key={index} label={genre} value={genre} />
+                ))}
+              </Picker>
+            </View>
 
           <View style={styleScreen.inputContainer}>
             <Text style={styleScreen.label}>Date</Text>
@@ -168,6 +181,8 @@ const styleScreen = StyleSheet.create({
   label: {
     fontSize: 18,
     marginBottom: 8,
+    fontWeight: "600",
+    color: "#1F3976",
   },
   input: {
     borderWidth: 1,

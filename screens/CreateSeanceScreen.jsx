@@ -3,7 +3,7 @@ import {
   Text,
   TextInput,
   StyleSheet,
-  KeyboardAvoidingView,
+  SafeAreaView,
   TouchableOpacity,
   ScrollView,
 } from "react-native";
@@ -113,106 +113,115 @@ export const CreateSeanceScreen = ({ navigation }) => {
   };
 
   return (
-    <ScrollView>
-      <KeyboardAvoidingView
-        style={[styles.container, styleScreen.container]}
-        behavior="padding"
-      >
-        <Text style={styles.title}>Ajouter une séance</Text>
-        <View style={styleScreen.content}>
-          {errorMessage ? (
-            <Text
-              style={{
-                color: "red",
-                textAlign: "center",
-                fontSize: 16,
-                paddingVertical: 10,
-              }}
-            >
-              {errorMessage}
-            </Text>
-          ) : null}
-          <View style={styleScreen.inputContainer}>
-            <Text style={styleScreen.label}>Film</Text>
-            <Picker
-              itemStyle={styleScreen.pickerScreen}
-              selectedValue={selectedMovieId}
-              onValueChange={handleMovieChange}
-            >
-              {movies.map((movie) => (
-                <Picker.Item
-                  key={movie.id}
-                  label={movie.nom}
-                  value={movie.id}
-                />
-              ))}
-            </Picker>
-          </View>
-          <View style={styleScreen.inputContainer}>
-            <Text style={styleScreen.label}>Cinéma</Text>
-            <Picker
-              itemStyle={styleScreen.pickerScreen}
-              selectedValue={selectedCinemaId}
-              onValueChange={handleCinemaChange}
-            >
-              {cinemas.map((cinema) => (
-                <Picker.Item
-                  key={cinema.id}
-                  label={cinema.nom}
-                  value={cinema.id}
-                />
-              ))}
-            </Picker>
-          </View>
-          <View style={styleScreen.inputContainer}>
-            <Text style={styleScreen.label}>Salle</Text>
-            <Picker
-              itemStyle={styleScreen.pickerScreen}
-              selectedValue={selectedMovieRoomId}
-              onValueChange={handleMovieRoomChange}
-            >
-              {movieRooms.map((movieRoom) => (
-                <Picker.Item
-                  key={movieRoom.id}
-                  label={movieRoom.numeroSalle.toString()}
-                  value={movieRoom.id}
-                />
-              ))}
-            </Picker>
-          </View>
-          <View style={styleScreen.inputContainer}>
-            <Text style={styleScreen.label}>Date</Text>
-            <TouchableOpacity
-              style={styleScreen.dateButton}
-              onPress={() => setShowDatePicker(true)}
-            >
-              <Text style={styleScreen.dateButtonText}>
-                Sélectionner une date
+    <SafeAreaView style={styles.container}>
+      <ScrollView>
+        <View style={[styles.main && styleScreen.container]}>
+          <Text style={styles.title}>Ajouter une séance</Text>
+          <Text style={styles.text}>
+            Afin d'ajouter une séance, veuillez saisir les données suivantes :
+          </Text>
+          <View style={styleScreen.content}>
+            {errorMessage ? (
+              <Text
+                style={{
+                  color: "red",
+                  textAlign: "center",
+                  fontSize: 16,
+                  paddingVertical: 10,
+                }}
+              >
+                {errorMessage}
               </Text>
-            </TouchableOpacity>
-            <Text style={styles.text}>
-              Date sélectionnée : {date.toLocaleDateString()}
-            </Text>
-            {showDatePicker && (
-              <DateTimePicker
-                value={date}
-                mode="date"
-                display="spinner"
-                onChange={onDateChange}
-              />
-            )}
+            ) : null}
+            <View style={styleScreen.inputContainer}>
+              <Text style={styleScreen.label}>Film :</Text>
+              <Picker
+                itemStyle={styleScreen.pickerScreen}
+                selectedValue={selectedMovieId}
+                onValueChange={handleMovieChange}
+              >
+                <Picker.Item label="Choisir un film" value="" />
+                {movies.map((movie) => (
+                  <Picker.Item
+                    key={movie.id}
+                    label={movie.nom}
+                    value={movie.id}
+                  />
+                ))}
+              </Picker>
+            </View>
+            <View style={styleScreen.inputContainer}>
+              <Text style={styleScreen.label}>Cinéma :</Text>
+              <Picker
+                itemStyle={styleScreen.pickerScreen}
+                selectedValue={selectedCinemaId}
+                onValueChange={handleCinemaChange}
+              >
+                <Picker.Item label="Choisir un cinéma" value="" />
+                {cinemas.map((cinema) => (
+                  <Picker.Item
+                    key={cinema.id}
+                    label={cinema.nom}
+                    value={cinema.id}
+                  />
+                ))}
+              </Picker>
+            </View>
+            <View style={styleScreen.inputContainer}>
+              <Text style={styleScreen.label}>Numéro de la salle :</Text>
+              <Picker
+                itemStyle={styleScreen.pickerScreen}
+                selectedValue={selectedMovieRoomId}
+                onValueChange={handleMovieRoomChange}
+              >
+                <Picker.Item label="Choisir une salle" value="" />
+                {movieRooms.map((movieRoom) => (
+                  <Picker.Item
+                    key={movieRoom.id}
+                    label={movieRoom.numeroSalle.toString()}
+                    value={movieRoom.id}
+                  />
+                ))}
+              </Picker>
+            </View>
+            <View style={styleScreen.inputContainer}>
+              <Text style={styleScreen.label}>Date :</Text>
+              <TouchableOpacity
+                style={styleScreen.dateButton}
+                onPress={() => setShowDatePicker(true)}
+              >
+                <Text style={styleScreen.dateButtonText}>
+                  Sélectionner une date
+                </Text>
+              </TouchableOpacity>
+              <Text style={styles.text}>
+                Date sélectionnée : {date.toLocaleDateString()}
+              </Text>
+              {showDatePicker && (
+                <DateTimePicker
+                  value={date}
+                  mode="date"
+                  display="spinner"
+                  onChange={onDateChange}
+                />
+              )}
+            </View>
           </View>
           <Button text="Ajouter" onPress={() => handleCreateSeance()} />
         </View>
-      </KeyboardAvoidingView>
-    </ScrollView>
+      </ScrollView>
+    </SafeAreaView>
   );
 };
 
 export default CreateSeanceScreen;
 
 const styleScreen = StyleSheet.create({
-  container: { justifyContent: "center", alignItems: "center" },
+  container: {
+    justifyContent: "center",
+    alignItems: "center",
+    marginBottom: 20,
+  },
   content: {
     width: "90%",
     backgroundColor: "white",
@@ -226,6 +235,8 @@ const styleScreen = StyleSheet.create({
   label: {
     fontSize: 18,
     marginBottom: 8,
+    fontWeight: "600",
+    color: "#1F3976",
   },
   input: {
     borderWidth: 1,
