@@ -99,7 +99,6 @@ const CreateMovieRoomScreen = ({ navigation }) => {
                 keyboardType="numeric"
               />
             </View>
-
             <View style={styleScreen.inputContainer}>
               <Text style={styleScreen.label}>Numéro de la salle :</Text>
               <TextInput
@@ -120,7 +119,12 @@ const CreateMovieRoomScreen = ({ navigation }) => {
 export default CreateMovieRoomScreen;
 
 const styleScreen = StyleSheet.create({
-  container: { justifyContent: "center", alignItems: "center" },
+  container: {
+    justifyContent: "center",
+    alignItems: "center",
+    paddingVertical: 10,
+    marginBottom: 15,
+  },
   content: {
     width: "90%",
     backgroundColor: "white",

@@ -108,10 +108,10 @@ const styleScreen = StyleSheet.create({
   },
   moviesTitle: {
     textAlign: "left",
-    fontSize: 20,
-    fontWeight: "700",
+    fontSize: 22,
+    fontWeight: "600",
     color: "#1F3976",
-    marginBottom: 12,
+    marginBottom: 16,
   },
   seeAllMovie: {
     textAlign: "right",
