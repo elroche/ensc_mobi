@@ -23,36 +23,35 @@ const EditCinemaScreen = ({ navigation, route }) => {
   const [errorMessage, setErrorMessage] = useState("");
 
   // Fonction appelée lors de la soumission du formulaire d'édition de cinéma
-const handleEditCinema = async () => {
-  if (
-    nom !== "" &&
-    adresse !== "" &&
-    codePostal !== "" &&
-    ville !== "" &&
-    responsable !== "" &&
-    prixPlace !== ""
-  ) {
-    try {
-      // Appel à l'API pour modifier le cinéma
-      const cinema = editCinemaApi(
-        cinemaId,
-        nom,
-        adresse,
-        codePostal,
-        ville,
-        responsable,
-        prixPlace
-      );
-      navigation.goBack(); // Redirige l'utilisateur vers la page précédente
-    } catch (error) {
-      console.error(error);
+  const handleEditCinema = async () => {
+    if (
+      nom !== "" &&
+      adresse !== "" &&
+      codePostal !== "" &&
+      ville !== "" &&
+      responsable !== "" &&
+      prixPlace !== ""
+    ) {
+      try {
+        // Appel à l'API pour modifier le cinéma
+        const cinema = editCinemaApi(
+          cinemaId,
+          nom,
+          adresse,
+          codePostal,
+          ville,
+          responsable,
+          prixPlace
+        );
+        navigation.goBack(); // Redirige l'utilisateur vers la page précédente
+      } catch (error) {
+        console.error(error);
+      }
+    } else {
+      setErrorMessage("Attention ! Veuillez remplir tous les champs."); // Affichage d'un message d'erreur si tous les champs ne sont pas remplis
+      return;
     }
-  } else {
-    setErrorMessage("Attention ! Veuillez remplir tous les champs."); // Affichage d'un message d'erreur si tous les champs ne sont pas remplis
-    return;
-  }
-};
-
+  };
 
   return (
     <SafeAreaView style={styles.container}>

@@ -23,7 +23,9 @@ export const EditSeanceScreen = ({ navigation, route }) => {
   const [cinemas, setCinemas] = useState([]);
   const [selectedCinemaId, setSelectedCinemaId] = useState(seance.cinema.id);
   const [selectedMovieId, setSelectedMovieId] = useState(seance.film.id);
-  const [selectedMovieRoomId, setSelectedMovieRoomId] = useState(seance.salle.id);
+  const [selectedMovieRoomId, setSelectedMovieRoomId] = useState(
+    seance.salle.id
+  );
   const [date, setDate] = useState(new Date(seance.date));
   const [movie, setMovie] = useState(null);
   const [movies, setMovies] = useState([]);
@@ -38,21 +40,21 @@ export const EditSeanceScreen = ({ navigation, route }) => {
     setSelectedMovieRoomId(seance.salle.id);
     setDate(new Date(seance.date));
   }, [seance]);
-  
+
   useEffect(() => {
     const fetchCinemas = async () => {
       const cinemas = await fetchCinemasApi(); // Récupère la liste des cinémas depuis l'API
       setCinemas(cinemas); // Met à jour le state avec la liste des cinémas
     };
     fetchCinemas();
-  
+
     const fetchMovies = async () => {
       const movies = await fetchMoviesApi(); // Récupère la liste des films depuis l'API
       setMovies(movies); // Met à jour le state avec la liste des films
     };
     fetchMovies();
   }, []);
-  
+
   useEffect(() => {
     const fetchRooms = async () => {
       if (selectedCinemaId !== null) {
@@ -64,7 +66,7 @@ export const EditSeanceScreen = ({ navigation, route }) => {
     };
     fetchRooms();
   }, [selectedCinemaId]);
-  
+
   const handleCinemaChange = async (selectedCinemaId) => {
     setSelectedCinemaId(selectedCinemaId); // Met à jour l'ID du cinéma sélectionné
     const selectedCinema = cinemas.find((c) => c.id === selectedCinemaId); // Trouve le cinéma sélectionné à partir de son ID
@@ -74,13 +76,13 @@ export const EditSeanceScreen = ({ navigation, route }) => {
     const rooms = await fetchMovieRoomsApi(selectedCinemaId); // Récupère la liste des salles de cinéma pour le cinéma sélectionné depuis l'API
     setMovieRooms(rooms); // Met à jour le state avec la liste des salles de cinéma
   };
-  
+
   const handleMovieChange = (selectedMovieId) => {
     setSelectedMovieId(selectedMovieId); // Met à jour l'ID du film sélectionné
     const selectedMovie = movies.find((m) => m.id === selectedMovieId); // Trouve le film sélectionné à partir de son ID
     setMovie(selectedMovie); // Met à jour le state avec le film sélectionné
   };
-  
+
   const handleMovieRoomChange = (selectedMovieRoomId) => {
     setSelectedMovieRoomId(selectedMovieRoomId); // Met à jour l'ID de la salle de cinéma sélectionnée
     const selectedMovieRoom = movieRooms.find(
@@ -88,7 +90,7 @@ export const EditSeanceScreen = ({ navigation, route }) => {
     ); // Trouve la salle de cinéma sélectionnée à partir de son ID
     setMovieRoom(selectedMovieRoom); // Met à jour le state avec la salle de cinéma sélectionnée
   };
-  
+
   const onDateChange = (event, selectedDate) => {
     const currentDate = selectedDate || date;
     setDate(currentDate);
@@ -123,7 +125,6 @@ export const EditSeanceScreen = ({ navigation, route }) => {
       return;
     }
   };
-  
 
   return (
     <SafeAreaView style={styles.container}>
@@ -227,7 +228,11 @@ export const EditSeanceScreen = ({ navigation, route }) => {
 export default EditSeanceScreen;
 
 const styleScreen = StyleSheet.create({
-  container: { justifyContent: "center", alignItems: "center", marginBottom:20 },
+  container: {
+    justifyContent: "center",
+    alignItems: "center",
+    marginBottom: 20,
+  },
   content: {
     width: "90%",
     backgroundColor: "white",

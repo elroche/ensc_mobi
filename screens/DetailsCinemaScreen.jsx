@@ -21,11 +21,11 @@ const DetailsCinemaScreen = ({ navigation, route }) => {
   useEffect(() => {
     navigation.setOptions({ title: cinema.nom }); // Met à jour le titre de la page avec le nom du cinéma
   }, [cinema.nom]);
-  
+
   const loadCinema = async () => {
     setLoading(true);
     setError(false);
-  
+
     try {
       const cinema = await fetchCinemaApi(cinemaId); // Récupère le cinéma avec l'ID correspondant
       setCinema(cinema); // Met à jour le state avec le cinéma récupéré
@@ -34,11 +34,11 @@ const DetailsCinemaScreen = ({ navigation, route }) => {
     }
     setLoading(false);
   };
-  
+
   useEffect(() => {
     loadCinema(); // Charge le cinéma une fois la page chargée
   }, []);
-  
+
   useEffect(() => {
     const reloadCinema = async () => {
       try {
@@ -50,15 +50,15 @@ const DetailsCinemaScreen = ({ navigation, route }) => {
     };
     reloadCinema(); // Recharge le cinéma à chaque changement du state cinema
   }, [cinema]);
-  
+
   const editCinema = async () => {
     navigation.navigate("Edit", { cinema: cinema }); // Navigue vers la page d'édition avec les données du cinéma
   };
-  
+
   const onPressMovieRooms = async () => {
     navigation.navigate("MovieRooms", { cinema: cinema }); // Navigue vers la page des salles de cinéma avec les données du cinéma
   };
-  
+
   if (loading) {
     return (
       <View style={styles.loadingContainer}>
@@ -66,7 +66,7 @@ const DetailsCinemaScreen = ({ navigation, route }) => {
       </View>
     );
   }
-  
+
   if (error) {
     return (
       <View style={styles.container}>
@@ -74,7 +74,6 @@ const DetailsCinemaScreen = ({ navigation, route }) => {
       </View>
     );
   }
-  
 
   return (
     <SafeAreaView style={styles.container}>

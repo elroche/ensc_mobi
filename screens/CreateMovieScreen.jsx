@@ -65,7 +65,6 @@ const CreateMovieScreen = ({ navigation }) => {
     setShowDatePicker(false); // Masque le date picker une fois la date sélectionnée
   };
 
-
   return (
     <SafeAreaView style={styles.container}>
       <ScrollView>
@@ -125,42 +124,42 @@ const CreateMovieScreen = ({ navigation }) => {
               </Picker>
             </View>
 
-          <View style={styleScreen.inputContainer}>
-            <Text style={styleScreen.label}>Date</Text>
-            <TouchableOpacity
-              style={styleScreen.dateButton}
-              onPress={() => setShowDatePicker(true)}
-            >
-              <Text style={styleScreen.dateButtonText}>
-                Sélectionner une date
+            <View style={styleScreen.inputContainer}>
+              <Text style={styleScreen.label}>Date</Text>
+              <TouchableOpacity
+                style={styleScreen.dateButton}
+                onPress={() => setShowDatePicker(true)}
+              >
+                <Text style={styleScreen.dateButtonText}>
+                  Sélectionner une date
+                </Text>
+              </TouchableOpacity>
+              <Text style={styles.text}>
+                Date sélectionnée : {date.toLocaleDateString()}
               </Text>
-            </TouchableOpacity>
-            <Text style={styles.text}>
-              Date sélectionnée : {date.toLocaleDateString()}
-            </Text>
-            {showDatePicker && (
-              <DateTimePicker
-                value={date}
-                mode="date"
-                display="spinner"
-                onChange={onDateChange}
-              />
-            )}
-          </View>
+              {showDatePicker && (
+                <DateTimePicker
+                  value={date}
+                  mode="date"
+                  display="spinner"
+                  onChange={onDateChange}
+                />
+              )}
+            </View>
 
-          <View style={styleScreen.inputContainer}>
-            <Text style={styleScreen.label}>Durée</Text>
-            <TextInput
-              style={styleScreen.input}
-              onChangeText={setDuree}
-              value={duree}
-              keyboardType="numeric"
-            />
+            <View style={styleScreen.inputContainer}>
+              <Text style={styleScreen.label}>Durée</Text>
+              <TextInput
+                style={styleScreen.input}
+                onChangeText={setDuree}
+                value={duree}
+                keyboardType="numeric"
+              />
+            </View>
           </View>
+          <Button text="Ajouter" onPress={() => handleSubmitMovie()} />
         </View>
-        <Button text="Ajouter" onPress={() => handleSubmitMovie()} />
-      </View>
-    </ScrollView>
+      </ScrollView>
     </SafeAreaView>
   );
 };

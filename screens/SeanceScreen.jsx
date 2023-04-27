@@ -80,7 +80,7 @@ const SeanceScreen = ({ navigation }) => {
   };
 
   useEffect(() => {
-    const unsubscribe = navigation.addListener('focus', () => {
+    const unsubscribe = navigation.addListener("focus", () => {
       loadCinemas();
       loadSeances();
     });

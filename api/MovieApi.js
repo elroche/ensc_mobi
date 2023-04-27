@@ -98,7 +98,7 @@ export const deleteMovieApi = async (movieId) => {
       },
     });
     if (!response.ok) {
-      throw new Error('Erreur lors de la suppression de la séance');
+      throw new Error("Erreur lors de la suppression de la séance");
     }
     const responseBody = await response.text();
     return responseBody ? JSON.parse(responseBody) : null;

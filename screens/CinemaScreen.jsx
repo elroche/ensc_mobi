@@ -15,18 +15,16 @@ import { MaterialCommunityIcons } from "@expo/vector-icons";
 import IconButton from "../components/IconButton";
 import { fetchCinemasByVilleApi } from "../api/CinemaApi";
 
-
 const CinemaScreen = ({ navigation }) => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(false);
   const [cinemas, setCinemas] = useState([]);
-  const [searchQuery, setSearchQuery] = useState('');
+  const [searchQuery, setSearchQuery] = useState("");
 
   // Filtrer les cinémas selon la recherche de l'utilisateur
   const filteredCinemas = cinemas.filter((cinema) => {
     return cinema.ville.toLowerCase().includes(searchQuery.toLowerCase());
   });
-  
 
   // Cette fonction permet de récupérer la liste de tous les cinémas
   const loadCinemas = async () => {
@@ -48,7 +46,7 @@ const CinemaScreen = ({ navigation }) => {
 
   useEffect(() => {
     // Charger la liste de tous les cinémas lorsqu'on arrive sur la page
-    const unsubscribe = navigation.addListener('focus', () => {
+    const unsubscribe = navigation.addListener("focus", () => {
       loadCinemas();
     });
     return unsubscribe;
@@ -81,7 +79,7 @@ const CinemaScreen = ({ navigation }) => {
   const addCinema = () => {
     navigation.navigate("Create");
   };
-  
+
   // Afficher la liste de tous les cinémas filtrés par la recherche de l'utilisateur
   return (
     <SafeAreaView style={styles.container}>
@@ -98,7 +96,7 @@ const CinemaScreen = ({ navigation }) => {
           placeholder="Rechercher un cinéma par ville"
           style={styleScreen.searchBar}
           onChangeText={(text) => setSearchQuery(text)}
-         />
+        />
       </View>
       <ScrollView>
         <View style={styles.main}>
@@ -124,7 +122,6 @@ const CinemaScreen = ({ navigation }) => {
     </SafeAreaView>
   );
 };
-
 
 const styleScreen = StyleSheet.create({
   header: {
@@ -154,7 +151,7 @@ const styleScreen = StyleSheet.create({
     padding: 14,
     marginHorizontal: 20,
     marginVertical: 10,
-    fontSize : 14,
+    fontSize: 14,
   },
 });
 

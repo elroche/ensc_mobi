@@ -31,76 +31,76 @@ export const CreateSeanceScreen = ({ navigation }) => {
   const [showDatePicker, setShowDatePicker] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
 
-// Le premier useEffect permet de récupérer la liste de tous les cinémas et de tous les films
-// depuis l'API lors du chargement de la page
-useEffect(() => {
-  const fetchCinemas = async () => {
-    const cinemas = await fetchCinemasApi();
-    setCinemas(cinemas);
+  // Le premier useEffect permet de récupérer la liste de tous les cinémas et de tous les films
+  // depuis l'API lors du chargement de la page
+  useEffect(() => {
+    const fetchCinemas = async () => {
+      const cinemas = await fetchCinemasApi();
+      setCinemas(cinemas);
+    };
+    fetchCinemas();
+
+    const fetchMovies = async () => {
+      const movies = await fetchMoviesApi();
+      setMovies(movies);
+    };
+    fetchMovies();
+  }, []);
+
+  // Le deuxième useEffect permet de récupérer la liste de toutes les salles de projection
+  // d'un cinéma donné lorsqu'un cinéma est sélectionné dans la liste déroulante
+  useEffect(() => {
+    const fetchRooms = async () => {
+      if (selectedCinemaId !== null) {
+        setMovieRooms([]);
+        setSelectedMovieRoomId(null);
+        const MovieRooms = await fetchMovieRoomsApi(selectedCinemaId);
+        setMovieRooms(MovieRooms);
+      }
+    };
+    fetchRooms();
+  }, [selectedCinemaId]);
+
+  // Cette fonction est appelée lorsqu'un nouveau cinéma est sélectionné dans la liste déroulante
+  // Elle permet de récupérer les informations du cinéma sélectionné, la liste des salles de projection,
+  // et de réinitialiser les informations de la séance sélectionnée
+  const handleCinemaChange = async (selectedCinemaId) => {
+    setSelectedCinemaId(selectedCinemaId);
+    const selectedCinema = cinemas.find((c) => c.id === selectedCinemaId);
+    setCinema(selectedCinema);
+    setSelectedMovieRoomId(null);
+    setMovieRooms([]);
+    const rooms = await fetchMovieRoomsApi(selectedCinemaId);
+    setMovieRooms(rooms);
   };
-  fetchCinemas();
 
-  const fetchMovies = async () => {
-    const movies = await fetchMoviesApi();
-    setMovies(movies);
+  // Cette fonction est appelée lorsqu'un nouveau film est sélectionné dans la liste déroulante
+  // Elle permet de récupérer les informations du film sélectionné
+  const handleMovieChange = (selectedMovieId) => {
+    setSelectedMovieId(selectedMovieId);
+    const selectedMovie = movies.find((m) => m.id === selectedMovieId);
+    setMovie(selectedMovie);
   };
-  fetchMovies();
-}, []);
 
-// Le deuxième useEffect permet de récupérer la liste de toutes les salles de projection
-// d'un cinéma donné lorsqu'un cinéma est sélectionné dans la liste déroulante
-useEffect(() => {
-  const fetchRooms = async () => {
-    if (selectedCinemaId !== null) {
-      setMovieRooms([]);
-      setSelectedMovieRoomId(null);
-      const MovieRooms = await fetchMovieRoomsApi(selectedCinemaId);
-      setMovieRooms(MovieRooms);
-    }
+  // Cette fonction est appelée lorsqu'une nouvelle salle de projection est sélectionnée dans la liste déroulante
+  // Elle permet de récupérer les informations de la salle de projection sélectionnée
+  const handleMovieRoomChange = (selectedMovieRoomId) => {
+    setSelectedMovieRoomId(selectedMovieRoomId);
+    const selectedMovieRoom = movieRooms.find(
+      (m) => m.id === selectedMovieRoomId
+    );
+    setMovieRoom(selectedMovieRoom);
   };
-  fetchRooms();
-}, [selectedCinemaId]);
 
-// Cette fonction est appelée lorsqu'un nouveau cinéma est sélectionné dans la liste déroulante
-// Elle permet de récupérer les informations du cinéma sélectionné, la liste des salles de projection,
-// et de réinitialiser les informations de la séance sélectionnée
-const handleCinemaChange = async (selectedCinemaId) => {
-  setSelectedCinemaId(selectedCinemaId);
-  const selectedCinema = cinemas.find((c) => c.id === selectedCinemaId);
-  setCinema(selectedCinema);
-  setSelectedMovieRoomId(null);
-  setMovieRooms([]);
-  const rooms = await fetchMovieRoomsApi(selectedCinemaId);
-  setMovieRooms(rooms);
-};
-
-// Cette fonction est appelée lorsqu'un nouveau film est sélectionné dans la liste déroulante
-// Elle permet de récupérer les informations du film sélectionné
-const handleMovieChange = (selectedMovieId) => {
-  setSelectedMovieId(selectedMovieId);
-  const selectedMovie = movies.find((m) => m.id === selectedMovieId);
-  setMovie(selectedMovie);
-};
-
-// Cette fonction est appelée lorsqu'une nouvelle salle de projection est sélectionnée dans la liste déroulante
-// Elle permet de récupérer les informations de la salle de projection sélectionnée
-const handleMovieRoomChange = (selectedMovieRoomId) => {
-  setSelectedMovieRoomId(selectedMovieRoomId);
-  const selectedMovieRoom = movieRooms.find(
-    (m) => m.id === selectedMovieRoomId
-  );
-  setMovieRoom(selectedMovieRoom);
-};
-
-// Cette fonction est appelée lorsqu'une nouvelle date est sélectionnée dans le date picker
-const onDateChange = (event, selectedDate) => {
-  const currentDate = selectedDate || date;
-  setDate(currentDate);
-  setShowDatePicker(false); // Masque le date picker une fois la date sélectionnée
-};
+  // Cette fonction est appelée lorsqu'une nouvelle date est sélectionnée dans le date picker
+  const onDateChange = (event, selectedDate) => {
+    const currentDate = selectedDate || date;
+    setDate(currentDate);
+    setShowDatePicker(false); // Masque le date picker une fois la date sélectionnée
+  };
 
   // Cette fonction est appelée lorsqu'on clique sur le bouton "Créer"
-// Elle permet d'ajouter une nouvelle séance en appelant l'API
+  // Elle permet d'ajouter une nouvelle séance en appelant l'API
   const handleCreateSeance = async () => {
     if (
       selectedMovieId !== "" &&

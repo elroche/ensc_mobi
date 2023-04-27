@@ -9,11 +9,14 @@ const EditMovieRoomScreen = ({ navigation, route }) => {
   const movieRoomId = movieRoom.id;
   const [cinemaId, setCinemaId] = useState(movieRoom.cinemaId.toString());
   const [nbPlace, setNbPlace] = useState(movieRoom.nbPlace.toString());
-  const [numeroSalle, setNumeroSalle] = useState(movieRoom.numeroSalle.toString());
+  const [numeroSalle, setNumeroSalle] = useState(
+    movieRoom.numeroSalle.toString()
+  );
   const [errorMessage, setErrorMessage] = useState("");
 
   const handleEditMovieRoom = async () => {
-    if (nbPlace !== "") { // Vérifie que le champ nbPlace est rempli
+    if (nbPlace !== "") {
+      // Vérifie que le champ nbPlace est rempli
       try {
         const movieRoom = await editMovieRoomApi(
           movieRoomId,
@@ -30,7 +33,6 @@ const EditMovieRoomScreen = ({ navigation, route }) => {
       return;
     }
   };
-  
 
   return (
     <SafeAreaView style={styles.container}>

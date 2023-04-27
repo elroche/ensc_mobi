@@ -5,8 +5,6 @@ import { screenOptions } from "../theme/styles";
 import CreateSeanceScreen from "../screens/CreateSeanceScreen";
 import EditSeanceScreen from "../screens/EditSeanceScreen";
 
-
-
 // Screen stack for user tab
 const SeanceStack = createNativeStackNavigator();
 
