@@ -225,11 +225,7 @@ export const EditSeanceScreen = ({ navigation, route }) => {
 export default EditSeanceScreen;
 
 const styleScreen = StyleSheet.create({
-  container: {
-    justifyContent: "center",
-    alignItems: "center",
-    marginBottom: 20,
-  },
+  container: { justifyContent: "center", alignItems: "center", marginBottom:20 },
   content: {
     width: "90%",
     backgroundColor: "white",

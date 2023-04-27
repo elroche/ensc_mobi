@@ -8,6 +8,7 @@ import {
   ScrollView,
   Alert,
   SafeAreaView,
+  TouchableOpacity,
 } from "react-native";
 import styles from "../theme/styles";
 import { fetchMovieApi, deleteMovieApi } from "../api/MovieApi";
@@ -25,9 +26,8 @@ const DetailsMovieScreen = ({ navigation, route }) => {
   const formattedDate = date.format("DD/MM/YYYY");
   const totalMinutes = movie.duree;
   const heures = Math.floor(totalMinutes / 60);
-  const minutes = totalMinutes % 60;  
+  const minutes = totalMinutes % 60;
   const [showBox, setShowBox] = useState(true);
-
 
   const showConfirmDialog = (movie) => {
     return Alert.alert(
@@ -49,13 +49,12 @@ const DetailsMovieScreen = ({ navigation, route }) => {
       ]
     );
   };
-  
+
   const handleDeleteSeance = async (id) => {
     await deleteMovieApi(id);
     navigation.goBack();
     setShowBox(false);
   };
-
 
   useEffect(() => {
     navigation.setOptions({ title: movie.nom });
@@ -75,11 +74,11 @@ const DetailsMovieScreen = ({ navigation, route }) => {
   };
 
   useEffect(() => {
-  const unsubscribe = navigation.addListener('focus', () => {
-    loadMovie();
-  });
-  return unsubscribe;
-}, [navigation]);
+    const unsubscribe = navigation.addListener("focus", () => {
+      loadMovie();
+    });
+    return unsubscribe;
+  }, [navigation]);
 
   const deleteMovie = async () => {
     try {
@@ -145,6 +144,11 @@ const DetailsMovieScreen = ({ navigation, route }) => {
             <ButtonOutline text={"Supprimer"} onPress={() => deleteMovie()} />
           </View>
         </View>
+        <TouchableOpacity onPress={() => navigation.navigate("Movie")}>
+          <Text style={styleScreen.goBack}>
+            {"< "}Retour à la liste de films
+          </Text>
+        </TouchableOpacity>
       </ScrollView>
     </SafeAreaView>
   );
@@ -162,6 +166,13 @@ const styleScreen = StyleSheet.create({
   containerButton: {
     justifyContent: "center",
     alignItems: "center",
+    marginBottom: 10,
+  },
+  goBack: {
+    fontSize: 16,
+    fontWeight: "500",
+    color: "#1F3976",
     marginBottom: 20,
+    marginLeft: 5,
   },
 });
