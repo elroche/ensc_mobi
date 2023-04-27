@@ -46,7 +46,6 @@ const CreateMovieScreen = ({ navigation }) => {
           date,
           duree
         );
-        console.log("New movie created:", movie);
         // Retourner à la page précédente
         navigation.goBack();
       } catch (error) {

@@ -9,7 +9,10 @@ import {
   TextInput,
 } from "react-native";
 import styles from "../theme/styles";
+import CinemaCard from "../components/CinemaCard";
 import { fetchCinemasApi } from "../api/CinemaApi";
+import { MaterialCommunityIcons } from "@expo/vector-icons";
+import IconButton from "../components/IconButton";
 import { fetchCinemasByVilleApi } from "../api/CinemaApi";
 
 
@@ -82,28 +85,41 @@ const CinemaScreen = ({ navigation }) => {
   // Afficher la liste de tous les cinémas filtrés par la recherche de l'utilisateur
   return (
     <SafeAreaView style={styles.container}>
-      <View style={styles.searchContainer}>
+      <View style={styles.header}>
+        <View style={styles.headerDelimiter}>
+          <Text style={styles.title}>Les cinémas</Text>
+        </View>
+        <IconButton onPress={() => addCinema()} color="#1F3976">
+          <MaterialCommunityIcons name={"plus"} size={20} color="white" />
+        </IconButton>
+      </View>
+      <View>
         <TextInput
-          style={styles.searchInput}
-          placeholder="Rechercher par ville"
+          placeholder="Rechercher un cinéma par ville"
+          style={styleScreen.searchBar}
           onChangeText={(text) => setSearchQuery(text)}
-          value={searchQuery}
-        />
+         />
       </View>
       <ScrollView>
-        {filteredCinemas.map((cinema) => (
-          <TouchableOpacity
-            key={cinema.id}
-            style={styles.cinemaContainer}
-            onPress={() => onPressCinema(cinema)}
-          >
-            <Text style={styles.cinemaName}>{cinema.nom}</Text>
-            <Text style={styles.cinemaLocation}>{cinema.ville}</Text>
-          </TouchableOpacity>
-        ))}
-        <TouchableOpacity style={styles.buttonContainer} onPress={addCinema}>
-          <Text style={styles.buttonText}>Ajouter un cinéma</Text>
-        </TouchableOpacity>
+        <View style={styles.main}>
+          {filteredCinemas.length > 0 ? (
+            filteredCinemas.map((cinema) => {
+              return (
+                <CinemaCard
+                  key={cinema.id}
+                  item={cinema}
+                  onPress={() => onPressCinema(cinema)}
+                />
+              );
+            })
+          ) : (
+            <View style={{ alignItems: "center" }}>
+              <Text style={styleScreen.noCinemas}>
+                Aucun cinéma ne correspond à votre recherche...
+              </Text>
+            </View>
+          )}
+        </View>
       </ScrollView>
     </SafeAreaView>
   );

@@ -33,13 +33,8 @@ const loadLastMovies = async () => {
   }
 };
 
-const onPressMovie = (movie) => {
-  navigation.navigate("Les films", { // Navigue vers la page de détails du film sélectionné
-    screen: "Details",
-    params: {
-      movieId: movie.id,
-    },
-  });
+const onPressMovie = () => {
+  navigation.navigate("Les films");// Navigue vers la page des films
 };
 
 useEffect(() => {
@@ -84,7 +79,7 @@ if (isLoading) {
                 <MovieCard
                   key={movie.id}
                   item={movie}
-                  onPress={() => onPressMovie(movie)}
+                  onPress={() => onPressMovie()}
                 />
               );
             })}
