@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, } from "react";
 import {
   StyleSheet,
   Text,
@@ -21,6 +21,7 @@ export const CreateCinemaScreen = ({ navigation }) => {
   const [errorMessage, setErrorMessage] = useState("");
 
   const handleSubmitCinema = () => {
+    // Vérifier si tous les champs sont remplis avant d'envoyer la requête au serveur
     if (
       nom !== "" &&
       adresse !== "" &&
@@ -30,6 +31,7 @@ export const CreateCinemaScreen = ({ navigation }) => {
       prixPlace !== ""
     ) {
       try {
+        // Ajouter un cinéma en appelant l'API addCinemaApi avec les informations saisies par l'utilisateur
         const cinema = addCinemaApi(
           nom,
           adresse,
@@ -38,12 +40,14 @@ export const CreateCinemaScreen = ({ navigation }) => {
           responsable,
           prixPlace
         );
+        // Retourner à la page précédente
         navigation.goBack();
       } catch (error) {
         console.error(error);
       }
     } else {
-      setErrorMessage("Attention ! Veuillez remplir tous les champs."); // Affichage d'un message d'erreur
+      // Afficher un message d'erreur si tous les champs ne sont pas remplis
+      setErrorMessage("Attention ! Veuillez remplir tous les champs.");
       return;
     }
   };

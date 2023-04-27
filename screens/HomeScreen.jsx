@@ -18,41 +18,42 @@ const HomeScreen = ({ navigation }) => {
   const [error, setError] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
 
-  //Récupération des 3 derniers films ajoutés
-  const loadLastMovies = async () => {
-    try {
-      const movies = await fetchMoviesApi();
-      const lastMovies = movies
-        .sort((a, b) => new Date(b.date) - new Date(a.date))
-        .slice(0, 3);
-      setLastMovies(lastMovies);
-    } catch (e) {
-      setError(true);
-    } finally {
-      setIsLoading(false);
-    }
-  };
-
-  const onPressMovie = (movie) => {
-    navigation.navigate("Les films", {
-      screen: "Details",
-      params: {
-        movieId: movie.id,
-      },
-    });
-  };
-
-  useEffect(() => {
-    loadLastMovies();
-  }, []);
-
-  if (isLoading) {
-    return (
-      <View style={styles.loadingContainer}>
-        <ActivityIndicator size="large" color="#00216d" />
-      </View>
-    );
+ // Récupération des 3 derniers films ajoutés
+const loadLastMovies = async () => {
+  try {
+    const movies = await fetchMoviesApi(); // Récupère tous les films
+    const lastMovies = movies
+      .sort((a, b) => new Date(b.date) - new Date(a.date)) // Trie les films par date décroissante
+      .slice(0, 3); // Récupère les 3 derniers films ajoutés
+    setLastMovies(lastMovies); // Met à jour le state avec les 3 derniers films
+  } catch (e) {
+    setError(true); // Affiche une erreur en cas d'échec de la récupération des films
+  } finally {
+    setIsLoading(false); // Met à jour le state pour indiquer que le chargement est terminé
   }
+};
+
+const onPressMovie = (movie) => {
+  navigation.navigate("Les films", { // Navigue vers la page de détails du film sélectionné
+    screen: "Details",
+    params: {
+      movieId: movie.id,
+    },
+  });
+};
+
+useEffect(() => {
+  loadLastMovies(); // Charge les 3 derniers films une fois la page chargée
+}, []);
+
+if (isLoading) {
+  return (
+    <View style={styles.loadingContainer}>
+      <ActivityIndicator size="large" color="#00216d" />
+    </View>
+  );
+} // Affiche une icône de chargement si les films ne sont pas encore chargés
+
 
   return (
     <SafeAreaView style={styles.container}>

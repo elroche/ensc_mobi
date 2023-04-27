@@ -9,11 +9,7 @@ import {
   TextInput,
 } from "react-native";
 import styles from "../theme/styles";
-import Button from "../components/Button";
-import CinemaCard from "../components/CinemaCard";
 import { fetchCinemasApi } from "../api/CinemaApi";
-import { MaterialCommunityIcons } from "@expo/vector-icons";
-import IconButton from "../components/IconButton";
 import { fetchCinemasByVilleApi } from "../api/CinemaApi";
 
 
@@ -23,11 +19,13 @@ const CinemaScreen = ({ navigation }) => {
   const [cinemas, setCinemas] = useState([]);
   const [searchQuery, setSearchQuery] = useState('');
 
+  // Filtrer les cinémas selon la recherche de l'utilisateur
   const filteredCinemas = cinemas.filter((cinema) => {
     return cinema.ville.toLowerCase().includes(searchQuery.toLowerCase());
   });
   
 
+  // Cette fonction permet de récupérer la liste de tous les cinémas
   const loadCinemas = async () => {
     setLoading(true);
     setError(false);
@@ -46,6 +44,7 @@ const CinemaScreen = ({ navigation }) => {
   };
 
   useEffect(() => {
+    // Charger la liste de tous les cinémas lorsqu'on arrive sur la page
     const unsubscribe = navigation.addListener('focus', () => {
       loadCinemas();
     });
@@ -53,6 +52,7 @@ const CinemaScreen = ({ navigation }) => {
   }, [navigation]);
 
   if (loading) {
+    // Afficher un indicateur de chargement si la page est en train de charger
     return (
       <View style={styles.loadingContainer}>
         <ActivityIndicator size="large" color="#1b69bc" />
@@ -61,6 +61,7 @@ const CinemaScreen = ({ navigation }) => {
   }
 
   if (error) {
+    // Afficher un message d'erreur si une erreur se produit lors de la récupération de la liste des cinémas
     return (
       <View style={styles.container}>
         <Text>Une erreur s'est produite dans la récupération des cinemas</Text>
@@ -68,55 +69,46 @@ const CinemaScreen = ({ navigation }) => {
     );
   }
 
+  // Cette fonction est appelée lorsqu'on clique sur un cinéma
   const onPressCinema = (cinema) => {
     navigation.navigate("Details", { cinemaId: cinema.id });
   };
 
+  // Cette fonction est appelée lorsqu'on clique sur le bouton "Ajouter un cinéma"
   const addCinema = () => {
     navigation.navigate("Create");
   };
-
+  
+  // Afficher la liste de tous les cinémas filtrés par la recherche de l'utilisateur
   return (
     <SafeAreaView style={styles.container}>
-      <View style={styles.header}>
-        <View style={styles.headerDelimiter}>
-          <Text style={styles.title}>Les cinémas</Text>
-        </View>
-        <IconButton onPress={() => addCinema()} color="#1F3976">
-          <MaterialCommunityIcons name={"plus"} size={20} color="white" />
-        </IconButton>
-      </View>
-      <View>
+      <View style={styles.searchContainer}>
         <TextInput
-          placeholder="Rechercher un cinéma par ville"
-          style={styleScreen.searchBar}
+          style={styles.searchInput}
+          placeholder="Rechercher par ville"
           onChangeText={(text) => setSearchQuery(text)}
-         />
+          value={searchQuery}
+        />
       </View>
       <ScrollView>
-        <View style={styles.main}>
-          {filteredCinemas.length > 0 ? (
-            filteredCinemas.map((cinema) => {
-              return (
-                <CinemaCard
-                  key={cinema.id}
-                  item={cinema}
-                  onPress={() => onPressCinema(cinema)}
-                />
-              );
-            })
-          ) : (
-            <View style={{ alignItems: "center" }}>
-              <Text style={styleScreen.noCinemas}>
-                Aucun cinéma ne correspond à votre recherche...
-              </Text>
-            </View>
-          )}
-        </View>
+        {filteredCinemas.map((cinema) => (
+          <TouchableOpacity
+            key={cinema.id}
+            style={styles.cinemaContainer}
+            onPress={() => onPressCinema(cinema)}
+          >
+            <Text style={styles.cinemaName}>{cinema.nom}</Text>
+            <Text style={styles.cinemaLocation}>{cinema.ville}</Text>
+          </TouchableOpacity>
+        ))}
+        <TouchableOpacity style={styles.buttonContainer} onPress={addCinema}>
+          <Text style={styles.buttonText}>Ajouter un cinéma</Text>
+        </TouchableOpacity>
       </ScrollView>
     </SafeAreaView>
   );
 };
+
 
 const styleScreen = StyleSheet.create({
   header: {

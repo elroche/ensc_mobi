@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import {
   StyleSheet,
   Text,
@@ -18,7 +18,6 @@ import { editMovieApi } from "../api/MovieApi";
 const EditMovieScreen = ({ navigation, route }) => {
   const { movie } = route.params;
   const movieId = movie.id;
-
   const [nom, setNom] = useState(movie.nom);
   const [realisateur, setRealisateur] = useState(movie.realisateur);
   const [resume, setResume] = useState(movie.resume);
@@ -46,20 +45,20 @@ const EditMovieScreen = ({ navigation, route }) => {
           genre,
           date,
           duree
-        );
-        navigation.goBack();
+        ); // Appelle l'API pour modifier les informations du film
+        navigation.goBack(); // Redirige l'utilisateur vers la page précédente
       } catch (error) {
         console.error(error);
       }
     } else {
-      setErrorMessage("Attention ! Veuillez remplir tous les champs."); // Affichage d'un message d'erreur
+      setErrorMessage("Attention ! Veuillez remplir tous les champs."); // Affichage d'un message d'erreur si tous les champs ne sont pas remplis
       return;
     }
   };
 
   const onDateChange = (event, selectedDate) => {
     const currentDate = selectedDate || date;
-    setDate(currentDate);
+    setDate(currentDate); // Met à jour la date du film
     setShowDatePicker(false); // Masque le date picker une fois la date sélectionnée
   };
 

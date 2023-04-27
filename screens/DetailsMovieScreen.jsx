@@ -29,7 +29,44 @@ const DetailsMovieScreen = ({ navigation, route }) => {
   const minutes = totalMinutes % 60;
   const [showBox, setShowBox] = useState(true);
 
-  const showConfirmDialog = (movie) => {
+  const handleDeleteSeance = async (id) => {
+    // Appel de l'API pour supprimer le film
+    await deleteMovieApi(id);
+    // Redirection vers l'écran précédent
+    navigation.goBack();
+    // Cache la boîte de dialogue de confirmation de suppression
+    setShowBox(false);
+  };
+  
+  // Mettre à jour le titre de l'écran avec le nom du film
+  useEffect(() => {
+    navigation.setOptions({ title: movie.nom });
+  }, [movie.nom]);
+  
+  // Chargement du film depuis l'API
+  const loadMovie = async () => {
+    setLoading(true);
+    setError(false);
+  
+    try {
+      const movie = await fetchMovieApi(movieId);
+      setMovie(movie);
+    } catch (e) {
+      setError(true);
+    }
+    setLoading(false);
+  };
+  
+  // Chargement du film une fois que l'écran est en focus
+  useEffect(() => {
+    const unsubscribe = navigation.addListener("focus", () => {
+      loadMovie();
+    });
+    return unsubscribe;
+  }, [navigation]);
+  
+  // Affiche une boîte de dialogue de confirmation avant la suppression du film
+  const deleteMovie = async () => {
     return Alert.alert(
       "Êtes-vous sûr(e) ?",
       "Êtes-vous sûr(e) de vouloir supprimer le film?",
@@ -41,57 +78,20 @@ const DetailsMovieScreen = ({ navigation, route }) => {
             handleDeleteSeance(movie.id);
           },
         },
-        // Le bouton Non
-        // Ne fait rien mais enlève le message
+        // Le bouton Non ne fait rien mais enlève le message
         {
           text: "Non",
         },
       ]
     );
   };
-
-  const handleDeleteSeance = async (id) => {
-    await deleteMovieApi(id);
-    navigation.goBack();
-    setShowBox(false);
-  };
-
-  useEffect(() => {
-    navigation.setOptions({ title: movie.nom });
-  }, [movie.nom]);
-
-  const loadMovie = async () => {
-    setLoading(true);
-    setError(false);
-
-    try {
-      const movie = await fetchMovieApi(movieId);
-      setMovie(movie);
-    } catch (e) {
-      setError(true);
-    }
-    setLoading(false);
-  };
-
-  useEffect(() => {
-    const unsubscribe = navigation.addListener("focus", () => {
-      loadMovie();
-    });
-    return unsubscribe;
-  }, [navigation]);
-
-  const deleteMovie = async () => {
-    try {
-      const movie = await deleteMovieApi(movieId);
-      navigation.goBack();
-    } catch (error) {
-      console.error(error);
-    }
-  };
-
+  
+  // Redirection vers l'écran d'édition du film
   const editMovie = async () => {
     navigation.navigate("Edit", { movie: movie });
   };
+  
+  // Si le film est en train de charger, affiche un indicateur de chargement
   if (loading) {
     return (
       <View style={styles.loadingContainer}>
@@ -99,7 +99,8 @@ const DetailsMovieScreen = ({ navigation, route }) => {
       </View>
     );
   }
-
+  
+  // Si une erreur s'est produite pendant le chargement du film, affiche un message d'erreur
   if (error) {
     return (
       <View style={styles.container}>
@@ -107,6 +108,7 @@ const DetailsMovieScreen = ({ navigation, route }) => {
       </View>
     );
   }
+  
 
   return (
     <SafeAreaView style={styles.container}>

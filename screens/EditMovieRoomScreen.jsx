@@ -1,4 +1,4 @@
-﻿import React, { useState, useEffect } from "react";
+﻿import React, { useState } from "react";
 import { StyleSheet, Text, View, TextInput, SafeAreaView } from "react-native";
 import styles from "../theme/styles";
 import Button from "../components/Button";
@@ -9,30 +9,28 @@ const EditMovieRoomScreen = ({ navigation, route }) => {
   const movieRoomId = movieRoom.id;
   const [cinemaId, setCinemaId] = useState(movieRoom.cinemaId.toString());
   const [nbPlace, setNbPlace] = useState(movieRoom.nbPlace.toString());
-  const [numeroSalle, setNumeroSalle] = useState(
-    movieRoom.numeroSalle.toString()
-  );
-
+  const [numeroSalle, setNumeroSalle] = useState(movieRoom.numeroSalle.toString());
   const [errorMessage, setErrorMessage] = useState("");
 
   const handleEditMovieRoom = async () => {
-    if (nbPlace !== "") {
+    if (nbPlace !== "") { // Vérifie que le champ nbPlace est rempli
       try {
         const movieRoom = await editMovieRoomApi(
           movieRoomId,
           cinemaId,
           nbPlace,
           numeroSalle
-        );
-        navigation.goBack();
+        ); // Édite la salle de cinéma avec les nouvelles informations
+        navigation.goBack(); // Redirige l'utilisateur vers la page précédente
       } catch (error) {
-        console.error(error);
+        console.error(error); // Affiche une erreur en cas d'échec de l'édition
       }
     } else {
-      setErrorMessage("Attention ! Veuillez remplir tous les champs."); // Affichage d'un message d'erreur
+      setErrorMessage("Attention ! Veuillez remplir tous les champs."); // Affichage d'un message d'erreur si tous les champs ne sont pas remplis
       return;
     }
   };
+  
 
   return (
     <SafeAreaView style={styles.container}>

@@ -1,4 +1,4 @@
-﻿import React, { useState, useEffect } from "react";
+﻿import React, { useState } from "react";
 import {
   StyleSheet,
   Text,
@@ -22,34 +22,37 @@ const EditCinemaScreen = ({ navigation, route }) => {
   const [prixPlace, setPrixPlace] = useState(`${cinema.prixPlace}`);
   const [errorMessage, setErrorMessage] = useState("");
 
-  const handleEditCinema = async () => {
-    if (
-      nom !== "" &&
-      adresse !== "" &&
-      codePostal !== "" &&
-      ville !== "" &&
-      responsable !== "" &&
-      prixPlace !== ""
-    ) {
-      try {
-        const cinema = editCinemaApi(
-          cinemaId,
-          nom,
-          adresse,
-          codePostal,
-          ville,
-          responsable,
-          prixPlace
-        );
-        navigation.goBack();
-      } catch (error) {
-        console.error(error);
-      }
-    } else {
-      setErrorMessage("Attention ! Veuillez remplir tous les champs."); // Affichage d'un message d'erreur
-      return;
+  // Fonction appelée lors de la soumission du formulaire d'édition de cinéma
+const handleEditCinema = async () => {
+  if (
+    nom !== "" &&
+    adresse !== "" &&
+    codePostal !== "" &&
+    ville !== "" &&
+    responsable !== "" &&
+    prixPlace !== ""
+  ) {
+    try {
+      // Appel à l'API pour modifier le cinéma
+      const cinema = editCinemaApi(
+        cinemaId,
+        nom,
+        adresse,
+        codePostal,
+        ville,
+        responsable,
+        prixPlace
+      );
+      navigation.goBack(); // Redirige l'utilisateur vers la page précédente
+    } catch (error) {
+      console.error(error);
     }
-  };
+  } else {
+    setErrorMessage("Attention ! Veuillez remplir tous les champs."); // Affichage d'un message d'erreur si tous les champs ne sont pas remplis
+    return;
+  }
+};
+
 
   return (
     <SafeAreaView style={styles.container}>

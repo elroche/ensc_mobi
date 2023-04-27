@@ -3,7 +3,6 @@ import {
   StyleSheet,
   Text,
   View,
-  Image,
   ActivityIndicator,
   ScrollView,
   Alert,
@@ -22,74 +21,81 @@ const MovieRoomsScreen = ({ navigation, route }) => {
   const [movieRooms, setMovieRooms] = useState([]);
   const [showBox, setShowBox] = useState(true);
 
-  const showConfirmDialog = (movieRoom) => {
-    return Alert.alert(
-      "Êtes-vous sûr(e) ?",
-      "Êtes-vous sûr(e) de vouloir supprimer la salle ?",
-      [
-        // Le bouton Oui
-        {
-          text: "Oui",
-          onPress: () => {
-            handleDeleteMovieRoom(movieRoom.id);
-          },
+ // Affiche une boîte de dialogue de confirmation pour supprimer une salle de cinéma
+const showConfirmDialog = (movieRoom) => {
+  return Alert.alert(
+    "Êtes-vous sûr(e) ?",
+    "Êtes-vous sûr(e) de vouloir supprimer la salle ?",
+    [
+      // Le bouton Oui
+      {
+        text: "Oui",
+        onPress: () => {
+          handleDeleteMovieRoom(movieRoom.id);
         },
-        // Le bouton Non
-        // Ne fait rien mais enlève le message
-        {
-          text: "Non",
-        },
-      ]
-    );
-  };
+      },
+      // Le bouton Non
+      // Ne fait rien mais enlève le message
+      {
+        text: "Non",
+      },
+    ]
+  );
+};
 
-  const handleDeleteMovieRoom = async (id) => {
-    setShowBox(false);
-    await deleteMovieRoomApi(id);
-  };
+// Supprime une salle de cinéma avec l'ID spécifié
+const handleDeleteMovieRoom = async (id) => {
+  setShowBox(false);
+  await deleteMovieRoomApi(id);
+};
 
-  const loadMovieRooms = async () => {
-    setLoading(true);
-    setError(false);
-    try {
-      const movieRooms = await fetchMovieRoomsApi(cinema.id);
-      setMovieRooms(movieRooms);
-    } catch (e) {
-      setError(true);
-    }
-    setLoading(false);
-  };
-
-  useEffect(() => {
-    const unsubscribe = navigation.addListener("focus", () => {
-      loadMovieRooms();
-    });
-    return unsubscribe;
-  }, [navigation]);
-
-  const editMovieRoom = (movieRoom) => {
-    navigation.navigate("MovieRoomEdit", { movieRoom: movieRoom });
-  };
-
-  const addMovieRoom = () => {
-    navigation.navigate("MovieRoomCreate");
-  };
-
-  if (loading) {
-    return (
-      <View style={styles.loadingContainer}>
-        <ActivityIndicator size="large" color="#1b69bc" />
-      </View>
-    );
+// Charge les salles de cinéma pour le cinéma spécifié
+const loadMovieRooms = async () => {
+  setLoading(true);
+  setError(false);
+  try {
+    const movieRooms = await fetchMovieRoomsApi(cinema.id);
+    setMovieRooms(movieRooms);
+  } catch (e) {
+    setError(true);
   }
+  setLoading(false);
+};
 
-  if (error) {
-    return (
-      <View style={styles.container}>
-        <Text>Une erreur s'est produite dans la récupération des salles</Text>
-      </View>
-    );
-  }
+// Charge les salles de cinéma lors de la navigation sur cette page
+useEffect(() => {
+  const unsubscribe = navigation.addListener("focus", () => {
+    loadMovieRooms();
+  });
+  return unsubscribe;
+}, [navigation]);
+
+// Redirige vers la page d'édition pour la salle de cinéma spécifiée
+const editMovieRoom = (movieRoom) => {
+  navigation.navigate("MovieRoomEdit", { movieRoom: movieRoom });
+};
+
+// Redirige vers la page de création de salle de cinéma
+const addMovieRoom = () => {
+  navigation.navigate("MovieRoomCreate");
+};
+
+if (loading) {
+  return (
+    <View style={styles.loadingContainer}>
+      <ActivityIndicator size="large" color="#1b69bc" />
+    </View>
+  );
+}
+
+if (error) {
+  return (
+    <View style={styles.container}>
+      <Text>Une erreur s'est produite dans la récupération des salles</Text>
+    </View>
+  );
+}
+
 
   return (
     <ScrollView style={styles.container}>

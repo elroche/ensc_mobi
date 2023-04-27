@@ -21,64 +21,73 @@ const MovieScreen = ({ navigation }) => {
   const [movies, setMovies] = useState([]);
   const [selectedGenre, setSelectedGenre] = useState(null);
 
-  const loadMovies = async () => {
-    setLoading(true);
-    setError(false);
+  // Charge la liste des films
+const loadMovies = async () => {
+  setLoading(true); // Met en attente l'affichage de la page
+  setError(false); // Réinitialise le message d'erreur
 
-    try {
-      const movies = await fetchMoviesApi();
-      const filteredMovies = filterMoviesByGenre(movies, selectedGenre);
-      setMovies(filteredMovies);
-    } catch (e) {
-      setError(true);
-    }
-    setLoading(false);
-  };
-
-  const filterMoviesByGenre = (movies, genre) => {
-    if (!genre) {
-      return movies;
-    }
-    return movies.filter((movie) => {
-      return genre === "all" || movie.genre === genre;
-    });
-  };
-
-  const onSelectGenre = (genre) => {
-    setSelectedGenre(genre);
-    loadMovies();
-  };
-
-  const addMovie = async () => {
-    navigation.navigate("Create");
-  };
-
-  useEffect(() => {
-    const unsubscribe = navigation.addListener('focus', () => {
-      loadMovies();
-    });
-    return unsubscribe;
-  }, [navigation], [selectedGenre]);
-
-  if (loading) {
-    return (
-      <View style={styles.loadingContainer}>
-        <ActivityIndicator size="large" color="#1b69bc" />
-      </View>
-    );
+  try {
+    const movies = await fetchMoviesApi(); // Appelle l'API pour récupérer la liste des films
+    const filteredMovies = filterMoviesByGenre(movies, selectedGenre); // Filtrage des films selon le genre sélectionné
+    setMovies(filteredMovies); // Met à jour la liste des films
+  } catch (e) {
+    setError(true); // Affiche un message d'erreur en cas d'échec de la récupération des films
   }
+  setLoading(false); // Arrête l'affichage de la page de chargement
+};
 
-  if (error) {
-    return (
-      <View style={styles.container}>
-        <Text>Une erreur s'est produite dans la récupération des films</Text>
-      </View>
-    );
+// Filtrage des films par genre
+const filterMoviesByGenre = (movies, genre) => {
+  if (!genre) { // Si le genre n'est pas spécifié, retourne la liste complète de films
+    return movies;
   }
+  return movies.filter((movie) => { // Sinon, filtre la liste de films selon le genre sélectionné
+    return genre === "all" || movie.genre === genre;
+  });
+};
 
-  const onPressMovie = (movie) => {
-    navigation.navigate("Details", { movieId: movie.id });
-  };
+// Sélectionne le genre de film à afficher et recharge la liste des films
+const onSelectGenre = (genre) => {
+  setSelectedGenre(genre); // Met à jour le genre sélectionné
+  loadMovies(); // Recharge la liste des films en fonction du nouveau genre sélectionné
+};
+
+// Navigue vers la page de création d'un nouveau film
+const addMovie = async () => {
+  navigation.navigate("Create"); // Navigue vers la page de création d'un nouveau film
+};
+
+// Effectue une nouvelle requête API pour récupérer la liste des films en fonction du genre sélectionné à chaque changement de genre ou de focus de la page
+useEffect(() => {
+  const unsubscribe = navigation.addListener('focus', () => { // Ajoute un listener qui réagit au focus de la page
+    loadMovies(); // Charge les films correspondant au genre sélectionné
+  });
+  return unsubscribe; // Retourne une fonction qui retire le listener lorsque la page n'est plus focus
+}, [navigation], [selectedGenre]);
+
+// Si la page est en cours de chargement, affiche une page de chargement
+if (loading) {
+  return (
+    <View style={styles.loadingContainer}>
+      <ActivityIndicator size="large" color="#1b69bc" />
+    </View>
+  );
+}
+
+// Si une erreur s'est produite lors de la récupération des films, affiche un message d'erreur
+if (error) {
+  return (
+    <View style={styles.container}>
+      <Text>Une erreur s'est produite dans la récupération des films</Text>
+    </View>
+  );
+}
+
+// Navigue vers la page de détails du film sélectionné
+const onPressMovie = (movie) => {
+  navigation.navigate("Details", { movieId: movie.id });
+};
+
 
   return (
     <SafeAreaView style={styles.container}>

@@ -7,7 +7,7 @@ import {
   ScrollView,
   SafeAreaView,
 } from "react-native";
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import styles from "../theme/styles";
 import Button from "../components/Button";
 import { addMovieApi } from "../api/MovieApi";
@@ -27,6 +27,7 @@ const CreateMovieScreen = ({ navigation }) => {
   const [errorMessage, setErrorMessage] = useState("");
 
   const handleSubmitMovie = () => {
+    // Vérifier si tous les champs sont remplis avant d'envoyer la requête au serveur
     if (
       nom !== "" &&
       realisateur !== "" &&
@@ -36,6 +37,7 @@ const CreateMovieScreen = ({ navigation }) => {
       duree !== ""
     ) {
       try {
+        // Ajouter un nouveau film en appelant l'API addMovieApi avec les informations saisies par l'utilisateur
         const movie = addMovieApi(
           nom,
           realisateur,
@@ -45,21 +47,25 @@ const CreateMovieScreen = ({ navigation }) => {
           duree
         );
         console.log("New movie created:", movie);
+        // Retourner à la page précédente
         navigation.goBack();
       } catch (error) {
         console.error(error);
       }
     } else {
-      setErrorMessage("Attention ! Veuillez remplir tous les champs."); // Affichage d'un message d'erreur
+      // Afficher un message d'erreur si tous les champs ne sont pas remplis
+      setErrorMessage("Attention ! Veuillez remplir tous les champs.");
       return;
     }
   };
 
   const onDateChange = (event, selectedDate) => {
+    // Mettre à jour l'état "date" avec la date sélectionnée
     const currentDate = selectedDate || date;
     setDate(currentDate);
     setShowDatePicker(false); // Masque le date picker une fois la date sélectionnée
   };
+
 
   return (
     <SafeAreaView style={styles.container}>

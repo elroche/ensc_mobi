@@ -10,7 +10,7 @@ import React, { useState, useEffect } from "react";
 import { Picker } from "@react-native-picker/picker";
 import styles from "../theme/styles";
 import Button from "../components/Button";
-import { addMovieRoomApi, fetchMovieRoomsApi } from "../api/MovieRoomApi";
+import { addMovieRoomApi } from "../api/MovieRoomApi";
 import { fetchCinemasApi } from "../api/CinemaApi";
 
 const CreateMovieRoomScreen = ({ navigation }) => {
@@ -22,6 +22,7 @@ const CreateMovieRoomScreen = ({ navigation }) => {
   const [errorMessage, setErrorMessage] = useState("");
 
   useEffect(() => {
+    // Récupérer la liste des cinémas et mettre à jour l'état "cinemas"
     const fetchCinemas = async () => {
       const cinemas = await fetchCinemasApi();
       setCinemas(cinemas);
@@ -30,25 +31,32 @@ const CreateMovieRoomScreen = ({ navigation }) => {
   }, []);
 
   const handleCinemaChange = async (selectedCinemaId) => {
+    // Mettre à jour l'état "selectedCinemaId" avec la nouvelle valeur
     setSelectedCinemaId(selectedCinemaId);
+    // Trouver le cinéma sélectionné à partir de la liste "cinemas"
     const selectedCinema = cinemas.find((c) => c.id === selectedCinemaId);
+    // Mettre à jour l'état "cinema" avec le cinéma sélectionné
     setCinema(selectedCinema);
   };
 
   const handleCreateMovieRoom = async () => {
+    // Vérifier si tous les champs sont remplis avant d'envoyer la requête au serveur
     if (selectedCinemaId !== "" && nbPlace !== "" && numeroSalle !== "") {
       try {
+        // Ajouter une nouvelle salle de cinéma en appelant l'API addMovieRoomApi avec les informations saisies par l'utilisateur
         const movieRoom = await addMovieRoomApi(
           selectedCinemaId,
           nbPlace,
           numeroSalle
         );
+        // Retourner à la page précédente
         navigation.goBack();
       } catch (error) {
         console.error(error);
       }
     } else {
-      setErrorMessage("Attention ! Veuillez remplir tous les champs."); // Affichage d'un message d'erreur
+      // Afficher un message d'erreur si tous les champs ne sont pas remplis
+      setErrorMessage("Attention ! Veuillez remplir tous les champs.");
       return;
     }
   };
